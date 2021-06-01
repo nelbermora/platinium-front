@@ -1,3 +1,4 @@
+import { AuthService } from './../../../services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { NgbDropdownConfig } from '@ng-bootstrap/ng-bootstrap';
 
@@ -11,6 +12,7 @@ export class NavbarComponent implements OnInit {
   
   public iconOnlyToggled = false;
   public sidebarToggled = false;
+  isLogged: boolean = false;
   toggleSidebar() {
     let body = document.querySelector('body');
     if((!body.classList.contains('sidebar-toggle-display')) && (!body.classList.contains('sidebar-absolute'))) {
@@ -30,11 +32,12 @@ export class NavbarComponent implements OnInit {
     }
   }
 
-  constructor(config: NgbDropdownConfig) {
+  constructor(config: NgbDropdownConfig, private authSvc: AuthService) {
     config.placement = 'bottom-right';
   }
 
   ngOnInit() {
+    this.isLogged = this.authSvc.islogged();
   }
 
   closeSettingsSidebar() {

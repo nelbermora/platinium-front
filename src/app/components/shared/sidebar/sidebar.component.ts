@@ -1,3 +1,4 @@
+import { AuthService } from './../../../services/auth.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -19,11 +20,12 @@ export class SidebarComponent implements OnInit {
   public errorCollapsed = false;
   public generalPagesCollapsed = false;
   public eCommerceCollapsed = false;
+  isLogged: boolean = false;
 
-  constructor() { }
+  constructor(private authSvc: AuthService) { }
 
   ngOnInit() {
-  
+    this.isLogged = this.authSvc.islogged();
     const body = document.querySelector('body');
 
     // add class 'hover-open' to sidebar navitem while hover in sidebar-icon-only menu
