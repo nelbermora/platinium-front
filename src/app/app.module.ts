@@ -109,6 +109,7 @@ import { PaymentsComponent } from './components/payments/payments.component';
 import { WalletComponent } from './components/wallet/wallet.component';
 import { UsersComponent } from './components/users/users.component';
 import { ReportsComponent } from './components/reports/reports.component';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
   // Change this to your upload POST address:
@@ -234,6 +235,7 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
       provide: DROPZONE_CONFIG,
       useValue: DEFAULT_DROPZONE_CONFIG
     },
+    Location, {provide: LocationStrategy, useClass: HashLocationStrategy},
     AuthService
   ],
   bootstrap: [AppComponent]
