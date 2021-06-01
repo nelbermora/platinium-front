@@ -1,0 +1,379 @@
+<div class="row">
+  <div class="col-md-12 col-xl-6 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Basic Tab</h4>
+        <p class="card-description">Horizontal bootstrap tab</p>
+        <ngb-tabset>
+          <ngb-tab title="Home">
+            <ng-template ngbTabContent class="tab-pane fade" id="home-1" aria-labelledby="home-tab">
+              <div class="media">
+                <img class="mr-3 w-25 rounded" src="assets/images/samples/300x300/13.jpg" alt="sample image">
+                <div class="media-body">
+                  <h4 class="mt-0">Why choose us?</h4>
+                  <p>
+                      Far curiosity incommode now led smallness allowance. Favour bed assure son things yet. She consisted 
+                      consulted elsewhere happiness disposing household any old the. Widow downs you new shade drift hopes 
+                      small. So otherwise commanded sweetness we improving. Instantly by daughters resembled unwilling principle 
+                      so middleton.
+                  </p>
+                </div>
+              </div>
+            </ng-template>
+          </ngb-tab>
+          <ngb-tab title="Profile">
+            <ng-template ngbTabContent class="tab-pane fade" id="profile-1" aria-labelledby="profile-tab">
+              <div class="media">
+                <img class="mr-3 w-25 rounded" src="assets/images/faces/face12.jpg" alt="sample image">
+                <div class="media-body">
+                  <h4 class="mt-0">John Doe</h4>
+                  <p>
+                      Fail most room even gone her end like. Comparison dissimilar unpleasant six compliment two unpleasing 
+                      any add. Ashamed my company thought wishing colonel it prevent he in. Pretended residence are something 
+                      far engrossed old off.
+                  </p>
+                </div>
+              </div>
+            </ng-template>
+          </ngb-tab>
+          <ngb-tab title="Contact">
+            <ng-template ngbTabContent class="tab-pane fade" id="contact-1" aria-labelledby="contact-tab">
+              <h4>Contact us </h4>
+              <p>
+                Feel free to contact us if you have any questions!
+              </p>
+              <p>
+                <i class="ti-headphone-alt text-info"></i>
+                +123456789
+              </p>
+              <p>
+                <i class="ti-email text-success"></i>
+                contactus@example.com
+              </p>
+            </ng-template>
+          </ngb-tab>
+        </ngb-tabset>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-12 col-xl-6 grid-margin stretch-card d-none d-md-flex">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Vertical Tabs</h4>
+        <p class="card-description">Add class <code>.tabs-vertical</code> to <code>ngb-tabset</code>
+        </p>
+        <ngb-tabset class="tabs-vertical">
+          <ngb-tab>
+            <ng-template ngbTabTitle>
+              Home
+              <i class="ti-home text-info ml-2"></i>
+            </ng-template>
+            <ng-template ngbTabContent class="tab-pane fade show active" id="home-2" aria-labelledby="home-tab-vertical">
+              <div class="text-center">
+                <img class="mr-3 w-25 mb-4" src="assets/images/samples/300x300/12.jpg" alt="sample image">                            
+              </div>
+              <p>
+                  Inhabiting discretion the her dispatched decisively boisterous joy. So form were wish open 
+                  is able of mile of. Waiting express if prevent it we an musical. Especially reasonable travelling 
+              </p>
+            </ng-template>
+          </ngb-tab>
+          <ngb-tab>
+            <ng-template ngbTabTitle>
+              Profile
+              <i class="ti-user text-danger ml-2"></i>
+            </ng-template>
+            <ng-template ngbTabContent class="tab-pane fade" id="profile-2" role="tabpanel" aria-labelledby="profile-tab-vertical">
+              <div class="text-center">
+                <img class="mb-3 w-25 rounded" src="assets/images/faces/face1.jpg" alt="sample image">
+                <h5 class="mt-0">Adam John</h5>
+                <p class="mb-0">UX specialist</p>
+                <p class="mb-0">Florida</p>
+              </div>
+            </ng-template>
+          </ngb-tab>
+          <ngb-tab>
+            <ng-template ngbTabTitle>
+              Reach
+              <i class="ti-email text-success ml-2"></i>
+            </ng-template>
+            <ng-template ngbTabContent class="tab-pane fade" id="contact-2" aria-labelledby="contact-tab-vertical">
+              <h4>Contact us </h4>
+              <p>
+                Feel free to contact us if you have any questions!
+              </p>
+              <p>
+                <i class="ti-headphone-alt text-info"></i>
+                +123456789
+              </p>
+              <p>
+                <i class="ti-email text-success"></i>
+                contactus@example.com
+              </p>
+            </ng-template>
+          </ngb-tab>
+        </ngb-tabset>
+      </div>
+    </div>
+  </div>
+  <div class="col-12 grid-margin stretch-card d-none d-md-flex">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Custom vertical tab</h4>
+        <p class="card-description">Add class <code>.tabs-vertical-custom</code> to <code>ngb-tabset</code></p>
+        <div class="row">
+          <div class="col-md-10">
+            <ngb-tabset class="tabs-vertical-custom">
+              <ngb-tab title="Playing Video Games With Imagination">
+                <ng-template ngbTabContent class="tab-pane fade show active" id="home-3" aria-labelledby="home-tab-custom">
+                  <h6 class="font-weight-normal">Profiles Of The Powerful Advertising Exec Steve Grasse</h6>
+                  <h3 class="font-weight-normal">How To Write Better Advertising Copy</h3>
+                  <div class="d-flex mt-4">
+                      <img src="assets/images/samples/300x300/3.jpg" class="w-25 h-100 rounded" alt="image"/>
+                      <img src="assets/images/samples/300x300/4.jpg" class="w-25 h-100 ml-2 rounded" alt="image"/>                              
+                  </div>
+                  <p class="mt-4">
+                      The key to victory is discipline, and that means a well made bed. You will practice until you can make 
+                      your bed in your sleep. You don't know how to do any of those. Then throw her in the laundry room, which 
+                      will hereafter be referred to as "the brig".
+                  </p>
+                </ng-template>
+              </ngb-tab>
+              <ngb-tab title="Getting Free Publicity For Your Business">
+                <ng-template ngbTabContent class="tab-pane fade" id="profile-3" aria-labelledby="profile-tab-custom">
+                  <div class="media">
+                    <img class="align-self-center mr-3 w-25 rounded" src="assets/images/samples/300x300/15.jpg" alt="sample image">
+                    <div class="media-body">
+                      <p>
+                          And until then, I can never die? I'm a thing. Fry, you can't just sit here in the dark listening to 
+                          classical music. Is today's hectic lifestyle making you tense and impatient? Is today's hectic lifestyle 
+                          making you tense and impatient?
+                      </p>
+                      <p>
+                          Robot 1-X, save my friends! And Zoidberg! Aww, it's true. I've been hiding it for so long. Fry, we have a 
+                          crate to deliver. Yes! In your face, Gandhi! Interesting. No, wait, the other thing: tedious.
+                      </p>
+                      <p>
+                          Five hours? Aw, man! Couldn't you just get me the death penalty? Yes! In your face, Gandhi! We're rescuing 
+                          ya. Yeah, I do that with my stupidness. With gusto.
+                      </p>
+                    </div>
+                  </div>
+                </ng-template>
+              </ngb-tab>
+              <ngb-tab title="Tips For Designing An Effective Business Card">
+                <ng-template ngbTabContent class="tab-pane fade" id="contact-3" aria-labelledby="contact-tab-custom">
+                  <div class="media">
+                    <div class="media-body">
+                      <h5 class="mt-0 mb-1">You've swallowed a planet!</h5>
+                      Did I mention we have comfy chairs? You hate me; you want to kill me! Well, go on! Kill me! KILL ME! I'm the Doctor, 
+                      I'm worse than everyone's aunt. *catches himself* And that is not how I'm introducing myself.
+                    </div>
+                    <img class="ml-3 w-25" src="assets/images/samples/300x300/5.jpg" alt="sample image">
+                  </div>
+                </ng-template>
+              </ngb-tab>
+            </ngb-tabset>
+          </div>
+        </div>    
+      </div>
+    </div>
+  </div>
+  <div class="col-md-12 col-xl-6 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Pills</h4>
+        <p class="card-description">Basic nav pills</p>
+        <ngb-tabset type="pills">
+          <ngb-tab title="Home">
+            <ng-template ngbTabContent class="tab-pane fade show active" id="pills-home" aria-labelledby="pills-home-tab">
+              <div class="media">
+                <img class="mr-3 w-25 rounded" src="assets/images/samples/300x300/12.jpg" alt="sample image">
+                <div class="media-body">
+                  <h5 class="mt-0">I'm doing mental jumping jacks.</h5>
+                  <p>Only you could make those words cute. Oh I beg to differ, I think we have a lot to discuss. After all, you are a client. I am not a killer. I feel like a 
+                    jigsaw puzzle missing a piece. And I'm not even sure what the picture should be.</p>
+                </div>
+              </div>
+            </ng-template>
+          </ngb-tab>
+          <ngb-tab title="Profile">
+            <ng-template ngbTabContent class="tab-pane fade" id="pills-profile" aria-labelledby="pills-profile-tab">
+              <div class="media">
+                <img class="mr-3 w-25 rounded" src="assets/images/samples/300x300/10.jpg" alt="sample image">
+                <div class="media-body">
+                  <p>I'm thinking two circus clowns dancing. You? Finding a needle in a haystack isn't hard when every straw is computerized. Tell him time is of the essence. 
+                    Somehow, I doubt that. You have a good heart, Dexter.</p>
+                </div>
+              </div>
+            </ng-template>
+          </ngb-tab>
+          <ngb-tab title="Contact">
+            <ng-template ngbTabContent class="tab-pane fade" id="pills-contact" aria-labelledby="pills-contact-tab">
+              <div class="media">
+                <img class="mr-3 w-25 rounded" src="assets/images/samples/300x300/14.jpg" alt="sample image">
+                <div class="media-body">
+                  <p>
+                      I'm really more an apartment person. This man is a knight in shining armor. Oh I beg to differ, I think we have a lot to discuss. After all, you are a client. You all right, Dexter?
+                  </p>
+                  <p>
+                      I'm generally confused most of the time. Cops, another community I'm not part of. You're a killer. I catch killers. Hello, Dexter Morgan.
+                  </p>
+                </div>
+              </div>
+            </ng-template>
+          </ngb-tab>
+        </ngb-tabset>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-12 col-xl-6 grid-margin stretch-card d-none d-md-flex">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Vertical Pills</h4>
+        <p class="card-description">Add class <code>.pills-vertical</code> to <code>ngb-tabset</code>
+        </p>
+        <ngb-tabset type="pills" class="pills-vertical">
+          <ngb-tab>
+            <ng-template ngbTabTitle>
+              <i class="ti-home mr-2"></i>
+              Home
+            </ng-template>
+            <ng-template ngbTabContent class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+              <div class="media">
+                <img class="mr-3 w-25 rounded" src="assets/images/samples/300x300/11.jpg" alt="sample image">
+                <div class="media-body">
+                  <h5 class="mt-0">I'm doing mental jumping jacks.</h5>
+                  <p>
+                    Only you could make those words cute. Oh I beg to differ, I think we have a lot to discuss. After all, 
+                    you are a client. I am not a killer. 
+                  </p>
+                </div>
+              </div>
+            </ng-template>
+          </ngb-tab>
+          <ngb-tab>
+            <ng-template ngbTabTitle>
+              <i class="ti-user mr-2"></i>
+              Profile
+            </ng-template>
+            <ng-template ngbTabContent class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+              <div class="media">
+                <img class="mr-3 w-25 rounded" src="assets/images/samples/300x300/10.jpg" alt="sample image">
+                <div class="media-body">
+                  <p>I'm thinking two circus clowns dancing. You? Finding a needle in a haystack isn't hard when every straw is computerized. Tell him time is of the essence. 
+                    Somehow, I doubt that. You have a good heart, Dexter.</p>
+                </div>
+              </div>
+            </ng-template>
+          </ngb-tab>
+          <ngb-tab>
+            <ng-template ngbTabTitle>
+              <i class="ti-email mr-2"></i>
+              Reach
+            </ng-template>
+            <ng-template ngbTabContent class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+              <div class="media">
+                <img class="mr-3 w-25 rounded" src="assets/images/samples/300x300/14.jpg" alt="sample image">
+                <div class="media-body">
+                  <p>
+                      I'm really more an apartment person. This man is a knight in shining armor. Oh I beg to differ, I think we have a lot to discuss. After all, you are a client. You all right, Dexter?
+                  </p>
+                  <p>
+                      I'm generally confused most of the time. Cops, another community I'm not part of. You're a killer. I catch killers. Hello, Dexter Morgan.
+                  </p>
+                </div>
+              </div>
+            </ng-template>
+          </ngb-tab>
+        </ngb-tabset>
+      </div>
+    </div>
+  </div>
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Custom pills</h4>
+        <p class="card-description">Add class <code>.tabs-custom-pills</code> to <code>ngb-tabset</code></p>
+        <div class="row">
+          <div class="col-md-10 mx-auto">
+            <ngb-tabset type="pills" class="tabs-custom-pills">
+              <ngb-tab title="Health">
+                <ng-template ngbTabContent class="tab-pane fade" id="pills-health" role="tabpanel" aria-labelledby="pills-home-tab-custom">
+                  <div class="d-flex mb-4">
+                    <img src="assets/images/samples/300x300/12.jpg" class="w-25 h-100 rounded" alt="sample image">
+                    <img src="assets/images/samples/300x300/1.jpg" class="w-25 h-100 ml-4 rounded" alt="sample image">
+                    <img src="assets/images/samples/300x300/2.jpg" class="w-25 h-100 ml-4 rounded" alt="sample image">
+                  </div>
+                  <p>
+                      I'm not the monster he wants me to be. So I'm neither man nor beast. I'm something new entirely. With 
+                      my own set of rules. I'm Dexter. Boo. Only you could make those words cute. I'm thinking two circus clowns dancing. You?
+                  </p>
+                  <p>
+                      Under normal circumstances, I'd take that as a compliment. Tell him time is of the essence. I'm really more 
+                      an apartment person. Finding a needle in a haystack isn't hard when every straw is computerized.
+                  </p>
+                </ng-template>
+              </ngb-tab>
+              <ngb-tab title="Career">
+                <ng-template ngbTabContent class="tab-pane fade" id="pills-career" role="tabpanel" aria-labelledby="pills-profile-tab-custom">
+                  <div class="media">
+                    <img class="mr-3 w-25 rounded" src="assets/images/samples/300x300/10.jpg" alt="sample image">
+                    <div class="media-body">
+                      <p>I'm thinking two circus clowns dancing. You? Finding a needle in a haystack isn't hard when every straw is 
+                        computerized. Tell him time is of the essence. 
+                        Somehow, I doubt that. You have a good heart, Dexter.</p>
+                    </div>
+                  </div>
+                </ng-template>
+              </ngb-tab>
+              <ngb-tab title="Music">
+                <ng-template ngbTabContent class="tab-pane fade" id="pills-music" role="tabpanel" aria-labelledby="pills-contact-tab-custom">
+                  <div class="media">
+                    <img class="mr-3 w-25 rounded" src="assets/images/samples/300x300/14.jpg" alt="sample image">
+                    <div class="media-body">
+                      <p>
+                          I'm really more an apartment person. This man is a knight in shining armor. Oh I beg to differ, 
+                          I think we have a lot to discuss. After all, you are a client. You all right, Dexter?
+                      </p>
+                      <p>
+                          I'm generally confused most of the time. Cops, another community I'm not part of. You're a killer. 
+                          I catch killers. Hello, Dexter Morgan.
+                      </p>
+                    </div>
+                  </div>
+                </ng-template>
+              </ngb-tab>
+              <ngb-tab title="Vibes">
+                <ng-template ngbTabContent class="tab-pane fade" id="pills-vibes" role="tabpanel" aria-labelledby="pills-vibes-tab-custom">
+                  <div class="media">
+                    <img class="mr-3 w-25 rounded" src="assets/images/samples/300x300/15.jpg" alt="sample image">
+                    <div class="media-body">
+                      <p>
+                          This man is a knight in shining armor. I feel like a jigsaw puzzle missing a piece. And I'm not 
+                          even sure what the picture should be. Somehow, I doubt that. You have a good heart, Dexter. Keep your mind limber.
+                      </p>
+                    </div>
+                  </div>
+                </ng-template>
+              </ngb-tab>
+              <ngb-tab title="Energy">
+                <ng-template ngbTabContent class="tab-pane fade" id="pills-energy" role="tabpanel" aria-labelledby="pills-energy-tab-custom">
+                  <div class="media">
+                    <img class="mr-3 w-25 rounded" src="assets/images/samples/300x300/11.jpg" alt="sample image">
+                    <div class="media-body">
+                      <p>
+                          Finding a needle in a haystack isn't hard when every straw is computerized. You're a killer. I catch killers. 
+                          I will not kill my sister. I will not kill my sister. I will not kill my sister. Rorschach would say you have a hard time relating to others.
+                      </p>
+                    </div>
+                  </div>
+                </ng-template>
+              </ngb-tab>
+            </ngb-tabset>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,190 @@
+<nav class="sidebar sidebar-offcanvas" id="sidebar">
+  <ul class="nav">
+    <li class="nav-item" [ngClass]="{ 'active': dashboard.isActive }">
+      <a class="nav-link" routerLink="/dashboard" routerLinkActive #dashboard="routerLinkActive">
+        <i class="ti-home menu-icon"></i>
+        <span class="menu-title">Inicio</span>
+      </a>
+    </li>
+    <li class="nav-item" [ngClass]="{'active': terms.isActive}">
+      <a class="nav-link" routerLink="/terms" routerLinkActive #terms="routerLinkActive">
+        <i class="ti-palette menu-icon"></i>
+        <span class="menu-title">Reglas</span>
+      </a>
+    </li>
+    <li class="nav-item" [ngClass]="{'active' : baseball.isActive || futbol.isActive || baloncesto.isActive || american.isActive || tennis.isActive  }">
+      <a class="nav-link" (click)="uiBasicCollapsed = !uiBasicCollapsed" [attr.aria-expanded]="uiBasicCollapsed" aria-controls="ui-basic">
+        <i class="ti-money menu-icon"></i>
+        <span class="menu-title">Apuestas</span>
+        <i class="menu-arrow"></i>
+      </a>
+      <div class="collapse" id="ui-basic" [ngbCollapse]="!uiBasicCollapsed">
+        <ul class="nav flex-column sub-menu">
+          <li class="nav-item"> <a class="nav-link" routerLink="/bets" routerLinkActive="active" #baseball="routerLinkActive">Baseball</a></li>
+          <li class="nav-item"> <a class="nav-link" routerLink="/bets" routerLinkActive="active" #futbol="routerLinkActive">Futbol</a></li>
+          <li class="nav-item"> <a class="nav-link" routerLink="/bets" routerLinkActive="active" #baloncesto="routerLinkActive">Baloncesto</a></li>
+          <li class="nav-item"> <a class="nav-link" routerLink="/bets" routerLinkActive="active" #american="routerLinkActive">Futbol Americano</a></li>
+          <li class="nav-item"> <a class="nav-link" routerLink="/bets" routerLinkActive="active" #tennis="routerLinkActive">Tennis</a></li>                    
+        </ul>
+      </div>
+    </li>
+    <li class="nav-item" [ngClass]="{'active': profile.isActive}">
+      <a class="nav-link" routerLink="/profile" routerLinkActive #profile="routerLinkActive">
+        <i class="ti-user menu-icon"></i>
+        <span class="menu-title">Datos</span>
+      </a>
+    </li>
+    <li class="nav-item" [ngClass]="{ 'active': config.isActive }">
+      <a class="nav-link" routerLink="/config" routerLinkActive #config="routerLinkActive">
+        <i class="ti-settings menu-icon"></i>
+        <span class="menu-title">Configuración</span>
+      </a>
+    </li>
+    <li class="nav-item" [ngClass]="{ 'active': payments.isActive }">
+      <a class="nav-link" routerLink="/payments" routerLinkActive #payments="routerLinkActive">
+        <i class="ti-credit-card menu-icon"></i>
+        <span class="menu-title">Pagos</span>
+      </a>
+    </li>
+    <li class="nav-item" [ngClass]="{ 'active': wallet.isActive }">
+      <a class="nav-link" routerLink="/wallet" routerLinkActive #wallet="routerLinkActive">
+        <i class="ti-wallet menu-icon"></i>
+        <span class="menu-title">Mi Billetera</span>
+      </a>
+    </li>
+    <li class="nav-item" [ngClass]="{ 'active': users.isActive }">
+      <a class="nav-link" routerLink="/users" routerLinkActive #users="routerLinkActive">
+        <i class="ti-view-list-alt menu-icon"></i>
+        <span class="menu-title">Usuarios</span>
+      </a>
+    </li>
+    <!--
+    <li class="nav-item" [ngClass]="{ 'active' : popups.isActive }">
+      <a class="nav-link" routerLink="popups" routerLinkActive #popups="routerLinkActive">
+        <i class="ti-export menu-icon"></i>
+        <span class="menu-title">Popups</span>
+      </a>
+    </li>
+    <li class="nav-item" [ngClass]="{ 'active' : notifications.isActive }">
+      <a class="nav-link" routerLink="notifications" routerLinkActive #notifications="routerLinkActive">
+        <i class="ti-bell menu-icon"></i>
+        <span class="menu-title">Notifications</span>
+      </a>
+    </li>
+    <li class="nav-item" [ngClass]=" { 'active' : flagIcons.isActive || mdi.isActive || fontAwesome.isActive || simpleLineIcons.isActive || themify.isActive }">
+      <a class="nav-link" (click)="iconsCollapsed = !iconsCollapsed"  [attr.aria-expanded]="iconsCollapsed" aria-controls="icons">
+        <i class="ti-face-smile menu-icon"></i>
+        <span class="menu-title">Icons</span>
+        <i class="menu-arrow"></i>
+      </a>
+      <div class="collapse" id="icons" [ngbCollapse]="!iconsCollapsed">
+        <ul class="nav flex-column sub-menu">
+          <li class="nav-item"> <a class="nav-link" routerLink="flag-icons" routerLinkActive="active" #flagIcons="routerLinkActive">Flag icons</a></li>
+          <li class="nav-item"> <a class="nav-link" routerLink="mdi" routerLinkActive="active" #mdi="routerLinkActive">Mdi icons</a></li>
+          <li class="nav-item"> <a class="nav-link" routerLink="font-awesome" routerLinkActive="active" #fontAwesome="routerLinkActive">Font Awesome</a></li>
+          <li class="nav-item"> <a class="nav-link" routerLink="simple-line-icons" routerLinkActive="active" #simpleLineIcons="routerLinkActive">Simple line icons</a></li>
+          <li class="nav-item"> <a class="nav-link" routerLink="themify" routerLinkActive="active" #themify="routerLinkActive">Themify icons</a></li>
+        </ul>
+      </div>
+    </li>
+    <li class="nav-item" [ngClass]="{ 'active' : googleMaps.isActive }">
+      <a class="nav-link" (click)="mapsCollapsed = !mapsCollapsed" [attr.aria-expanded]="mapsCollapsed" aria-controls="maps">
+        <i class="ti-map menu-icon"></i>
+        <span class="menu-title">Maps</span>
+        <i class="menu-arrow"></i>
+      </a>
+      <div class="collapse" id="maps" [ngbCollapse]="!mapsCollapsed">
+        <ul class="nav flex-column sub-menu">
+          <li class="nav-item"> <a class="nav-link" routerLink="google-map" routerLinkActive="active" #googleMaps="routerLinkActive">Google Map</a></li>
+        </ul>
+      </div>
+    </li>
+    <li class="nav-item" [ngClass]="{ 'active' : login.isActive || login2.isActive || register.isActive || register2.isActive || lockScreen.isActive }">
+      <a class="nav-link" (click)="userPagesCollapsed = !userPagesCollapsed"  [attr.aria-expanded]="userPagesCollapsed" aria-controls="auth">
+        <i class="ti-layers-alt menu-icon"></i>
+        <span class="menu-title">User Pages</span>
+        <i class="menu-arrow"></i>
+      </a>
+      <div class="collapse" id="auth" [ngbCollapse]="!userPagesCollapsed">
+        <ul class="nav flex-column sub-menu">
+          <li class="nav-item"> <a class="nav-link" routerLink="login" routerLinkActive="active" #login="routerLinkActive"> Login </a></li>
+          <li class="nav-item"> <a class="nav-link" routerLink="login-2" routerLinkActive="active" #login2="routerLinkActive"> Login 2 </a></li>
+          <li class="nav-item"> <a class="nav-link" routerLink="register" routerLinkActive="active" #register="routerLinkActive"> Register </a></li>
+          <li class="nav-item"> <a class="nav-link" routerLink="register-2" routerLinkActive="active" #register2="routerLinkActive"> Register 2 </a></li>
+          <li class="nav-item"> <a class="nav-link" routerLink="lock-screen" routerLinkActive="active" #lockScreen="routerLinkActive"> Lockscreen </a></li>
+        </ul>
+      </div>
+    </li>
+    <li class="nav-item" [ngClass]="{ 'active' : error404.isActive || error500.isActive }">
+      <a class="nav-link" (click)="errorCollapsed = !errorCollapsed"  [attr.aria-expanded]="errorCollapsed" aria-controls="error">
+        <i class="ti-help-alt menu-icon"></i>
+        <span class="menu-title">Error pages</span>
+        <i class="menu-arrow"></i>
+      </a>
+      <div class="collapse" id="error" [ngbCollapse]="!errorCollapsed">
+        <ul class="nav flex-column sub-menu">
+          <li class="nav-item"> <a class="nav-link" routerLink="error-404" routerLinkActive="active" #error404="routerLinkActive"> 404 </a></li>
+          <li class="nav-item"> <a class="nav-link" routerLink="error-500" routerLinkActive="active" #error500="routerLinkActive"> 500 </a></li>
+        </ul>
+      </div>
+    </li>
+    <li class="nav-item" [ngClass]="{ 'active' : blankPage.isActive || profile.isActive || faq.isActive || faq2.isActive || newsGrid.isActive || timeline.isActive || searchResult.isActive || portfolio.isActive }">
+      <a class="nav-link" (click)="generalPagesCollapsed = !generalPagesCollapsed" [attr.aria-expanded]="generalPagesCollapsed" aria-controls="general-pages">
+        <i class="ti-layers menu-icon"></i>
+        <span class="menu-title">General Pages</span>
+        <i class="menu-arrow"></i>
+      </a>
+      <div class="collapse" id="general-pages" [ngbCollapse]="!generalPagesCollapsed">
+        <ul class="nav flex-column sub-menu">
+          <li class="nav-item"> <a class="nav-link" routerLink="blank-page" routerLinkActive="active" #blankPage="routerLinkActive"> Blank Page </a></li>
+          <li class="nav-item"> <a class="nav-link" routerLink="profile" routerLinkActive="active" #profile="routerLinkActive"> Profile </a></li>
+          <li class="nav-item"> <a class="nav-link" routerLink="faq" routerLinkActive="active" #faq="routerLinkActive"> FAQ </a></li>
+          <li class="nav-item"> <a class="nav-link" routerLink="faq-2" routerLinkActive="active" #faq2="routerLinkActive"> FAQ 2 </a></li>
+          <li class="nav-item"> <a class="nav-link" routerLink="news-grid" routerLinkActive="active" #newsGrid="routerLinkActive"> News grid </a></li>
+          <li class="nav-item"> <a class="nav-link" routerLink="timeline" routerLinkActive="active" #timeline="routerLinkActive"> Timeline </a></li>
+          <li class="nav-item"> <a class="nav-link" routerLink="search-results" routerLinkActive="active" #searchResult="routerLinkActive"> Search Results </a></li>
+          <li class="nav-item"> <a class="nav-link" routerLink="portfolio" routerLinkActive="active" #portfolio="routerLinkActive"> Portfolio </a></li>
+        </ul>
+      </div>
+    </li>
+    <li class="nav-item" [ngClass]="{ 'active' : invoice.isActive || pricing.isActive || orders.isActive }">
+      <a class="nav-link" (click)="eCommerceCollapsed = !eCommerceCollapsed" [attr.aria-expanded]="eCommerceCollapsed" aria-controls="e-commerce">
+        <i class="ti-shopping-cart menu-icon"></i>
+        <span class="menu-title">E-commerce</span>
+        <i class="menu-arrow"></i>
+      </a>
+      <div class="collapse" id="e-commerce" [ngbCollapse]="!eCommerceCollapsed">
+        <ul class="nav flex-column sub-menu">
+          <li class="nav-item"> <a class="nav-link" routerLink="invoice" routerLinkActive="active" #invoice="routerLinkActive"> Invoice </a></li>
+          <li class="nav-item"> <a class="nav-link" routerLink="pricing" routerLinkActive="active" #pricing="routerLinkActive"> Pricing Table </a></li>
+          <li class="nav-item"> <a class="nav-link" routerLink="orders" routerLinkActive="active" #orders="routerLinkActive"> Orders </a></li>
+        </ul>
+      </div>
+    </li>
+    <li class="nav-item" [ngClass]="{ 'active' : email.isActive }">
+      <a class="nav-link" routerLink="email" routerLinkActive #email="routerLinkActive">
+        <i class="ti-email menu-icon"></i>
+        <span class="menu-title">E-mail</span>
+      </a>
+    </li>
+    <li class="nav-item" [ngClass]="{ 'active' : calendar.isActive }">
+      <a class="nav-link" routerLink="calendar" routerLinkActive #calendar="routerLinkActive">
+        <i class="ti-calendar menu-icon"></i>
+        <span class="menu-title">Calendar</span>
+      </a>
+    </li>
+    <li class="nav-item" [ngClass]="{ 'active' : todoList.isActive }">
+      <a class="nav-link" routerLink="todo-list" routerLinkActive #todoList="routerLinkActive">
+        <i class="ti-check-box menu-icon"></i>
+        <span class="menu-title">Todo List</span>
+      </a>
+    </li>
+    <li class="nav-item" [ngClass]="{ 'active' : documentation.isActive }">
+      <a class="nav-link" routerLink="documentation" routerLinkActive #documentation="routerLinkActive">
+        <i class="ti-write menu-icon"></i>
+        <span class="menu-title">Documentation</span>
+      </a>
+    </li>
+    -->
+  </ul>
+</nav>

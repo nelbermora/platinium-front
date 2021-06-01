@@ -1,0 +1,36 @@
+<div class="row">
+  <div class="col-12 grid-margin">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Ace Editor</h4>
+        <div class="row">
+          <div class="col-md-6 grid-margin">
+            <h5 class="card-subtitle">HTML Mode</h5>
+            <div ace-editor [(text)]="htmlModeData" [mode]="'html'"></div>
+          </div>
+          <div class="col-md-6 grid-margin">
+            <h5 class="card-subtitle">Javascript Mode</h5>
+            <div ace-editor [(text)]="jsModeData" [mode]="'javascript'"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-12 grid-margin">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Code mirror</h4>
+        <div class="row">
+          <div class="col-md-6 grid-margin">
+            <h5 class="card-subtitle">Code Editable</h5>
+            <codemirror [(ngModel)]="codeMirrorData1" [config]="{ theme : 'dracula', lineNumbers: true, mode: 'htmlmixed' }"></codemirror>
+          </div>
+          <div class="col-md-6 grid-margin">
+            <h5 class="card-subtitle">Code Read-only</h5>
+            <codemirror [(ngModel)]="codeMirrorData2" [config]="{ theme : 'dracula', readOnly: 'nocursor', mode: 'shell' }"></codemirror>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

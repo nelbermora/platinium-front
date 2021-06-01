@@ -1,0 +1,40 @@
+.ng-select{
+  .ng-select-container {
+    background: $input-bg;
+    color: $input-color;
+    background-color: $input-bg;
+    background-clip: padding-box;
+    border: $input-border-width solid $border-color;
+  }
+  &.ng-select-opened {
+    >.ng-select-container {
+      background: $input-bg;
+      border-color: $border-color;
+    }
+  }
+  &.ng-select-disabled {
+    >.ng-select-container {
+      background-color: $input-bg;
+    }
+  }
+  &.ng-select-multiple {
+    .ng-select-container {
+      .ng-value-container {
+        .ng-value {
+          background-color: theme-color(success);
+        }
+      }
+    }
+  }
+}
+.ng-dropdown-panel {
+  background: $input-bg;
+  color: $input-color;
+  background-color: $input-bg;
+  .ng-dropdown-panel-items {
+    .ng-option {
+      background-color: $input-bg;
+      color: $input-color;
+  }
+  }
+}
