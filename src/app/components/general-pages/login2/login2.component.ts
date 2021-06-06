@@ -1,3 +1,5 @@
+import { Router } from '@angular/router';
+import { AuthService } from './../../../services/auth.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +9,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class Login2Component implements OnInit {
 
-  constructor() { }
-
+  constructor(private authSvc: AuthService, private router: Router) { }
+  email: string;
+  password: string;
+  invalidLogin: boolean = false;
   ngOnInit() {
+  }
+
+  doLogin(){
+    this.authSvc.login(this.email, this.password).subscribe(
+      (resp : any)=> {
+        console.log(resp);
+        localStorage.setItem('token',resp.token);
+        this.authSvc.logged = true;
+        this.router.navigate(['/dashboard']);
+      },
+      error => {
+        this.invalidLogin = true;
+      }
+  );
   }
 
 }

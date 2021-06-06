@@ -16,7 +16,7 @@
                   <i class="ti-user text-primary"></i>
                 </span>
               </div>
-              <input type="text" class="form-control form-control-lg border-left-0" id="exampleInputEmail" placeholder="Username">
+              <input type="text" class="form-control form-control-lg border-left-0" id="exampleInputEmail" placeholder="Email" [(ngModel)]="email" name="email">
             </div>
           </div>
           <div class="form-group">
@@ -27,8 +27,11 @@
                   <i class="ti-lock text-primary"></i>
                 </span>
               </div>
-              <input type="password" class="form-control form-control-lg border-left-0" id="exampleInputPassword" placeholder="Password">                        
+              <input type="password" class="form-control form-control-lg border-left-0" id="exampleInputPassword" placeholder="Password" [(ngModel)]="password" name="password">                        
             </div>
+          </div>
+          <div *ngIf="invalidLogin" class="my-2 d-flex justify-content-between align-items-center">
+            <p class="auth-link text-danger">Credenciales inválidas</p>
           </div>
           <div class="my-2 d-flex justify-content-between align-items-center">
             <div class="form-check">
@@ -40,7 +43,7 @@
             </div>
             <a href="javascript:(void)" class="auth-link text-primary">Olvidé password?</a>
           </div>
-          <div class="my-3">
+          <div class="my-3" (click)="doLogin()">
             <a class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">Jugar!</a>
           </div>
           

@@ -1,3 +1,5 @@
+import { OddService } from './services/odd.service';
+import { UserService } from './services/user.service';
 import { AuthService } from './services/auth.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -34,7 +36,7 @@ import { ScrollToModule } from 'ng2-scroll-to-el';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NavbarComponent } from './components/shared/navbar/navbar.component';
 import { SettingsPanelComponent } from './components/shared/settings-panel/settings-panel.component';
 import { SidebarComponent } from './components/shared/sidebar/sidebar.component';
@@ -110,6 +112,8 @@ import { WalletComponent } from './components/wallet/wallet.component';
 import { UsersComponent } from './components/users/users.component';
 import { ReportsComponent } from './components/reports/reports.component';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { AuthInterceptorService } from './interceptors/request.interceptor';
+import { BaseballComponent } from './components/baseball/baseball.component';
 
 const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
   // Change this to your upload POST address:
@@ -192,6 +196,7 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
     WalletComponent,
     UsersComponent,
     ReportsComponent,
+    BaseballComponent,
   ],
   imports: [
     BrowserModule,
@@ -235,8 +240,15 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
       provide: DROPZONE_CONFIG,
       useValue: DEFAULT_DROPZONE_CONFIG
     },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService,
+      multi: true
+    },
     Location, {provide: LocationStrategy, useClass: HashLocationStrategy},
-    AuthService
+    AuthService,
+    UserService,
+    OddService
   ],
   bootstrap: [AppComponent]
 })

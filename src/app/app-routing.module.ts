@@ -1,3 +1,4 @@
+import { BaseballComponent } from './components/baseball/baseball.component';
 import { ReportsComponent } from './components/reports/reports.component';
 import { UsersComponent } from './components/users/users.component';
 import { WalletComponent } from './components/wallet/wallet.component';
@@ -81,6 +82,7 @@ const routes: Routes = [
   { path: 'users', canActivate: [AuthGuardian], component: UsersComponent },
   { path: 'resports', canActivate: [AuthGuardian], component: ReportsComponent },
   { path: 'terms', canActivate: [AuthGuardian], component: TermsComponent },
+  { path: 'baseball', canActivate: [AuthGuardian], component: BaseballComponent },
   { path: 'widgets', component: WidgetsComponent },
   { path: 'accordions', component: AccordionsComponent },
   { path: 'buttons', component: ButtonsComponent },

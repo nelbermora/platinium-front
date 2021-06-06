@@ -53,4 +53,8 @@ export class NavbarComponent implements OnInit {
     document.querySelector('.sidebar-offcanvas').classList.toggle('active');
   }
 
+  logout(){
+    this.authSvc.logout();
+  }
+
 }
