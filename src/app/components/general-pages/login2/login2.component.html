@@ -44,7 +44,10 @@
             <a href="javascript:(void)" class="auth-link text-primary">Olvidé password?</a>
           </div>
           <div class="my-3" (click)="doLogin()">
-            <a class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">Jugar!</a>
+            <button [disabled]="loading" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">
+              <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+              Jugar!
+            </button>
           </div>
           
           <div class="text-center mt-4 font-weight-light">
