@@ -1,3 +1,4 @@
+import { User } from './../models/user.model';
 import { UserService } from './user.service';
 import { Router } from '@angular/router';
 import { Injectable } from "@angular/core";
@@ -5,6 +6,7 @@ import { Injectable } from "@angular/core";
 @Injectable()
 export class AuthService{
     logged: boolean = false;
+    activeUser: User = {};
     constructor(private router: Router, private userSvc: UserService){
 
     }

@@ -1,8 +1,12 @@
+import { OddsPipe } from './pipes/odds.pipe';
+import { IpService } from './services/ip.service';
 import { OddService } from './services/odd.service';
 import { UserService } from './services/user.service';
 import { AuthService } from './services/auth.service';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
+import { registerLocaleData } from '@angular/common';
+import localeEsAr from '@angular/common/locales/es-AR';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -114,6 +118,10 @@ import { ReportsComponent } from './components/reports/reports.component';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { AuthInterceptorService } from './interceptors/request.interceptor';
 import { BaseballComponent } from './components/baseball/baseball.component';
+import { LoggerService } from './services/logger.service';
+import { DateArPipe } from './pipes/dateAr.pipe';
+
+registerLocaleData(localeEsAr, 'es-Ar');
 
 const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
   // Change this to your upload POST address:
@@ -197,6 +205,8 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
     UsersComponent,
     ReportsComponent,
     BaseballComponent,
+    OddsPipe,
+    DateArPipe
   ],
   imports: [
     BrowserModule,
@@ -246,9 +256,12 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
       multi: true
     },
     Location, {provide: LocationStrategy, useClass: HashLocationStrategy},
+    { provide: LOCALE_ID, useValue: 'es-Ar' },
     AuthService,
     UserService,
-    OddService
+    OddService,
+    LoggerService,
+    IpService
   ],
   bootstrap: [AppComponent]
 })

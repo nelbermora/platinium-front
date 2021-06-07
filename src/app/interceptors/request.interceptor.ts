@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class AuthInterceptorService implements HttpInterceptor {
-
+excluded = 'https://api.ipify.org?format=json';
   constructor(
     private authSvc: AuthService
   ) {}
@@ -20,8 +20,7 @@ export class AuthInterceptorService implements HttpInterceptor {
     //const token: string ='asdasdasd';
 
     let request = req;
-
-    if (token) {
+    if (token && req.url != this.excluded) {
       request = req.clone({
         setHeaders: {
           authorization: `Bearer ${ token }`

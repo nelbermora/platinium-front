@@ -1,3 +1,4 @@
+import { LoggerService } from './../../../services/logger.service';
 import { Router } from '@angular/router';
 import { AuthService } from './../../../services/auth.service';
 import { Component, OnInit } from '@angular/core';
@@ -8,12 +9,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./login2.component.scss']
 })
 export class Login2Component implements OnInit {
+  component = 'login';
   loading: boolean = false;
-  constructor(private authSvc: AuthService, private router: Router) { }
+  constructor(private authSvc: AuthService, private router: Router,
+              private logger: LoggerService) { }
   email: string;
   password: string;
   invalidLogin: boolean = false;
   ngOnInit() {
+    this.logger.log(this.component, 'ingresa a la web');
   }
 
   doLogin(){
