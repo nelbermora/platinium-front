@@ -1,5 +1,7 @@
+import { VersionService } from './../../services/version.service';
 import { Component, OnInit } from '@angular/core';
 import { NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-dashboard',
@@ -244,13 +246,22 @@ export class DashboardComponent implements OnInit {
       ctx.save();
     }
   }
-
-  constructor(config: NgbCarouselConfig) {
+  
+  version = 0.1;
+  constructor(config: NgbCarouselConfig, private versionSvc: VersionService,
+              private spinner: NgxSpinnerService) {
     config.showNavigationArrows = true;
     config.showNavigationIndicators = false;
   }
 
   ngOnInit() {
+    this.versionSvc.getVersion().subscribe(
+      (resp: any) => {
+        if(resp.version != this.version){
+          window.location.reload();
+        }
+      }
+    );    
   }
 
 }

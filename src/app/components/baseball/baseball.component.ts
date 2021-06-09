@@ -1,3 +1,4 @@
+import { NgxSpinnerService } from 'ngx-spinner';
 import { Match } from './../../models/match.model';
 import { League } from './../../models/league.model';
 import { OddService } from './../../services/odd.service';
@@ -11,15 +12,16 @@ import { Sport } from 'src/app/models/sport.model';
 })
 export class BaseballComponent implements OnInit {
   sport: Sport= {};
-  constructor(private oddSvc: OddService) { }
+  constructor(private oddSvc: OddService, private spinner: NgxSpinnerService) { }
 
   ngOnInit(): void {
+    this.spinner.show();
     this.oddSvc.getOdds("baseball").subscribe(
       resp => {
-        console.log(resp);
         this.sport = resp;
+        this.spinner.hide();
       }
-    )
+    );
   }
 
 }

@@ -65,6 +65,7 @@
     "ngx-device-detector": "^1.4.5",
     "ngx-dropzone-wrapper": "^9.0.0",
     "ngx-owl-carousel-o": "^3.1.0",
+    "ngx-spinner": "^10.0.1",
     "ngx-summernote": "^0.7.7",
     "ngx-toastr": "^13.0.0",
     "nouislider": "^14.6.0",

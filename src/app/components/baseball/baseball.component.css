@@ -20,3 +20,7 @@
 .table-match tr {
     background-color: #2d2f1e !important;
 }*/
+
+.table td, .dataTables_wrapper .dataTable td {
+    font-size: 0.720rem;
+}

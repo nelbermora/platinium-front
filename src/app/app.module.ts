@@ -1,3 +1,4 @@
+import { VersionService } from './services/version.service';
 import { OddsPipe } from './pipes/odds.pipe';
 import { IpService } from './services/ip.service';
 import { OddService } from './services/odd.service';
@@ -120,6 +121,8 @@ import { AuthInterceptorService } from './interceptors/request.interceptor';
 import { BaseballComponent } from './components/baseball/baseball.component';
 import { LoggerService } from './services/logger.service';
 import { DateArPipe } from './pipes/dateAr.pipe';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 registerLocaleData(localeEsAr, 'es-Ar');
 
@@ -243,8 +246,10 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
     AgmCoreModule.forRoot({ apiKey: 'AIzaSyCnT63XUjqjPgXZ0lFTU_pdpfUX7swzTTM' }),
     BarRatingModule,
     FullCalendarModule,
-    ScrollToModule.forRoot()
+    ScrollToModule.forRoot(),
+    NgxSpinnerModule
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [
     {
       provide: DROPZONE_CONFIG,
@@ -261,7 +266,8 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
     UserService,
     OddService,
     LoggerService,
-    IpService
+    IpService,
+    VersionService
   ],
   bootstrap: [AppComponent]
 })
