@@ -247,7 +247,7 @@ export class DashboardComponent implements OnInit {
     }
   }
   
-  version = 0.2;
+  version = 0.3;
   constructor(config: NgbCarouselConfig, private versionSvc: VersionService,
               private spinner: NgxSpinnerService) {
     config.showNavigationArrows = true;

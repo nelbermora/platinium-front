@@ -124,6 +124,7 @@ import { DateArPipe } from './pipes/dateAr.pipe';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BasketballComponent } from './components/basketball/basketball.component';
+import { SoccerComponent } from './components/soccer/soccer.component';
 
 registerLocaleData(localeEsAr, 'es-Ar');
 
@@ -211,7 +212,8 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
     BaseballComponent,
     OddsPipe,
     DateArPipe,
-    BasketballComponent
+    BasketballComponent,
+    SoccerComponent
   ],
   imports: [
     BrowserModule,

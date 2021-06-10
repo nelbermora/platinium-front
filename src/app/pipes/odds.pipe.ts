@@ -5,12 +5,15 @@ import { Pipe, PipeTransform } from "@angular/core";
 })
 export class OddsPipe implements PipeTransform{
     transform(n: number): string {
-        if (n > 0){
-            return '+' + n;
+        if(n === undefined || n == null){
+            return "--"
         }else{
-            return n + '';
-        }
-        
+            if (n > 0){
+                return '+' + n;
+            }else{
+                return n + '';
+            }
+        }                
     }
     
 }

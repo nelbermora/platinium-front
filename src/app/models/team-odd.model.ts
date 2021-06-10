@@ -22,6 +22,7 @@ export interface TeamOdd{
     thLetter?: string,
     thHandicap?: number,
     tieValue?: number,
+    tieValue5?: number,
     position?: number
 
 }
