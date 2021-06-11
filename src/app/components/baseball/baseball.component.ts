@@ -12,6 +12,7 @@ import { Sport } from 'src/app/models/sport.model';
 })
 export class BaseballComponent implements OnInit {
   sport: Sport= {};
+  activeIds: string[] = ['panel-0'];
   constructor(private oddSvc: OddService, private spinner: NgxSpinnerService) { }
 
   ngOnInit(): void {

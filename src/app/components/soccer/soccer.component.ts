@@ -9,6 +9,7 @@ import { OddService } from 'src/app/services/odd.service';
   styleUrls: ['./soccer.component.css']
 })
 export class SoccerComponent implements OnInit {
+  activeIds: string[] = [];
   sport: Sport= {};
   constructor(private spinner: NgxSpinnerService, private oddSvc: OddService) { }
 
@@ -16,6 +17,7 @@ export class SoccerComponent implements OnInit {
     this.spinner.show();
     this.oddSvc.getOdds("Soccer").subscribe(
       resp => {
+        this.activeIds = ['panel-0'];
         this.sport = resp;
         this.spinner.hide();
       }

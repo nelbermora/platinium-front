@@ -9,6 +9,7 @@ import { Sport } from 'src/app/models/sport.model';
   styleUrls: ['./basketball.component.css']
 })
 export class BasketballComponent implements OnInit {
+  activeIds: string[] = ['panel-0'];
   sport: Sport= {};
   constructor(private spinner: NgxSpinnerService, private oddSvc: OddService) { }
 

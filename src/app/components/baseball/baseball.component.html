@@ -1,59 +1,62 @@
-<div class="col-lg-12 grid-margin stretch-card" *ngFor="let league of sport.leagues">
-    <div class="card" *ngIf="league.matches.length > 0">
-      <div class="card-body">
-        <h4 class="card-title text-center">{{league.name}}</h4>
-        <div class="table-responsive">
-          <table class="table">
-            <tbody>
-              <tr *ngFor="let match of league.matches">
-                <td style="padding-left: 0px;">
-                  <table class="table">
-                      <thead>
-                        <tr style="color: #ffcb63;">
-                            <td>{{match.date | dateAr }}</td>
-                            <td>Ganar</td>
-                            <td>R. Line</td>
-                            <td>Alta/Baja</td>
-                            <td>Ganar 5to Inn</td>
-                            <td>R. Line 5to Inn</td>
-                            <td>Alta/Baja 5to Inn</td>
-                            <td>Anota Primero</td>
-                            <td>Si/No</td>                            
-                            <td>Total Hits</td>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr style="background-color: black">
-                          <td>{{match.teamA.team.name}}</td>
-                          <td>{{match.teamA.win | odd}}</td>
-                          <td>{{match.teamA.rlHandicap | odd}} {{match.teamA.runLine | odd}}</td>
-                          <td>{{match.teamA.ouHandicap}} {{match.teamA.ouLetter}}{{match.teamA.overUnder | odd}}</td>
-                          <td>{{match.teamA.win5 | odd}}</td>
-                          <td>{{match.teamA.rlHandicap5 | odd}} {{match.teamA.runLine5 | odd}}</td>
-                          <td>{{match.teamA.ouHandicap5}} {{match.teamA.ouLetter5}}{{match.teamA.overUnder5 | odd}}</td>
-                          <td>{{match.teamA.scoresFirst | odd}}</td>
-                          <td>Si {{match.firstInningScoreYes | odd}}</td>
-                          <td>{{match.teamA.thHandicap}} {{match.teamA.thLetter}}{{match.teamA.totalHits | odd}}</td>
-                        </tr>
-                        <tr style="background-color: black">
-                          <td>{{match.teamB.team.name}}</td>
-                          <td>{{match.teamB.win | odd}}</td>
-                          <td>{{match.teamB.rlHandicap | odd}} {{match.teamB.runLine | odd}}</td>
-                          <td>{{match.teamB.ouHandicap}} {{match.teamB.ouLetter}}{{match.teamB.overUnder | odd}}</td>
-                          <td>{{match.teamB.win5 | odd}}</td>
-                          <td>{{match.teamB.rlHandicap5 | odd}} {{match.teamB.runLine5 | odd}}</td>
-                          <td>{{match.teamB.ouHandicap5}} {{match.teamB.ouLetter5}}{{match.teamB.overUnder5 | odd}}</td>
-                          <td>{{match.teamB.scoresFirst | odd}}</td>
-                          <td>No {{match.firstInningScoreNo | odd}}</td>
-                          <td>{{match.teamB.thHandicap}} {{match.teamB.thLetter}}{{match.teamB.totalHits | odd}}</td>
-                        </tr>
-                      </tbody>
-                  </table>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+<ngb-accordion class="accordion" [closeOthers]="true" [activeIds]="activeIds">
+  <ngb-panel id="panel-{{i}}" [title]="league.name" *ngFor="let league of sport.leagues; index as i">
+    <ng-template ngbPanelContent>
+      <div class="card" *ngIf="league.matches.length > 0">
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table">
+              <tbody>
+                <tr *ngFor="let match of league.matches">
+                  <td style="padding-left: 0px;">
+                    <table class="table">
+                        <thead>
+                          <tr style="color: #ffcb63;">
+                              <td>{{match.date | dateAr }}</td>
+                              <td>Ganar</td>
+                              <td>R. Line</td>
+                              <td>Alta/Baja</td>
+                              <td>Ganar 5to Inn</td>
+                              <td>R. Line 5to Inn</td>
+                              <td>Alta/Baja 5to Inn</td>
+                              <td>Anota Primero</td>
+                              <td>Si/No</td>                            
+                              <td>Total Hits</td>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr style="background-color: black">
+                            <td>{{match.teamA.team.name}}</td>
+                            <td>{{match.teamA.win | odd}}</td>
+                            <td>{{match.teamA.rlHandicap | odd}} {{match.teamA.runLine | odd}}</td>
+                            <td>{{match.teamA.ouHandicap}} {{match.teamA.ouLetter}}{{match.teamA.overUnder | odd}}</td>
+                            <td>{{match.teamA.win5 | odd}}</td>
+                            <td>{{match.teamA.rlHandicap5 | odd}} {{match.teamA.runLine5 | odd}}</td>
+                            <td>{{match.teamA.ouHandicap5}} {{match.teamA.ouLetter5}}{{match.teamA.overUnder5 | odd}}</td>
+                            <td>{{match.teamA.scoresFirst | odd}}</td>
+                            <td>Si {{match.firstInningScoreYes | odd}}</td>
+                            <td>{{match.teamA.thHandicap}} {{match.teamA.thLetter}}{{match.teamA.totalHits | odd}}</td>
+                          </tr>
+                          <tr style="background-color: black">
+                            <td>{{match.teamB.team.name}}</td>
+                            <td>{{match.teamB.win | odd}}</td>
+                            <td>{{match.teamB.rlHandicap | odd}} {{match.teamB.runLine | odd}}</td>
+                            <td>{{match.teamB.ouHandicap}} {{match.teamB.ouLetter}}{{match.teamB.overUnder | odd}}</td>
+                            <td>{{match.teamB.win5 | odd}}</td>
+                            <td>{{match.teamB.rlHandicap5 | odd}} {{match.teamB.runLine5 | odd}}</td>
+                            <td>{{match.teamB.ouHandicap5}} {{match.teamB.ouLetter5}}{{match.teamB.overUnder5 | odd}}</td>
+                            <td>{{match.teamB.scoresFirst | odd}}</td>
+                            <td>No {{match.firstInningScoreNo | odd}}</td>
+                            <td>{{match.teamB.thHandicap}} {{match.teamB.thLetter}}{{match.teamB.totalHits | odd}}</td>
+                          </tr>
+                        </tbody>
+                    </table>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
-    </div>
-</div>
+    </ng-template>
+  </ngb-panel>  
+</ngb-accordion>

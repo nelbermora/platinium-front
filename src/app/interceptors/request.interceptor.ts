@@ -1,5 +1,4 @@
 import { NgxSpinnerService } from 'ngx-spinner';
-import { AuthService } from './../services/auth.service';
 import { Injectable } from '@angular/core';
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
@@ -13,7 +12,7 @@ import Swal from 'sweetalert2';
 export class AuthInterceptorService implements HttpInterceptor {
 excluded = 'https://api.ipify.org?format=json';
   constructor(
-    private authSvc: AuthService,
+    private router: Router,
     private spinnerSvc: NgxSpinnerService
   ) {}
 
@@ -36,7 +35,7 @@ excluded = 'https://api.ipify.org?format=json';
       catchError((err: HttpErrorResponse) => {
 
         if (err.status === 401) {
-          this.authSvc.logout();
+          this.router.navigate(['/login']);
           this.spinnerSvc.hide();
         }else{
           Swal.fire({

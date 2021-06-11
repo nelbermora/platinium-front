@@ -25,7 +25,9 @@ export class SidebarComponent implements OnInit {
   constructor(private authSvc: AuthService) { }
 
   ngOnInit() {
-    this.isLogged = this.authSvc.islogged();
+    this.authSvc.isLogged.subscribe(
+      resp => (this.isLogged = resp)
+    )
     const body = document.querySelector('body');
 
     // add class 'hover-open' to sidebar navitem while hover in sidebar-icon-only menu

@@ -37,7 +37,9 @@ export class NavbarComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.isLogged = this.authSvc.islogged();
+    this.authSvc.isLogged.subscribe(
+      resp => (this.isLogged = resp)
+    );
   }
 
   closeSettingsSidebar() {

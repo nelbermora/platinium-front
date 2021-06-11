@@ -19,4 +19,10 @@ export class UserService{
                    password: pass
                });
     }
+
+    isValidToken(token: string){
+        return this.http.post(this.url + "/authenticate", {
+            token: token            
+        });
+    }
 }

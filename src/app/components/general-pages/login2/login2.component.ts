@@ -1,6 +1,6 @@
+import { AuthService } from './../../../services/auth.service';
 import { LoggerService } from './../../../services/logger.service';
 import { Router } from '@angular/router';
-import { AuthService } from './../../../services/auth.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -26,14 +26,14 @@ export class Login2Component implements OnInit {
       (resp : any)=> {
         this.loading = false;
         localStorage.setItem('token',resp.token);
-        this.authSvc.logged = true;
+        this.authSvc.isLogged.emit(true);
         this.router.navigate(['/dashboard']);
       },
       error => {
         this.loading = false;
         this.invalidLogin = true;
       }
-  );
+    );
   }
 
 }

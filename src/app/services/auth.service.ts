@@ -2,27 +2,40 @@ import { User } from './../models/user.model';
 import { UserService } from './user.service';
 import { Router } from '@angular/router';
 import { Injectable } from "@angular/core";
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
+import { EventEmitter } from '@angular/core';
 
 @Injectable()
 export class AuthService{
-    logged: boolean = false;
-    activeUser: User = {};
-    constructor(private router: Router, private userSvc: UserService){
-
+    activeUser: string = "";
+    
+    url: string = "";
+    isLogged = new EventEmitter<boolean>();
+    constructor(private router: Router, private http: HttpClient){
+        if(environment.production){
+            this.url = "https://platiniumsport.com/pservices/be";
+        }else{
+            this.url = "http://localhost/pservices/be"
+        }
     }
     
-    islogged(){
-        return this.logged;
+    isAuthenticated(){
+        return this.http.post(this.url + "/authenticate", {
+            token: localStorage.getItem('token')
+        });
     }
 
     logout(){
-        this.logged = false;
+        this.isLogged.emit(false);
+        localStorage.removeItem('token');
         this.router.navigate(['/login']);
     }
-    
+
     login(user: string, pass: string){
-        return this.userSvc.authenticate(user, pass);
+        return this.http.post(this.url + "/login", {
+            correo: user,
+            password: pass
+        });        
     }
-
-
 }

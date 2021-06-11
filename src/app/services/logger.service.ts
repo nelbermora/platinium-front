@@ -1,5 +1,5 @@
-import { IpService } from './ip.service';
 import { AuthService } from './auth.service';
+import { IpService } from './ip.service';
 import { environment } from './../../environments/environment';
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
@@ -11,7 +11,7 @@ export class LoggerService{
     myDevice: string;
     myIp: string;
     constructor(private http: HttpClient, private deviceService: DeviceDetectorService,
-                private authService: AuthService, private ipSvc: IpService){
+                private ipSvc: IpService, private authGdn: AuthService){
         if (environment.production){
             this.url = "https://platiniumsport.com/pservices/be/logger";
         }else{
@@ -26,7 +26,7 @@ export class LoggerService{
                 this.http.post(this.url, {
                     ip: resp.ip,
                     device: this.myDevice,
-                    usuario: this.authService.activeUser.$correo,
+                    usuario: this.authGdn.activeUser,
                     componente: component,
                     referencia: reference,
                     descripcion: desc
