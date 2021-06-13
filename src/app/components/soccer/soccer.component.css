@@ -24,3 +24,8 @@
 .table td, .dataTables_wrapper .dataTable td {
     font-size: 0.720rem;
 }
+
+.selected{
+background-color: #ffcb63;
+color: black;
+}

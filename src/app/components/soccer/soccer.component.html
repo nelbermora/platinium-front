@@ -23,21 +23,21 @@
                         <tbody>
                           <tr style="background-color: black">
                             <td>{{match.teamA.team.name}}</td>
-                            <td>{{match.teamA.win | odd}}</td>
-                            <td>{{match.teamA.tieValue | odd}}</td>
-                            <td>{{match.teamA.rlHandicap | odd}} {{match.teamA.runLine | odd}}</td>
-                            <td>{{match.teamA.ouHandicap}} {{match.teamA.ouLetter}}{{match.teamA.overUnder | odd}}</td>
-                            <td>{{match.teamA.win5 | odd}}</td>
-                            <td>{{match.teamA.tieValue5 | odd}}</td>                          
+                            <td [ngClass]="{'selected':this.isSelected(match.teamA, 'win', match)}" style="cursor: pointer;" (click)="select(match.teamA, 'win', match)">{{match.teamA.win | odd}}</td>
+                            <td style="cursor: pointer;" [ngClass]="{'selected':this.isSelected(match.teamA, 'tie', match)}" (click)="select(match.teamA, 'tie', match)">{{match.teamA.tieValue | odd}}</td>
+                            <td style="cursor: pointer;" [ngClass]="{'selected':this.isSelected(match.teamA, 'rl', match)}" (click)="select(match.teamA, 'rl', match)">{{match.teamA.rlHandicap | odd}} {{match.teamA.runLine | odd}}</td>
+                            <td style="cursor: pointer;" [ngClass]="{'selected':this.isSelected(match.teamA, 'ou', match)}" (click)="select(match.teamA, 'ou', match)">{{match.teamA.ouHandicap}} {{match.teamA.ouLetter}}{{match.teamA.overUnder | odd}}</td>
+                            <td style="cursor: pointer;" [ngClass]="{'selected':this.isSelected(match.teamA, 'win5', match)}" (click)="select(match.teamA, 'win5', match)">{{match.teamA.win5 | odd}}</td>
+                            <td style="cursor: pointer;" [ngClass]="{'selected':this.isSelected(match.teamA, 'tie5', match)}" (click)="select(match.teamA, 'tie5', match)">{{match.teamA.tieValue5 | odd}}</td>                          
                           </tr>
                           <tr style="background-color: black">
                             <td>{{match.teamB.team.name}}</td>
-                            <td>{{match.teamB.win | odd}}</td>
-                            <td>{{match.teamB.tieValue | odd}}</td>
-                            <td>{{match.teamB.rlHandicap | odd}} {{match.teamB.runLine | odd}}</td>
-                            <td>{{match.teamB.ouHandicap}} {{match.teamB.ouLetter}}{{match.teamB.overUnder | odd}}</td>
-                            <td>{{match.teamB.win5 | odd}}</td>
-                            <td>{{match.teamB.tieValue5 | odd}}</td>
+                            <td style="cursor: pointer;" [ngClass]="{'selected':this.isSelected(match.teamB, 'win', match)}" (click)="select(match.teamB, 'win', match)">{{match.teamB.win | odd}}</td>
+                            <td style="cursor: pointer;" [ngClass]="{'selected':this.isSelected(match.teamB, 'tie', match)}" (click)="select(match.teamB, 'tie', match)">{{match.teamB.tieValue | odd}}</td>
+                            <td style="cursor: pointer;" [ngClass]="{'selected':this.isSelected(match.teamB, 'rl', match)}" (click)="select(match.teamB, 'rl', match)">{{match.teamB.rlHandicap | odd}} {{match.teamB.runLine | odd}}</td>
+                            <td style="cursor: pointer;" [ngClass]="{'selected':this.isSelected(match.teamB, 'ou', match)}" (click)="select(match.teamB, 'ou', match)">{{match.teamB.ouHandicap}} {{match.teamB.ouLetter}}{{match.teamB.overUnder | odd}}</td>
+                            <td style="cursor: pointer;" [ngClass]="{'selected':this.isSelected(match.teamB, 'win5', match)}" (click)="select(match.teamB, 'win5', match)">{{match.teamB.win5 | odd}}</td>
+                            <td style="cursor: pointer;" [ngClass]="{'selected':this.isSelected(match.teamB, 'tie5', match)}" (click)="select(match.teamB, 'tie5', match)">{{match.teamB.tieValue5 | odd}}</td>
                           </tr>
                         </tbody>
                     </table>
@@ -51,3 +51,4 @@
     </ng-template>
   </ngb-panel>  
 </ngb-accordion>
+<app-bets></app-bets>

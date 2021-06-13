@@ -1,3 +1,4 @@
+import { BetCalculatorService } from './services/bet-calculator.service';
 import { VersionService } from './services/version.service';
 import { OddsPipe } from './pipes/odds.pipe';
 import { IpService } from './services/ip.service';
@@ -125,6 +126,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BasketballComponent } from './components/basketball/basketball.component';
 import { SoccerComponent } from './components/soccer/soccer.component';
+import { ParlayService } from './services/parlay.service';
 
 registerLocaleData(localeEsAr, 'es-Ar');
 
@@ -271,7 +273,9 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
     OddService,
     LoggerService,
     IpService,
-    VersionService
+    VersionService,
+    ParlayService,
+    BetCalculatorService
   ],
   bootstrap: [AppComponent]
 })

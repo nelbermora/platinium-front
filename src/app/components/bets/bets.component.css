@@ -1,0 +1,134 @@
+#bets-table {
+    border-radius: 20% !important;
+    position: fixed;
+    bottom: 150px;
+    right: 1px;
+    height: 25px;
+    width: 200px;
+    background: #ffcb63;
+    z-index: 99;
+    box-shadow: 0px 0px 31px 6px rgb(0 0 0 / 17%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-delay: 1s;
+    animation-delay: 1s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    font-size: 0.720rem;
+}
+
+#bets-table-left {
+    border-radius: 2% !important;
+    position: fixed;
+    bottom: 150px;
+    left: 10px;
+    height: 25px;
+    width: 200px;
+    z-index: 99;
+    box-shadow: 0px 0px 31px 6px rgb(0 0 0 / 17%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-delay: 1s;
+    animation-delay: 1s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    font-size: 0.720rem;
+}
+.card-description{
+    color: #ffcb63 !important;    
+}
+
+.table thead th, .dataTables_wrapper .dataTable thead th {
+    border-top: 0;
+    border-bottom-width: 1px;
+    font-weight: 500;
+    font-size: 0.725rem;
+}
+.table td {    
+    font-size: 0.725rem;
+}
+
+.my-custom-scrollbar {
+    position: relative;    
+    overflow: auto;
+}
+
+.short{
+    height: 80px;
+}
+
+.large{
+    height: 200px;
+}
+
+
+.table-wrapper-scroll-short {
+    display: block;
+    height: 90px;
+ }
+
+ .table-wrapper-scroll-large {
+    display: block;
+    height: 160px;
+ }
+
+.card-body {
+    /*background-color: #3D2734 !important;*/
+    background-color: #3c3d47 !important;
+    border-radius: 2% !important;
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(200,200,200,1);
+    box-shadow: inset 0 0 6px rgba(200,200,200,1);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color:#fff;
+    -webkit-box-shadow: inset 0 0 6px rgba(90,90,90,0.7);
+    box-shadow: inset 0 0 6px rgba(90,90,90,0.7);
+}
+
+input:disabled {
+    display: block;
+    width: 100%;
+    height: 2.875rem;
+    padding: 0.875rem 1.375rem;
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1;
+    color: #e9e6e6;
+    background-color: #2b2e4c;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: 2px;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.btn.btn-icon, .swal2-modal .swal2-buttonswrapper .btn-icon.swal2-styled, .swal2-modal .swal2-actions .btn-icon.swal2-styled, .fc button.btn-icon {
+    width: 18px;
+    height: 18px;
+    padding: 0;
+}
+
+.card {
+    background-color: #76838f !important;    
+}
+
+
+.accordion .card .card-body {
+    background-color: #3c3d47 !important;
+}
