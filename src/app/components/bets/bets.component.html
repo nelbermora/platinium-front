@@ -4,18 +4,18 @@
         <table class="table table-striped table-responsive table-wrapper-scroll-short my-custom-scrollbar" [ngClass]="{'table-wrapper-scroll-large': parlay.odds.length >2}">
             <tbody>
                 <tr *ngFor="let odd of parlay.odds; index as i">
-                    <td (click)="delete(i)">
+                    <td (click)="delete(i)" style="padding-top: 2px; padding-bottom: 2px;">
                         <button type="button" class="btn btn-icon">
                             <i class="fa fa-times text-danger"></i>
                         </button>
                     </td>
-                    <td>
+                    <td style="padding-top: 2px; padding-bottom: 2px;">
                         {{odd.teamName}}
                     </td>
-                    <td *ngIf="odd.handicap !== undefined && odd.handicap !== null">
+                    <td *ngIf="odd.handicap !== undefined && odd.handicap !== null" style="padding-top: 2px; padding-bottom: 2px;">
                         {{odd.type}} ({{odd.handicap | odd}}) {{odd.letter}}{{odd.odd | odd}}
                     </td>
-                    <td *ngIf="odd.handicap === undefined || odd.handicap === null">
+                    <td *ngIf="odd.handicap === undefined || odd.handicap === null" style="padding-top: 2px; padding-bottom: 2px;">
                         {{odd.type}} {{odd.letter}}{{odd.odd | odd}}
                     </td>
                 </tr>
@@ -24,14 +24,15 @@
         <div class="form-group">
             <div class="input-group">
                 <input type="number" class="form-control" placeholder="Monto a Jugar" aria-label="Monto"
-                    style="height: 28px; font-size: 0.6rem;">
+                    style="height: 28px; font-size: 0.6rem;" [(ngModel)]="parlay.betAmount" (ngModelChange)="calculate()"
+                     name="betAmount">
                 <div class="input-group-append">
                     <button class="btn btn-sm btn-primary" type="button"><i
                             class="mdi mdi-play-circle"></i></button>
                 </div>
             </div>
             <div class="input-group">
-                <input type="text" class="form-control" placeholder="Monto a Ganar" aria-label="Monto"
+                <input type="number" class="form-control" placeholder="Monto a Ganar" aria-label="Monto" [(ngModel)]="parlay.winAmount" name="winAmount"
                     style="height: 28px; font-size: 0.6rem;" disabled>
             </div>
         </div>

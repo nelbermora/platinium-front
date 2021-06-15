@@ -1,3 +1,4 @@
+import { BetCalculatorService } from './bet-calculator.service';
 import { Match } from "./../models/match.model";
 import { OddParlay } from "./../models/odd-parlay.model";
 import { Parlay } from "./../models/parlay.model";
@@ -10,7 +11,7 @@ export class ParlayService {
   parlay: Parlay;
   i = 0;
 
-  constructor(){
+  constructor(public betCalculator: BetCalculatorService){
     this.parlay = {
         odds: []
     };
@@ -130,6 +131,7 @@ export class ParlayService {
           }
         }
         this.parlay.odds.push(newOdd);
+        this.betCalculator.calculate(this.parlay);
         this.parlayEmit.emit(this.parlay);
       }
     }
@@ -137,6 +139,7 @@ export class ParlayService {
 
   delete(position: number) {
     this.parlay.odds.splice(position,1);
+    this.betCalculator.calculate(this.parlay);
   }
 
   save() {}
