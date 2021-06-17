@@ -30,7 +30,7 @@ export class BaseballComponent implements OnInit {
 
   select(team: TeamOdd, betType: string, match: Match){
     if(this.isOddValid(team,betType,match)){
-      this.parlaySvc.add(team, betType, match);
+      this.parlaySvc.add(team, betType, match, "Baseball");
     }    
   }
 

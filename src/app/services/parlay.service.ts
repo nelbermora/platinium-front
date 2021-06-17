@@ -4,6 +4,7 @@ import { OddParlay } from "./../models/odd-parlay.model";
 import { Parlay } from "./../models/parlay.model";
 import { EventEmitter, Injectable } from "@angular/core";
 import { TeamOdd } from "../models/team-odd.model";
+import Swal from 'sweetalert2';
 
 @Injectable()
 export class ParlayService {
@@ -17,13 +18,13 @@ export class ParlayService {
     };
   }
 
-  add(team: TeamOdd, betType: string, match: Match) {
+  add(team: TeamOdd, betType: string, match: Match, sport: string) {
     let idExists = this.exists(team, betType, match);
     if (idExists > -1) {
       this.delete(idExists);
     } else {
-      if (this.canExists(team, betType, match)) {
-        let newOdd: OddParlay = {};
+      if (this.canExists(team, betType, match, sport)) {
+        let newOdd: OddParlay = {sport: sport};
         switch (betType) {
           case "win": {
             newOdd.type = this.getBetName(betType);
@@ -144,8 +145,86 @@ export class ParlayService {
 
   save() {}
 
-  canExists(team: TeamOdd, betType: string, match: Match) {
-    return true;
+  canExists(team: TeamOdd, betType: string, match: Match, sport: string) {
+    console.log(sport);
+    console.log(this.parlay);
+    let can = true;
+    this.parlay.odds.forEach(element => {
+      if(element.matchId === match.oid){
+        if(sport === "Soccer"){
+          can = false;
+        }else if(sport === "Basketball"){
+          if(element.type === "Ganar" || element.type === "Ganar 1er Mitad"){
+            if(this.getBetName(betType) !== "Alta/Baja" && this.getBetName(betType) !== "Alta/Baja 1er Mitad"){
+              can = false;
+            }
+          }
+
+          if(element.type === "Alta/Baja" || element.type === "Alta/Baja 1er Mitad"){
+            if(this.getBetName(betType) !== "Ganar" && this.getBetName(betType) !== "Ganar 1er Mitad"){
+              can = false;
+            }
+          }
+
+          if(element.type === "RunLine" || element.type === "RunLine 1er Mitad"){
+            if(this.getBetName(betType) !== "Alta/Baja" && this.getBetName(betType) !== "Alta/Baja 1er Mitad"){
+              can = false;
+            }
+          }
+          
+        }else if(sport === "Baseball"){
+          if(element.type === "Ganar" || element.type === "Ganar 1er Mitad"){
+            if(this.getBetName(betType) !== "Alta/Baja" && this.getBetName(betType) !== "Alta/Baja 1er Mitad"
+              && this.getBetName(betType) !== "Si" && this.getBetName(betType) !== "No"
+              && this.getBetName(betType) !== "Anota Primero" && this.getBetName(betType) !== "Total Hits"
+            ){
+              can = false;
+            }
+          }
+
+          if(element.type === "Alta/Baja" || element.type === "Alta/Baja 1er Mitad"){
+            if(this.getBetName(betType) !== "Ganar" && this.getBetName(betType) !== "Ganar 1er Mitad"
+               && this.getBetName(betType) !== "Si" && this.getBetName(betType) !== "No"){
+              can = false;
+            }
+          }
+
+          if(element.type === "RunLine" || element.type === "RunLine 1er Mitad"){
+            if(this.getBetName(betType) !== "Si" && this.getBetName(betType) !== "No"){
+              can = false;
+            }
+          }
+
+          if(element.type === "Anota Primero"){
+            if(this.getBetName(betType) !== "Si" && this.getBetName(betType) !== "No"){
+              can = false;
+            }
+          }
+
+          if(element.type === "Total Hits"){
+            if(this.getBetName(betType) !== "Ganar" && this.getBetName(betType) !== "Ganar 1er Mitad"){
+              can = false;
+            }
+          }
+          
+        }        
+      }
+    });
+    if(!can){
+      Swal.fire({
+        icon: 'warning',
+        title: 'Alerta...',
+        text: 'Combinación inválida!',
+        footer: 'Intenta otras combinaciones. Buena suerte!'
+      })
+    }
+    return can;
+  }
+
+  existsMatch(match: Match){
+    let exists = false;
+    
+    return exists;
   }
 
   exists(team: TeamOdd, betType: string, match: Match) {
