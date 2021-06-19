@@ -146,8 +146,6 @@ export class ParlayService {
   save() {}
 
   canExists(team: TeamOdd, betType: string, match: Match, sport: string) {
-    console.log(sport);
-    console.log(this.parlay);
     let can = true;
     this.parlay.odds.forEach(element => {
       if(element.matchId === match.oid){
@@ -196,13 +194,18 @@ export class ParlayService {
           }
 
           if(element.type === "Anota Primero"){
-            if(this.getBetName(betType) !== "Si" && this.getBetName(betType) !== "No"){
+            if(this.getBetName(betType) !== "Si" && this.getBetName(betType) !== "No"
+            && this.getBetName(betType) !== "Alta/Baja" && this.getBetName(betType) !== "Alta/Baja 1er Mitad"
+            && this.getBetName(betType) !== "RunLine" && this.getBetName(betType) !== "RunLine 1er Mitad"){
               can = false;
             }
           }
 
           if(element.type === "Total Hits"){
-            if(this.getBetName(betType) !== "Ganar" && this.getBetName(betType) !== "Ganar 1er Mitad"){
+            if(this.getBetName(betType) !== "Ganar" && this.getBetName(betType) !== "Ganar 1er Mitad"
+            && this.getBetName(betType) !== "RunLine" && this.getBetName(betType) !== "RunLine 1er Mitad"
+            && this.getBetName(betType) !== "Anota Primero" && this.getBetName(betType) !== "No"
+            && this.getBetName(betType) !== "Si"){
               can = false;
             }
           }

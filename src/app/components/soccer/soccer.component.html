@@ -1,5 +1,10 @@
 <ngb-accordion class="accordion" [closeOthers]="true" [activeIds]="activeIds">
-  <ngb-panel id="panel-{{i}}" [title]="league.name" *ngFor="let league of sport.leagues; index as i">
+  <ngb-panel id="panel-{{i}}" *ngFor="let league of sport.leagues; index as i">
+    <ng-template ngbPanelTitle>
+      {{league.name}}
+      <i *ngIf="league.country=== 'world'"  class="ti-world"></i>      
+      <i *ngIf="league.country!== 'world'" class="flag-icon flag-icon-{{league.country}}" title="ad" id="ad"></i>
+    </ng-template>
     <ng-template ngbPanelContent>
       <div class="card" *ngIf="league.matches.length > 0">
         <div class="card-body">
