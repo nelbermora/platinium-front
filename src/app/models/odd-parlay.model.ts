@@ -3,6 +3,7 @@ export interface OddParlay{
     sport?: string,
     teamId?: number,
     teamName?: string,
+    teamPosition?: number,
     type?: string
     odd?: number,
     handicap?: number,

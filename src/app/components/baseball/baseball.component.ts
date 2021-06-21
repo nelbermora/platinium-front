@@ -100,7 +100,7 @@ export class BaseballComponent implements OnInit {
         break;
       }
       case "th": {
-        if (team.totalHits === 0 || team.totalHits === null || team.totalHits === undefined ){
+        if (team.totalHits === 0 || team.totalHits === null || team.totalHits === undefined || team.thHandicap === 0 ){
           valid = false;
         }
         break;

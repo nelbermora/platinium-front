@@ -24,7 +24,10 @@ export class ParlayService {
       this.delete(idExists);
     } else {
       if (this.canExists(team, betType, match, sport)) {
-        let newOdd: OddParlay = {sport: sport};
+        let newOdd: OddParlay = {
+          sport: sport,
+          teamPosition: team.position
+        };
         switch (betType) {
           case "win": {
             newOdd.type = this.getBetName(betType);
@@ -159,7 +162,8 @@ export class ParlayService {
           }
 
           if(element.type === "Alta/Baja" || element.type === "Alta/Baja 1er Mitad"){
-            if(this.getBetName(betType) !== "Ganar" && this.getBetName(betType) !== "Ganar 1er Mitad"){
+            if(this.getBetName(betType) !== "Ganar" && this.getBetName(betType) !== "Ganar 1er Mitad"
+             && this.getBetName(betType) !== "RunLine" && this.getBetName(betType) !== "RunLine 1er Mitad"){
               can = false;
             }
           }
@@ -172,44 +176,102 @@ export class ParlayService {
           
         }else if(sport === "Baseball"){
           if(element.type === "Ganar" || element.type === "Ganar 1er Mitad"){
-            if(this.getBetName(betType) !== "Alta/Baja" && this.getBetName(betType) !== "Alta/Baja 1er Mitad"
+            if(this.getBetName(betType) === "Anota Primero"){
+              if(element.teamPosition === team.position){
+                can = false;
+              }
+            }else{
+              if(this.getBetName(betType) !== "Alta/Baja" && this.getBetName(betType) !== "Alta/Baja 1er Mitad"
               && this.getBetName(betType) !== "Si" && this.getBetName(betType) !== "No"
-              && this.getBetName(betType) !== "Anota Primero" && this.getBetName(betType) !== "Total Hits"
-            ){
-              can = false;
-            }
+              && this.getBetName(betType) !== "Total Hits"
+              ){
+                can = false;
+              }
+            }            
           }
 
-          if(element.type === "Alta/Baja" || element.type === "Alta/Baja 1er Mitad"){
+          if(element.type === "Alta/Baja"){
             if(this.getBetName(betType) !== "Ganar" && this.getBetName(betType) !== "Ganar 1er Mitad"
                && this.getBetName(betType) !== "Si" && this.getBetName(betType) !== "No"){
               can = false;
             }
           }
 
+          if(element.type === "Alta/Baja 1er Mitad"){
+            if(this.getBetName(betType) !== "Ganar" && this.getBetName(betType) !== "Ganar 1er Mitad"
+               && this.getBetName(betType) !== "Si" && this.getBetName(betType) !== "No"
+               && this.getBetName(betType) !== "RunLine" && this.getBetName(betType) !== "RunLine 1er Mitad"){
+              can = false;
+            }
+          }
+
           if(element.type === "RunLine" || element.type === "RunLine 1er Mitad"){
-            if(this.getBetName(betType) !== "Si" && this.getBetName(betType) !== "No"){
+            if(this.getBetName(betType) !== "Si" && this.getBetName(betType) !== "No"
+            && this.getBetName(betType) !== "Alta/Baja 1er Mitad"){
               can = false;
             }
           }
 
           if(element.type === "Anota Primero"){
-            if(this.getBetName(betType) !== "Si" && this.getBetName(betType) !== "No"
-            && this.getBetName(betType) !== "Alta/Baja" && this.getBetName(betType) !== "Alta/Baja 1er Mitad"
-            && this.getBetName(betType) !== "RunLine" && this.getBetName(betType) !== "RunLine 1er Mitad"){
-              can = false;
-            }
+            if(this.getBetName(betType) === "Ganar"){
+              if(element.teamPosition === team.position){
+                can = false;
+              }
+            }else{
+              if(this.getBetName(betType) !== "Si" && this.getBetName(betType) !== "No"
+              && this.getBetName(betType) !== "Alta/Baja" && this.getBetName(betType) !== "Alta/Baja 1er Mitad"
+              && this.getBetName(betType) !== "RunLine" && this.getBetName(betType) !== "RunLine 1er Mitad"
+              && this.getBetName(betType) !== "Total Hits"){
+                can = false;
+              }
+            }            
           }
 
           if(element.type === "Total Hits"){
-            if(this.getBetName(betType) !== "Ganar" && this.getBetName(betType) !== "Ganar 1er Mitad"
-            && this.getBetName(betType) !== "RunLine" && this.getBetName(betType) !== "RunLine 1er Mitad"
-            && this.getBetName(betType) !== "Anota Primero" && this.getBetName(betType) !== "No"
-            && this.getBetName(betType) !== "Si"){
-              can = false;
-            }
+            if(element.letter === "A"){
+              if(this.getBetName(betType) !== "Ganar" && this.getBetName(betType) !== "Ganar 1er Mitad"
+              && this.getBetName(betType) !== "RunLine" && this.getBetName(betType) !== "RunLine 1er Mitad"
+              && this.getBetName(betType) !== "Anota Primero" && this.getBetName(betType) !== "No"){
+                can = false;
+              }
+            }else{
+              if(this.getBetName(betType) !== "Ganar" && this.getBetName(betType) !== "Ganar 1er Mitad"
+              && this.getBetName(betType) !== "RunLine" && this.getBetName(betType) !== "RunLine 1er Mitad"
+              && this.getBetName(betType) !== "Anota Primero" && this.getBetName(betType) !== "Si"){
+                can = false;
+              }
+            }            
           }
           
+          if(element.type === "Si"){
+            if(this.getBetName(betType) === "Total Hits"){
+              if(team.thLetter !== "B"){
+                can = false;
+              }
+            }else{
+              if(this.getBetName(betType) !== "Ganar" && this.getBetName(betType) !== "Ganar 1er Mitad"
+              && this.getBetName(betType) !== "RunLine" && this.getBetName(betType) !== "RunLine 1er Mitad"
+              && this.getBetName(betType) !== "Alta/Baja" && this.getBetName(betType) !== "Alta/Baja 1er Mitad"
+              && this.getBetName(betType) !== "Anota Primero"){
+                can = false;
+              }              
+            }            
+          }
+
+          if(element.type === "No"){
+            if(this.getBetName(betType) === "Total Hits"){
+              if(team.thLetter !== "A"){
+                can = false;
+              }
+            }else{
+              if(this.getBetName(betType) !== "Ganar" && this.getBetName(betType) !== "Ganar 1er Mitad"
+              && this.getBetName(betType) !== "RunLine" && this.getBetName(betType) !== "RunLine 1er Mitad"
+              && this.getBetName(betType) !== "Alta/Baja" && this.getBetName(betType) !== "Alta/Baja 1er Mitad"
+              && this.getBetName(betType) !== "Anota Primero"){
+                can = false;
+              }              
+            }
+          }
         }        
       }
     });
