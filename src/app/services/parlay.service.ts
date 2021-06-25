@@ -1,3 +1,5 @@
+import { AuthService } from './auth.service';
+import { HttpClient } from '@angular/common/http';
 import { BetCalculatorService } from './bet-calculator.service';
 import { Match } from "./../models/match.model";
 import { OddParlay } from "./../models/odd-parlay.model";
@@ -5,17 +7,26 @@ import { Parlay } from "./../models/parlay.model";
 import { EventEmitter, Injectable } from "@angular/core";
 import { TeamOdd } from "../models/team-odd.model";
 import Swal from 'sweetalert2';
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class ParlayService {
+  url: string = '';
   parlayEmit = new EventEmitter<Parlay>();
   parlay: Parlay;
   i = 0;
 
-  constructor(public betCalculator: BetCalculatorService){
+  constructor(public betCalculator: BetCalculatorService, private http: HttpClient,
+    private authSvc: AuthService){
     this.parlay = {
+        userId: this.authSvc.idUser,
         odds: []
     };
+    if(environment.production){
+      this.url = "https://platiniumsport.com/pservices/be/parlay";
+    }else{
+      this.url = "http://localhost/pservices/be/parlay";
+    }
   }
 
   add(team: TeamOdd, betType: string, match: Match, sport: string) {
@@ -26,19 +37,19 @@ export class ParlayService {
       if (this.canExists(team, betType, match, sport)) {
         let newOdd: OddParlay = {
           sport: sport,
-          teamPosition: team.position
+          teamPosition: team.position,
+          matchId: match.id,
+          matchOid: match.oid
         };
         switch (betType) {
           case "win": {
             newOdd.type = this.getBetName(betType);
-            newOdd.matchId = match.oid;
             newOdd.teamName = team.team.name;
             newOdd.teamId = team.oid_team
             newOdd.odd = team.win;
             break;
           }
           case "rl": {
-            newOdd.matchId = match.oid;
             newOdd.teamId = team.oid_team
             newOdd.teamName = team.team.name;
             newOdd.handicap = team.rlHandicap;
@@ -47,7 +58,6 @@ export class ParlayService {
             break;
           }
           case "ou": {
-            newOdd.matchId = match.oid;
             newOdd.teamId = team.oid_team
             newOdd.teamName = team.team.name;
             newOdd.type = this.getBetName(betType);
@@ -57,7 +67,6 @@ export class ParlayService {
             break;
           }
           case "win5": {
-            newOdd.matchId = match.oid;
             newOdd.teamId = team.oid_team
             newOdd.teamName = team.team.name;
             newOdd.type = this.getBetName(betType);
@@ -65,7 +74,6 @@ export class ParlayService {
             break;
           }
           case "rl5": {
-            newOdd.matchId = match.oid;
             newOdd.teamId = team.oid_team
             newOdd.teamName = team.team.name;
             newOdd.type = this.getBetName(betType);
@@ -74,7 +82,6 @@ export class ParlayService {
             break;
           }
           case "ou5": {
-            newOdd.matchId = match.oid;
             newOdd.teamId = team.oid_team
             newOdd.teamName = team.team.name;
             newOdd.type = this.getBetName(betType);
@@ -84,7 +91,6 @@ export class ParlayService {
             break;
           }
           case "sf": {
-            newOdd.matchId = match.oid;
             newOdd.teamId = team.oid_team
             newOdd.teamName = team.team.name;
             newOdd.type = this.getBetName(betType);
@@ -92,7 +98,6 @@ export class ParlayService {
             break;
           }
           case "fiy": {
-            newOdd.matchId = match.oid;
             newOdd.teamId = team.oid_team
             newOdd.teamName = team.team.name;
             newOdd.type = this.getBetName(betType);
@@ -100,7 +105,6 @@ export class ParlayService {
             break;
           }
           case "fin": {
-            newOdd.matchId = match.oid;
             newOdd.teamId = team.oid_team
             newOdd.teamName = team.team.name;
             newOdd.type = this.getBetName(betType);
@@ -108,7 +112,6 @@ export class ParlayService {
             break;
           }
           case "th": {
-            newOdd.matchId = match.oid;
             newOdd.teamId = team.oid_team
             newOdd.teamName = team.team.name;
             newOdd.type = this.getBetName(betType);
@@ -118,7 +121,6 @@ export class ParlayService {
             break;
           }
           case "tie": {
-            newOdd.matchId = match.oid;
             newOdd.teamId = team.oid_team
             newOdd.teamName = team.team.name;
             newOdd.type = this.getBetName(betType);
@@ -126,7 +128,6 @@ export class ParlayService {
             break;
           }
           case "tie5": {
-            newOdd.matchId = match.oid;
             newOdd.teamId = team.oid_team
             newOdd.teamName = team.team.name;
             newOdd.type = this.getBetName(betType);
@@ -146,12 +147,14 @@ export class ParlayService {
     this.betCalculator.calculate(this.parlay);
   }
 
-  save() {}
+  save(){
+    return this.http.post<Parlay>(this.url, this.parlay);
+  }
 
   canExists(team: TeamOdd, betType: string, match: Match, sport: string) {
     let can = true;
     this.parlay.odds.forEach(element => {
-      if(element.matchId === match.oid){
+      if(element.matchOid === match.oid){
         if(sport === "Soccer"){
           can = false;
         }else if(sport === "Basketball"){
@@ -286,17 +289,11 @@ export class ParlayService {
     return can;
   }
 
-  existsMatch(match: Match){
-    let exists = false;
-    
-    return exists;
-  }
-
   exists(team: TeamOdd, betType: string, match: Match) {
     let position = -1;
     this.parlay.odds.forEach((element, index) => {
         if(element.teamId === team.oid_team
-            && element.matchId === team.oid_match
+            && element.matchOid === team.oid_match
             && element.type === this.getBetName(betType)){
                 position = index;
             }
@@ -357,5 +354,13 @@ export class ParlayService {
         }
       }
       return type;
+  }
+
+  clearParley(){
+    this.parlay = {
+      userId: this.authSvc.idUser,
+      odds: []
+    };
+    this.parlayEmit.emit(this.parlay);
   }
 }

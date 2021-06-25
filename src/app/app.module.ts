@@ -127,6 +127,7 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BasketballComponent } from './components/basketball/basketball.component';
 import { SoccerComponent } from './components/soccer/soccer.component';
 import { ParlayService } from './services/parlay.service';
+import { MyBetsComponent } from './components/my-bets/my-bets.component';
 
 registerLocaleData(localeEsAr, 'es-Ar');
 
@@ -215,7 +216,8 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
     OddsPipe,
     DateArPipe,
     BasketballComponent,
-    SoccerComponent
+    SoccerComponent,
+    MyBetsComponent
   ],
   imports: [
     BrowserModule,

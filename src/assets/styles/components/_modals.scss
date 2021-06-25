@@ -5,7 +5,7 @@
     margin-top: 100px;
     .modal-content{
       .modal-header{
-        padding: $modal-header-padding-y $modal-header-padding-x;
+        padding: 10px 10px;
         .close{
           span{
             font-size: 20px;
@@ -16,6 +16,12 @@
       }
       .modal-body{
         padding: $modal-body-padding-y $modal-body-padding-x;
+      }
+      .modal-body-receipt{
+        padding: 1px 1px;
+        background-color: white;
+        color: black;
+        font-size: small;
       }
       .modal-footer{
         padding: $modal-footer-padding-y $modal-footer-padding-x;

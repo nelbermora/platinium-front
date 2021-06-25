@@ -1,4 +1,4 @@
-<nav *ngIf="isLogged" class="sidebar sidebar-offcanvas" id="sidebar">
+<nav class="sidebar sidebar-offcanvas" id="sidebar" *ngIf="(isLoggedIn$ | async)">
   <ul class="nav">
     <li class="nav-item" [ngClass]="{ 'active': dashboard.isActive }">
       <a class="nav-link" routerLink="/dashboard" routerLinkActive #dashboard="routerLinkActive">
@@ -27,6 +27,12 @@
           <li class="nav-item"> <a class="nav-link" routerLink="/bets" routerLinkActive="active" #tennis="routerLinkActive">Tennis</a></li>                    
         </ul>
       </div>
+    </li>
+    <li class="nav-item" [ngClass]="{'active': mybets.isActive}">
+      <a class="nav-link" routerLink="/mybets" routerLinkActive #mybets="routerLinkActive">
+        <i class="ti-control-play menu-icon"></i>
+        <span class="menu-title">Jugadas Activas</span>
+      </a>
     </li>
     <li class="nav-item" [ngClass]="{'active': profile.isActive}">
       <a class="nav-link" routerLink="/profile" routerLinkActive #profile="routerLinkActive">

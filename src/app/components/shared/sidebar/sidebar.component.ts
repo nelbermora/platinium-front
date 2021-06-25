@@ -1,5 +1,6 @@
 import { AuthService } from './../../../services/auth.service';
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-sidebar',
@@ -20,14 +21,12 @@ export class SidebarComponent implements OnInit {
   public errorCollapsed = false;
   public generalPagesCollapsed = false;
   public eCommerceCollapsed = false;
-  isLogged: boolean = false;
-
+  
+  isLoggedIn$: Observable<boolean>;
   constructor(private authSvc: AuthService) { }
 
   ngOnInit() {
-    this.authSvc.isLogged.subscribe(
-      resp => (this.isLogged = resp)
-    )
+    this.isLoggedIn$ = this.authSvc.isLoggedIn;
     const body = document.querySelector('body');
 
     // add class 'hover-open' to sidebar navitem while hover in sidebar-icon-only menu

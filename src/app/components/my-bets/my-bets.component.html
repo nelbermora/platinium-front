@@ -1,0 +1,105 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <form class="form-inline">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input class="form-control" placeholder="yyyy-mm-dd" name="dp">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary calendar" type="button"></button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <ngb-accordion class="accordion-bets accordion-bordered" [closeOthers]="false"
+                    style="margin-left: 0px !important; margin-right: 0px !important;">
+                    <ngb-panel id="panel-1" style="margin-left: 0px !important; margin-right: 0px !important;">
+                        <ng-template ngbPanelTitle>
+                            <div class="row">
+                                <div class="col-6">
+                                    21/06/2021
+                                </div>
+                                <div class="col-6">
+                                    <div class="badge badge-warning">En Juego</div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    Jugado: 500
+                                </div>
+                                <div class="col-6">
+                                    A Ganar: 500
+                                </div>
+                            </div>
+
+                        </ng-template>
+                        <ng-template ngbPanelContent>
+                            <p class="mb-0">You can pay for the product you have purchased using credit cards, debit
+                                cards, or via
+                                online banking. We also provide cash-on-delivery services for most of our products. You
+                                can also use
+                                your account wallet for payment. </p>
+                        </ng-template>
+                    </ngb-panel>
+                    <ngb-panel id="panel-2" style="margin-left: 0px !important; margin-right: 0px !important;">
+                        <ng-template ngbPanelTitle>
+                            <div class="row">
+                                <div class="col-6">
+                                    21/06/2021
+                                </div>
+                                <div class="col-6">
+                                    <div class="badge badge-success">Ganó!</div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    Jugado: 500
+                                </div>
+                                <div class="col-6">
+                                    A Ganar: 500
+                                </div>
+                            </div>
+
+                        </ng-template>
+                        <ng-template ngbPanelContent>
+                            <p class="mb-0">You can pay for the product you have purchased using credit cards, debit
+                                cards, or via
+                                online banking. We also provide cash-on-delivery services for most of our products. You
+                                can also use
+                                your account wallet for payment. </p>
+                        </ng-template>
+                    </ngb-panel>
+                    <ngb-panel id="panel-3" style="margin-left: 0px !important; margin-right: 0px !important;">
+                        <ng-template ngbPanelTitle>
+                            <div class="row">
+                                <div class="col-6">
+                                    21/06/2021
+                                </div>
+                                <div class="col-6">
+                                    <div class="badge badge-danger">Perdió</div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    Jugado: 500
+                                </div>
+                                <div class="col-6">
+                                    A Ganar: 500
+                                </div>
+                            </div>
+
+                        </ng-template>
+                        <ng-template ngbPanelContent>
+                            <p class="mb-0">You can pay for the product you have purchased using credit cards, debit
+                                cards, or via
+                                online banking. We also provide cash-on-delivery services for most of our products. You
+                                can also use
+                                your account wallet for payment. </p>
+                        </ng-template>
+                    </ngb-panel>
+                </ngb-accordion>
+            </div>
+        </div>
+    </div>
+</div>

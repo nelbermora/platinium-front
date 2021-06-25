@@ -31,7 +31,7 @@ excluded = 'https://api.ipify.org?format=json';
     }
 
     return next.handle(request).pipe(
-      retry(10),
+      retry(3),
       catchError((err: HttpErrorResponse) => {
 
         if (err.status === 401) {

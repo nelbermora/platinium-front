@@ -1,3 +1,4 @@
+import { MyBetsComponent } from './components/my-bets/my-bets.component';
 import { SoccerComponent } from './components/soccer/soccer.component';
 import { BasketballComponent } from './components/basketball/basketball.component';
 import { BaseballComponent } from './components/baseball/baseball.component';
@@ -73,7 +74,7 @@ import { ValidationComponent } from './components/forms/validation/validation.co
 import { AuthGuardian } from './guards/auth-guard';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+  { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
   { path: 'dashboard', canActivate: [AuthGuardian], component: DashboardComponent },
   { path: 'bets', canActivate: [AuthGuardian], component: BetsComponent },
   { path: 'terms', canActivate: [AuthGuardian], component: TermsComponent },
@@ -87,6 +88,7 @@ const routes: Routes = [
   { path: 'baseball', canActivate: [AuthGuardian], component: BaseballComponent },
   { path: 'basketball', canActivate: [AuthGuardian], component: BasketballComponent },
   { path: 'soccer', canActivate: [AuthGuardian], component: SoccerComponent },
+  { path: 'mybets', canActivate: [AuthGuardian], component: MyBetsComponent },
   { path: 'widgets', component: WidgetsComponent },
   { path: 'accordions', component: AccordionsComponent },
   { path: 'buttons', component: ButtonsComponent },

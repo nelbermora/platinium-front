@@ -24,9 +24,11 @@ export class Login2Component implements OnInit {
     this.loading = true;
     this.authSvc.login(this.email, this.password).subscribe(
       (resp : any)=> {
+        this.authSvc.idUser = resp.idUser;
+        this.authSvc.activeUser = this.email;
+        this.authSvc.isLogged.emit(true);
         this.loading = false;
         localStorage.setItem('token',resp.token);
-        this.authSvc.isLogged.emit(true);
         this.router.navigate(['/dashboard']);
       },
       error => {
