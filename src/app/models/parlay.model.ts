@@ -6,4 +6,5 @@ export interface Parlay{
     betAmount?: number,
     winAmount?: number
     odds?: OddParlay[];
+    oid?: number;
 }

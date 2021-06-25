@@ -53,6 +53,7 @@ export class BetsComponent implements OnInit {
         if(resp.oid > 0){
           this.open();
           this.parlay.date = resp.date;
+          this.parlay.oid = resp.oid;
           this.loading = false;
         }        
       }

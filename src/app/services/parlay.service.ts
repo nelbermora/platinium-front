@@ -145,11 +145,7 @@ export class ParlayService {
   delete(position: number) {
     this.parlay.odds.splice(position,1);
     this.betCalculator.calculate(this.parlay);
-  }
-
-  save(){
-    return this.http.post<Parlay>(this.url, this.parlay);
-  }
+  }  
 
   canExists(team: TeamOdd, betType: string, match: Match, sport: string) {
     let can = true;
@@ -362,5 +358,13 @@ export class ParlayService {
       odds: []
     };
     this.parlayEmit.emit(this.parlay);
+  }
+
+  save(){
+    return this.http.post<Parlay>(this.url, this.parlay);
+  }
+
+  getParlays(){
+    return this.http.get<Parlay[]>(this.url + "?idUser=" + this.authSvc.idUser);
   }
 }
