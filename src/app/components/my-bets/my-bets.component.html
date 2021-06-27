@@ -21,7 +21,9 @@
                                     {{parlay.date | date: 'dd/MM/yyyy H:mm:ss'}}
                                 </div>
                                 <div class="col-6">
-                                    <div class="badge badge-warning">En Juego</div>
+                                    <div *ngIf="parlay.status === 'A'" class="badge badge-warning">En Juego</div>
+                                    <div *ngIf="parlay.status === 'W'" class="badge badge-success">Ganó!</div>
+                                    <div *ngIf="parlay.status === 'L'" class="badge badge-danger">Perdió</div>
                                 </div>
                             </div>
                             <div class="row">
@@ -39,6 +41,10 @@
                                 [ngClass]="{'table-wrapper-scroll-large': parlay.odds.length >2}">
                                 <tbody>
                                     <tr *ngFor="let odd of parlay.odds; index as i">
+                                        <td style="padding-top: 2px; padding-bottom: 2px;">
+                                            <i *ngIf="odd.status === 'L'" class="fa fa-times text-danger"></i>
+                                            <i *ngIf="odd.status === 'W'" class="fa fa-check-circle text-success"></i>
+                                        </td>
                                         <td style="padding-top: 2px; padding-bottom: 2px;">
                                             {{odd.teamName}}
                                         </td>
