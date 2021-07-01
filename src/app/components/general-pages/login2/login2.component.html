@@ -51,7 +51,7 @@
           </div>
           
           <div class="text-center mt-4 font-weight-light">
-            No posees una cuenta? <a routerLink="#" class="text-primary">Registrarme</a>
+            No posees una cuenta? <a class="auth-link text-primary" (click)="open()">Registrarme</a>
           </div>
         </form>
       </div>
@@ -60,3 +60,82 @@
     </div>
   </div>
 </div>
+<ng-template #content let-modal>
+  <div class="modal-header">
+      <p class="modal-title" id="modal-basic-title">Registro</p>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <span aria-hidden="true">&times;</span>
+      </button>
+  </div>
+  <div class="modal-body">
+    <form class="pt-3">
+      <div class="form-group">
+        <label>Email</label>
+        <div class="input-group">
+          <div class="input-group-prepend bg-transparent">
+            <span class="input-group-text bg-transparent border-right-0">
+              <i class="ti-email text-primary"></i>
+            </span>
+          </div>
+          <input type="email" class="form-control form-control-lg border-left-0" placeholder="Email"
+            [(ngModel)]="usuarioRegistro.correo"
+            name="email">                        
+        </div>
+      </div>
+      <p *ngIf="notEmail" class="auth-link text-danger">Email Requerido</p>
+      <p *ngIf="invalidMail" class="auth-link text-danger">Email Inválido</p>
+      <div class="form-group">
+        <label>Password</label>
+        <div class="input-group">
+          <div class="input-group-prepend bg-transparent">
+            <span class="input-group-text bg-transparent border-right-0">
+              <i class="ti-lock text-primary"></i>
+            </span>
+          </div>
+          <input type="password" class="form-control form-control-lg border-left-0" id="exampleInputPassword" placeholder="Password"
+            [(ngModel)]="usuarioRegistro.password"
+            name="password">                        
+        </div>
+      </div>
+      <p *ngIf="notPass" class="auth-link text-danger">Password Requerido</p>
+      <p *ngIf="invalidPass" class="auth-link text-danger">Su password debe contener al menos 6 caracteres</p>
+      <div class="form-group">
+        <label>Confirmar Password</label>
+        <div class="input-group">
+          <div class="input-group-prepend bg-transparent">
+            <span class="input-group-text bg-transparent border-right-0">
+              <i class="ti-lock text-primary"></i>
+            </span>
+          </div>
+          <input type="password" class="form-control form-control-lg border-left-0" id="confirmPassword" placeholder="Confirmar Password" [(ngModel)]="confirmPass"
+            name="confirmPassword">                                                
+        </div>
+      </div>
+      <p *ngIf="passNotMatch" class="auth-link text-danger">Passwords no coinciden</p>
+      <div class="form-group">
+        <label>País</label>
+        <select class="form-control form-control-lg" id="exampleFormControlSelect2" [(ngModel)]="usuarioRegistro.paisResidencia" name="pais">
+          <option *ngFor="let pais of paises" [ngValue]="pais">{{pais}}</option>
+        </select>
+      </div> 
+      <p *ngIf="notCountry" class="auth-link text-danger">País Requerido</p>     
+      <div class="mb-4">
+        <div class="form-check">
+          <label class="form-check-label text-muted">
+            <input type="checkbox" class="form-check-input" [checked]="agree"
+            (change)="agree = !agree">
+            <i class="input-helper"></i>
+            Estoy de acuerdo con los términos, reglas y condiciones
+          </label>
+        </div>
+        <p *ngIf="disAgree" class="auth-link text-danger">Requerido</p>
+      </div>            
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button [disabled]="loading" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" (click)="register()">
+      <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+      Aceptar
+    </button>      
+  </div>
+</ng-template>

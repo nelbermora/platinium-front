@@ -44,6 +44,10 @@ export class AuthService {
     });
   }
 
+  register(user: User) {
+    return this.http.post<User>(this.url + "/register", user);
+  }
+
   get isLoggedIn() {
     return this.loggedIn.asObservable();
   }
