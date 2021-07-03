@@ -1,6 +1,7 @@
 export interface OddParlay{
     matchId?: number,
     matchOid?: number,
+    matchDate?: Date,
     sport?: string,
     teamId?: number,
     teamName?: string,

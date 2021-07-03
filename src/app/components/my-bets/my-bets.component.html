@@ -3,15 +3,61 @@
         <div class="card">
             <div class="card-body">
                 <form class="form-inline">
-                    <div class="form-group">
-                        <div class="input-group">
-                            <input class="form-control" placeholder="yyyy-mm-dd" name="dp">
-                            <div class="input-group-append">
-                                <button class="btn btn-outline-secondary calendar" type="button"></button>
-                            </div>
-                        </div>
+                    <div class="form-group hidden">
+                      <div class="input-group">
+                        <input name="datepicker"
+                               class="form-control"
+                               ngbDatepicker
+                               #datepicker="ngbDatepicker"
+                               [autoClose]="'outside'"
+                               (dateSelect)="onDateSelection($event)"
+                               [displayMonths]="1"
+                               [dayTemplate]="t"
+                               outsideDays="hidden"
+                               [startDate]="fromDate!"
+                               tabindex="-1"
+                               hidden>
+                        <ng-template #t let-date let-focused="focused">
+                          <span class="custom-day"
+                                [class.focused]="focused"
+                                [class.range]="isRange(date)"
+                                [class.faded]="isHovered(date) || isInside(date)"
+                                (mouseenter)="hoveredDate = date"
+                                (mouseleave)="hoveredDate = null">
+                            {{ date.day }}
+                          </span>
+                        </ng-template>
+                      </div>
                     </div>
+                    <div class="form-group">
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                            <button class="btn btn-outline-secondary calendar" (click)="datepicker.toggle()" type="button">
+                                <i class="ti-calendar"></i>
+                            </button>
+                        </div>
+                        <input #dpFromDate
+                               class="form-control" placeholder="dd-mm-yyyy"
+                               name="dpFromDate"
+                               [value]="dateShowed()"
+                               (input)="fromDate = validateInput(fromDate, dpFromDate.value)"
+                               style="font-size: 0.7rem;">
+                               <!--<input class="form-control" [value]="dateShowed()">-->
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary calendar" (click)="search()" type="button">
+                                <i class="ti-search"></i>
+                            </button>
+                        </div>
+                      </div>
+                    </div>                    
                 </form>
+                <div *ngIf="parlays === undefined || parlays.length === 0" class="card card-inverse-secondary mb-12">
+                    <div class="card-body">
+                        <p class="mb-12">
+                            No hay Parlays jugados en el periodo seleccionado.
+                        </p>
+                    </div>
+                </div>
                 <ngb-accordion class="accordion-bets accordion-bordered" [closeOthers]="false"
                     style="margin-left: 0px !important; margin-right: 0px !important;">
                     <ngb-panel id="panel-{{i}}" *ngFor="let parlay of parlays; index as i"style="margin-left: 0px !important; margin-right: 0px !important;">
@@ -100,6 +146,9 @@
         </div>
         <div class="row">
             <div class="col-12">Monto Jugado: {{parlay.betAmount | number:'1.2-2':'es-Ar'}}</div>
+        </div>
+        <div class="row" *ngIf="parlay.winAmountInicial !== undefined && parlay.winAmountInicial > 0">
+            <div class="col-12">Monto a Ganar Inicial: {{parlay.winAmountInicial | number:'1.2-2':'es-Ar'}}</div>
         </div>
         <hr style="margin-top: 5px;margin-bottom: 5px;"/>
         <div class="row">

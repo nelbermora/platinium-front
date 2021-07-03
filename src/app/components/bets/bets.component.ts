@@ -2,6 +2,7 @@ import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { ParlayService } from './../../services/parlay.service';
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { Parlay } from 'src/app/models/parlay.model';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-bets',
@@ -54,6 +55,14 @@ export class BetsComponent implements OnInit {
           this.open();
           this.parlay.date = resp.date;
           this.parlay.oid = resp.oid;
+          this.loading = false;
+        }else{
+          Swal.fire({
+            icon: 'error',
+            title: 'Jugada no guardada',
+            text: 'Uno de los juegos seleccionados ya inició',
+            footer: 'Carga una nueva jugada con logros vigentes'
+          });
           this.loading = false;
         }        
       }

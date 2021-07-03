@@ -39,7 +39,8 @@ export class ParlayService {
           sport: sport,
           teamPosition: team.position,
           matchId: match.id,
-          matchOid: match.oid
+          matchOid: match.oid,
+          matchDate: match.date
         };
         switch (betType) {
           case "win": {
@@ -212,7 +213,7 @@ export class ParlayService {
           }
 
           if(element.type === "Anota Primero"){
-            if(this.getBetName(betType) === "Ganar"){
+            if(this.getBetName(betType) === "Ganar" || this.getBetName(betType) === "Ganar 1er Mitad"){
               if(element.teamPosition === team.position){
                 can = false;
               }
@@ -364,7 +365,7 @@ export class ParlayService {
     return this.http.post<Parlay>(this.url, this.parlay);
   }
 
-  getParlays(){
-    return this.http.get<Parlay[]>(this.url + "?idUser=" + this.authSvc.idUser);
+  getParlays(desde: string, hasta: string){
+    return this.http.get<Parlay[]>(this.url + "?idUser=" + this.authSvc.idUser + "&desde=" + desde + "&hasta=" + hasta);
   }
 }

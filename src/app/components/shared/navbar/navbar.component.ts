@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
   providers: [NgbDropdownConfig]
 })
 export class NavbarComponent implements OnInit {
-  
+  user: string;
   public iconOnlyToggled = false;
   public sidebarToggled = false;  
   isLoggedIn$: Observable<boolean>;
@@ -38,6 +38,12 @@ export class NavbarComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.user = this.authSvc.activeUser;
+    this.authSvc.isLogged.subscribe(
+      resp => {
+        this.user = this.authSvc.activeUser;
+      }
+    );
     this.isLoggedIn$ = this.authSvc.isLoggedIn;
   }
 

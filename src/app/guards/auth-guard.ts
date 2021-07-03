@@ -17,8 +17,9 @@ export class AuthGuardian implements CanActivate{
         if(!this.isLogged){
             return this.authService.isAuthenticated().pipe(map((response: any) => {
                 if (response.idUser > 0) {
-                    this.authService.isLogged.emit(true);
                     this.authService.idUser = response.idUser;
+                    this.authService.activeUser = response.email;
+                    this.authService.isLogged.emit(true);
                     this.isLogged = true;
                     return true;
                 }

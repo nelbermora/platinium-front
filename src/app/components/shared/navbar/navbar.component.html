@@ -118,9 +118,13 @@
       </li>
       <li class="nav-item nav-profile dropdown" ngbDropdown>
         <a class="nav-link" href="javascript:;" ngbDropdownToggle>
-          <img src="assets/images/faces/face28.jpg" alt="profile"/>
+          <img src="assets/images/faces/user.png" alt="profile"/>
         </a>
         <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown" ngbDropdownMenu>
+          <a class="dropdown-item">
+            {{user}}
+          </a>
+          <hr style="border-top: 1px solid blanchedalmond;margin-top: 0px;margin-bottom: 0px;">
           <a class="dropdown-item">
             <i class="ti-settings text-primary"></i>
             Settings
