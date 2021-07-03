@@ -87,7 +87,11 @@ export class MyBetsComponent implements OnInit {
 
   search(){
     this.desde = this.fromDate.year + "-" + this.fromDate.month + "-" + this.fromDate.day;
-    this.hasta = this.toDate.year + "-" + this.toDate.month + "-" + this.toDate.day;
+    if(this.toDate === undefined || this.toDate === null){
+      this.hasta = this.fromDate.year + "-" + this.fromDate.month + "-" + this.fromDate.day;  
+    }else{
+      this.hasta = this.toDate.year + "-" + this.toDate.month + "-" + this.toDate.day;
+    }    
     this.ngOnInit();
   }
 
