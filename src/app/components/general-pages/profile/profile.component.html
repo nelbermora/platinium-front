@@ -5,41 +5,15 @@
         <div class="row">
           <div class="col-lg-4">
             <div class="border-bottom text-center pb-4">
-              <img src="assets/images/faces/face12.jpg" alt="profile" class="img-lg rounded-circle mb-3"/>
+              <img src="assets/images/faces/user.png" alt="profile" class="img-lg rounded-circle mb-3"/>
               <div class="mb-3">
-                <h3>David Grey. H</h3>
+                <h3>{{user.primerNombre}} {{user.primerApellido}}</h3>
                 <div class="d-flex align-items-center justify-content-center">
-                  <h5 class="mb-0 mr-2 text-muted">Canada</h5>
-                  <bar-rating [(rate)]="profileRate" [max]="5"></bar-rating>
+                  <h5 class="mb-0 mr-2 text-muted">{{user.paisResidencia}}</h5>
+                  <!--<bar-rating [(rate)]="profileRate" [max]="5"></bar-rating>-->
                 </div>
               </div>
-              <p class="w-75 mx-auto mb-3">Bureau Oberhaeuser is a design bureau focused on Information- and Interface Design. </p>
-              <div class="d-flex justify-content-center">
-                <button class="btn btn-success mr-1">Hire Me</button>
-                <button class="btn btn-success">Follow</button>
-              </div>
-            </div>
-            <div class="border-bottom py-4">
-              <p>Skills</p>
-              <div>
-                <label class="badge badge-outline-dark">Chalk</label>
-                <label class="badge badge-outline-dark">Hand lettering</label>
-                <label class="badge badge-outline-dark">Information Design</label>
-                <label class="badge badge-outline-dark">Graphic Design</label>
-                <label class="badge badge-outline-dark">Web Design</label>  
-              </div>                                                               
-            </div>
-            <div class="border-bottom py-4">
-              <div class="d-flex mb-3">
-                <div class="progress progress-md flex-grow">
-                  <div class="progress-bar bg-primary" role="progressbar" aria-valuenow="55" style="width: 55%" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-              </div>
-              <div class="d-flex">
-                <div class="progress progress-md flex-grow">
-                  <div class="progress-bar bg-success" role="progressbar" aria-valuenow="75" style="width: 75%" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-              </div>
+              <p class="w-75 mx-auto mb-3">Activo desde {{user.fechaRegistro | dateArSimple}}</p>
             </div>
             <div class="py-4">
               <p class="clearfix">
@@ -47,15 +21,15 @@
                   Status
                 </span>
                 <span class="float-right text-muted">
-                  Active
+                  Activo
                 </span>
               </p>
               <p class="clearfix">
                 <span class="float-left">
-                  Phone
+                  Telefono
                 </span>
                 <span class="float-right text-muted">
-                  006 3435 22
+                  {{user.telefono}}
                 </span>
               </p>
               <p class="clearfix">
@@ -63,39 +37,21 @@
                   Mail
                 </span>
                 <span class="float-right text-muted">
-                  Jacod@testmail.com
+                  {{user.correo}}
                 </span>
               </p>
-              <p class="clearfix">
+              <p class="clearfix" (click)="open()">
                 <span class="float-left">
-                  Facebook
-                </span>
-                <span class="float-right text-muted">
-                  <a href="javascript:void(0)">David Grey</a>
-                </span>
-              </p>
-              <p class="clearfix">
-                <span class="float-left">
-                  Twitter
-                </span>
-                <span class="float-right text-muted">
-                  <a href="javascript:void(0)">@davidgrey</a>
-                </span>
+                  <a href="javascript:(void)" class="text-primary clearfix">Cambiar Contraseña</a>
+                </span>                
               </p>
             </div>
-            <button class="btn btn-primary btn-block mb-2">Preview</button>
           </div>
           <div class="col-lg-8">
-            <div class="d-block d-md-flex justify-content-between mt-4 mt-md-0">
-              <div class="text-center mt-4 mt-md-0">
-                <button class="btn btn-outline-primary">Message</button>
-                <button class="btn btn-primary">Request</button>
-              </div>
-            </div>
             <div class="mt-4 py-2 border-top border-bottom">
-              <ul class="nav profile-navbar">
+              <!--<ul class="nav profile-navbar">
                 <li class="nav-item">
-                  <a class="nav-link" href="javascript:void(0)">
+                  <a class="nav-link" routerLink="/profile#info">
                     <i class="ti-user"></i>
                     Info
                   </a>
@@ -118,82 +74,123 @@
                     Resume
                   </a>
                 </li>
-              </ul>
+              </ul>-->
+              <ngb-tabset>
+                <ngb-tab title="Identificación">
+                  <ng-template ngbTabContent class="tab-pane fade" id="home-1" aria-labelledby="home-tab">
+                    <div class="form-group">
+                      <label>Nombre</label>
+                      <input type="text" class="form-control form-control-sm" placeholder="Username" aria-label="Username">
+                    </div>
+                    <div class="form-group">
+                      <label>Apellido</label>
+                      <input type="text" class="form-control form-control-sm" placeholder="Username" aria-label="Username">
+                    </div>
+                    <div class="form-group">
+                      <label>Correo</label>
+                      <input type="text" class="form-control form-control-sm" placeholder="Username" aria-label="Username">
+                    </div>
+                  </ng-template>
+                </ngb-tab>
+                <ngb-tab title="Perfil">
+                  <ng-template ngbTabContent class="tab-pane fade" id="profile-1" aria-labelledby="profile-tab">
+                    <div class="form-group">
+                      <label>Nro. Documento de Identidad</label>
+                      <input type="number" class="form-control form-control-sm" placeholder="Username" aria-label="Username">
+                    </div>
+                    <div class="form-group">
+                      <label>Fecha Nacimiento</label>
+                      <input type="date" class="form-control form-control-sm" placeholder="Username" aria-label="Username">
+                    </div>
+                    <div class="form-group">
+                      <label>Pais</label>
+                      <select class="form-control form-control-sm" id="exampleFormControlSelect2" [(ngModel)]="user.paisResidencia" name="pais">
+                        <option *ngFor="let pais of paises" [ngValue]="pais">{{pais}}</option>
+                      </select>
+                    </div> 
+                  </ng-template>
+                </ngb-tab>
+                <ngb-tab title="Bancarios">
+                  <ng-template ngbTabContent class="tab-pane fade" id="contact-1" aria-labelledby="contact-tab">
+                    <p>Datos requeridos para reclamar saldo de la billetera</p>
+                    <div class="form-group">
+                      <label>Cuenta bancaria</label>
+                      <input type="text" class="form-control form-control-sm" placeholder="Username" aria-label="Username">
+                    </div>
+                    <div class="form-group">
+                      <label>Banco</label>
+                      <input type="text" class="form-control form-control-sm" placeholder="Username" aria-label="Username">
+                    </div>
+                    <div class="form-group">
+                      <label>Moneda</label>
+                      <input type="text" class="form-control form-control-sm" placeholder="Username" aria-label="Username">
+                    </div>
+                  </ng-template>
+                </ngb-tab>
+              </ngb-tabset>
             </div>
-            <div class="profile-feed">
-              <div class="d-flex align-items-start profile-feed-item">
-                <img src="assets/images/faces/face13.jpg" alt="profile" class="img-sm rounded-circle"/>
-                <div class="ml-4">
-                  <h6>
-                    Mason Beck
-                    <small class="ml-4 text-muted"><i class="ti-time mr-1"></i>10 hours</small>
-                  </h6>
-                  <p>
-                    There is no better advertisement campaign that is low cost and also successful at the same time.
-                  </p>
-                  <p class="small text-muted mt-2 mb-0">
-                    <span>
-                      <i class="ti-star mr-1"></i>4
-                    </span>
-                    <span class="ml-2">
-                      <i class="ti-comment mr-1"></i>11
-                    </span>
-                    <span class="ml-2">
-                      <i class="ti-share"></i>
-                    </span>
-                  </p>
-                </div>
-              </div>
-              <div class="d-flex align-items-start profile-feed-item">
-                <img src="assets/images/faces/face16.jpg" alt="profile" class="img-sm rounded-circle"/>
-                <div class="ml-4">
-                  <h6>
-                    Willie Stanley
-                    <small class="ml-4 text-muted"><i class="ti-time mr-1"></i>10 hours</small>
-                  </h6>
-                  <img src="assets/images/samples/1280x768/12.jpg" alt="sample" class="rounded mw-100"/>                            
-                  <p class="small text-muted mt-2 mb-0">
-                    <span>
-                      <i class="ti-star mr-1"></i>4
-                    </span>
-                    <span class="ml-2">
-                      <i class="ti-comment mr-1"></i>11
-                    </span>
-                    <span class="ml-2">
-                      <i class="ti-share"></i>
-                    </span>
-                  </p>
-                </div>
-              </div>
-              <div class="d-flex align-items-start profile-feed-item">
-                <img src="assets/images/faces/face19.jpg" alt="profile" class="img-sm rounded-circle"/>
-                <div class="ml-4">
-                  <h6>
-                    Dylan Silva
-                    <small class="ml-4 text-muted"><i class="ti-time mr-1"></i>10 hours</small>
-                  </h6>
-                  <p>
-                    When I first got into the online advertising business, I was looking for the magical combination 
-                    that would put my website into the top search engine rankings
-                  </p>
-                  <img src="assets/images/samples/1280x768/5.jpg" alt="sample" class="rounded mw-100"/>                                                        
-                  <p class="small text-muted mt-2 mb-0">
-                    <span>
-                      <i class="ti-star mr-1"></i>4
-                    </span>
-                    <span class="ml-2">
-                      <i class="ti-comment mr-1"></i>11
-                    </span>
-                    <span class="ml-2">
-                      <i class="ti-share"></i>
-                    </span>
-                  </p>
-                </div>
-              </div>
-            </div>
+            <button class="btn btn-outline-primary">Guardar</button>                
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
+<ng-template #content let-modal>
+  <div class="modal-header">
+      <p class="modal-title" id="modal-basic-title">Cambiar Contraseña</p>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <span aria-hidden="true">&times;</span>
+      </button>
+  </div>
+  <div class="modal-body">
+    <form class="pt-3">
+      <div class="form-group">
+        <label>Contraseña Actual</label>
+        <div class="input-group">
+          <div class="input-group-prepend bg-transparent">
+            <span class="input-group-text bg-transparent border-right-0">
+              <i class="ti-lock text-primary"></i>
+            </span>
+          </div>
+          <input type="password" class="form-control form-control-sm border-left-0" id="exampleInputPassword" placeholder="Password"
+            [(ngModel)]="user.password"
+            name="password">                        
+        </div>
+      </div>
+      <p *ngIf="notPass" class="auth-link text-danger">Contraseña Requerida</p>
+      <p *ngIf="invalidPass" class="auth-link text-danger">Su contraseña debe contener al menos 6 caracteres</p>
+      <div class="form-group">
+        <label>Nueva Contraseña</label>
+        <div class="input-group">
+          <div class="input-group-prepend bg-transparent">
+            <span class="input-group-text bg-transparent border-right-0">
+              <i class="ti-lock text-primary"></i>
+            </span>
+          </div>
+          <input type="password" class="form-control form-control-sm border-left-0" id="confirmPassword" placeholder="Confirmar Password"
+            name="confirmPassword">                                                
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Confirmar Contraseña</label>
+        <div class="input-group">
+          <div class="input-group-prepend bg-transparent">
+            <span class="input-group-text bg-transparent border-right-0">
+              <i class="ti-lock text-primary"></i>
+            </span>
+          </div>
+          <input type="password" class="form-control form-control-sm border-left-0" id="confirmPassword" placeholder="Confirmar Password"
+            name="confirmPassword">                                                
+        </div>
+      </div>
+      <p *ngIf="passNotMatch" class="auth-link text-danger">Contraseñas no coinciden</p>      
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button [disabled]="loading" class="btn btn-block btn-primary btn-sm font-weight-medium auth-form-btn">
+      <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+      Aceptar
+    </button>      
+  </div>
+</ng-template>

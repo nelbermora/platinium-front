@@ -19,7 +19,7 @@ export class ParlayService {
   constructor(public betCalculator: BetCalculatorService, private http: HttpClient,
     private authSvc: AuthService){
     this.parlay = {
-        userId: this.authSvc.idUser,
+        userId: this.authSvc.activeUser.id,
         odds: []
     };
     if(environment.production){
@@ -355,7 +355,7 @@ export class ParlayService {
 
   clearParley(){
     this.parlay = {
-      userId: this.authSvc.idUser,
+      userId: this.authSvc.activeUser.id,
       odds: []
     };
     this.parlayEmit.emit(this.parlay);
@@ -366,6 +366,6 @@ export class ParlayService {
   }
 
   getParlays(desde: string, hasta: string){
-    return this.http.get<Parlay[]>(this.url + "?idUser=" + this.authSvc.idUser + "&desde=" + desde + "&hasta=" + hasta);
+    return this.http.get<Parlay[]>(this.url + "?idUser=" + this.authSvc.activeUser.id + "&desde=" + desde + "&hasta=" + hasta);
   }
 }

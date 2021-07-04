@@ -1,3 +1,4 @@
+import { DateArSimplePipe } from './pipes/dateSimple.pipe';
 import { BetCalculatorService } from './services/bet-calculator.service';
 import { VersionService } from './services/version.service';
 import { OddsPipe } from './pipes/odds.pipe';
@@ -215,6 +216,7 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
     BaseballComponent,
     OddsPipe,
     DateArPipe,
+    DateArSimplePipe,
     BasketballComponent,
     SoccerComponent,
     MyBetsComponent

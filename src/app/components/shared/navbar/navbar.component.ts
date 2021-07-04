@@ -38,10 +38,10 @@ export class NavbarComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.user = this.authSvc.activeUser;
+    this.user = this.authSvc.activeUser.correo;
     this.authSvc.isLogged.subscribe(
       resp => {
-        this.user = this.authSvc.activeUser;
+        this.user = this.authSvc.activeUser.correo;
       }
     );
     this.isLoggedIn$ = this.authSvc.isLoggedIn;

@@ -9,8 +9,7 @@ import { BehaviorSubject } from "rxjs";
 
 @Injectable()
 export class AuthService {
-  activeUser: string = "";
-  idUser: number;
+  activeUser: User = {};
   private loggedIn = new BehaviorSubject<boolean>(false);
   url: string = "";
   isLogged = new EventEmitter<boolean>();

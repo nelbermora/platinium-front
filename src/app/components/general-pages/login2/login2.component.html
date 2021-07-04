@@ -20,7 +20,7 @@
             </div>
           </div>
           <div class="form-group">
-            <label for="exampleInputPassword">Password</label>
+            <label for="exampleInputPassword">Contraseña</label>
             <div class="input-group">
               <div class="input-group-prepend bg-transparent">
                 <span class="input-group-text bg-transparent border-right-0">
@@ -51,7 +51,7 @@
           </div>
           
           <div class="text-center mt-4 font-weight-light">
-            No posees una cuenta? <a class="auth-link text-primary" (click)="open()">Registrarme</a>
+            No poseo una cuenta? <a class="auth-link text-primary" (click)="open()">Registrarme</a>
           </div>
         </form>
       </div>
@@ -129,7 +129,8 @@
           </label>
         </div>
         <p *ngIf="disAgree" class="auth-link text-danger">Requerido</p>
-      </div>            
+      </div>
+      <p *ngIf="invalidRegistration" class="auth-link text-danger">Correo ya se encuentra en uso</p>            
     </form>
   </div>
   <div class="modal-footer">

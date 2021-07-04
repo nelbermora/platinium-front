@@ -11,5 +11,6 @@ export interface User{
     correo?: string,
     id?: number,
     type?: string,
-    password?: string
+    password?: string,
+    fechaRegistro?: string
 }

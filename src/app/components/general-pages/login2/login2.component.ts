@@ -73,8 +73,9 @@ export class Login2Component implements OnInit {
     this.loading = true;
     this.authSvc.login(this.email, this.password).subscribe(
       (resp : any)=> {
-        this.authSvc.idUser = resp.idUser;
-        this.authSvc.activeUser = this.email;
+        this.authSvc.activeUser = resp;
+        //this.authSvc.activeUser.correo = this.email;
+        //this.authSvc.activeUser.primerNombre = resp.id;
         this.authSvc.isLogged.emit(true);
         this.loading = false;
         localStorage.setItem('token',resp.token);
@@ -96,13 +97,19 @@ export class Login2Component implements OnInit {
       this.loading = true;
       this.authSvc.register(this.usuarioRegistro).subscribe(
         (resp : any)=> {
-          this.authSvc.idUser = resp.idUser;
-          this.authSvc.activeUser = this.email;
-          this.authSvc.isLogged.emit(true);
-          this.loading = false;
-          localStorage.setItem('token',resp.token);
-          this.modalService.dismissAll();
-          this.router.navigate(['/dashboard']);
+          if(resp.id !== undefined && resp.id !== null && resp.id > 0){
+            this.authSvc.activeUser = resp;
+            //this.authSvc.activeUser.id = resp;
+            //this.authSvc.activeUser.correo = this.email;
+            this.authSvc.isLogged.emit(true);
+            this.loading = false;
+            localStorage.setItem('token',resp.token);
+            this.modalService.dismissAll();
+            this.router.navigate(['/dashboard']);
+          }else{
+            this.loading = false;
+            this.invalidRegistration = true;
+          }          
         },
         error => {
           this.loading = false;

@@ -1,3 +1,4 @@
+import { User } from './../models/user.model';
 import { AuthService } from './../services/auth.service';
 import { Injectable } from "@angular/core";
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from "@angular/router";
@@ -16,9 +17,8 @@ export class AuthGuardian implements CanActivate{
     canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
         if(!this.isLogged){
             return this.authService.isAuthenticated().pipe(map((response: any) => {
-                if (response.idUser > 0) {
-                    this.authService.idUser = response.idUser;
-                    this.authService.activeUser = response.email;
+                if (response.id !== null && response.id !==undefined && response.id > 0) {
+                    this.authService.activeUser = response;
                     this.authService.isLogged.emit(true);
                     this.isLogged = true;
                     return true;
