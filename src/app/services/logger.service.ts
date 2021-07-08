@@ -26,7 +26,7 @@ export class LoggerService{
                 this.http.post(this.url, {
                     ip: resp.ip,
                     device: this.myDevice,
-                    usuario: this.authGdn.activeUser,
+                    usuario: this.authGdn.activeUser.correo,
                     componente: component,
                     referencia: reference,
                     descripcion: desc

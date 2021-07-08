@@ -1,3 +1,4 @@
+import { LoggerService } from './../../services/logger.service';
 import { ParlayService } from './../../services/parlay.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Match } from './../../models/match.model';
@@ -15,10 +16,12 @@ import { TeamOdd } from 'src/app/models/team-odd.model';
 export class BaseballComponent implements OnInit {
   sport: Sport= {};
   activeIds: string[] = ['panel-0'];
+  component = "BaseballOdds";
   constructor(private oddSvc: OddService, private spinner: NgxSpinnerService,
-    private parlaySvc: ParlayService) { }
+    private parlaySvc: ParlayService, private logger: LoggerService) { }
 
   ngOnInit(): void {
+    this.logger.log(this.component, 'Ingreso');
     this.spinner.show();
     this.oddSvc.getOdds("baseball").subscribe(
       resp => {

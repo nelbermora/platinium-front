@@ -1,3 +1,4 @@
+import { LoggerService } from './../../services/logger.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ParlayService } from './../../services/parlay.service';
 import { Parlay } from 'src/app/models/parlay.model';
@@ -19,9 +20,11 @@ export class MyBetsComponent implements OnInit {
   toDate: NgbDate | null;
   desde: string;
   hasta: string;
+  component = 'MyBets';
   constructor(private parlaySvc: ParlayService, private spinner: NgxSpinnerService,
-    private modalService: NgbModal, private calendar: NgbCalendar, public formatter: NgbDateParserFormatter) { 
-      this.fromDate = calendar.getToday();
+    private modalService: NgbModal, private calendar: NgbCalendar, public formatter: NgbDateParserFormatter,
+    private logger: LoggerService) { 
+      this.fromDate = calendar.getPrev(calendar.getToday(),'d',1);
       //this.toDate = calendar.getNext(calendar.getToday(), 'd', 10);
       this.toDate = calendar.getToday();
     }
@@ -32,6 +35,7 @@ export class MyBetsComponent implements OnInit {
       this.hasta = this.fromDate.year + "-" + this.fromDate.month + "-" + this.fromDate.day;
     }
     this.spinner.show();
+    this.logger.log(this.component, 'Ingreso', this.desde + "-" + this.hasta);
     this.parlaySvc.getParlays(this.desde,this.hasta).subscribe(
       resp=> {
         this.parlays = resp;

@@ -47,6 +47,14 @@ export class AuthService {
     return this.http.post<User>(this.url + "/register", user);
   }
 
+  update(user: User) {
+    return this.http.post<User>(this.url + "/user", user);
+  }
+
+  updatePass(user: User) {
+    return this.http.put<User>(this.url + "/user", user);
+  }
+
   get isLoggedIn() {
     return this.loggedIn.asObservable();
   }

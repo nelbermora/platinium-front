@@ -7,7 +7,8 @@
             <div class="border-bottom text-center pb-4">
               <img src="assets/images/faces/user.png" alt="profile" class="img-lg rounded-circle mb-3"/>
               <div class="mb-3">
-                <h3>{{user.primerNombre}} {{user.primerApellido}}</h3>
+                <h3 *ngIf="user.primerNombre!== null">{{user.primerNombre}} {{user.primerApellido}}</h3>
+                <h3 *ngIf="user.primerNombre === null || user.primerNombre === undefined || user.primerNombre === ''">[Actualizar Datos]</h3>
                 <div class="d-flex align-items-center justify-content-center">
                   <h5 class="mb-0 mr-2 text-muted">{{user.paisResidencia}}</h5>
                   <!--<bar-rating [(rate)]="profileRate" [max]="5"></bar-rating>-->
@@ -80,15 +81,18 @@
                   <ng-template ngbTabContent class="tab-pane fade" id="home-1" aria-labelledby="home-tab">
                     <div class="form-group">
                       <label>Nombre</label>
-                      <input type="text" class="form-control form-control-sm" placeholder="Username" aria-label="Username">
+                      <input type="text" class="form-control form-control-sm" placeholder="Nombre" aria-label="Nombre"
+                      [(ngModel)]="user.primerNombre" name="nombre">
                     </div>
                     <div class="form-group">
                       <label>Apellido</label>
-                      <input type="text" class="form-control form-control-sm" placeholder="Username" aria-label="Username">
+                      <input type="text" class="form-control form-control-sm" placeholder="Apellido" aria-label="Apellido"
+                      [(ngModel)]="user.primerApellido" name="apellido">
                     </div>
                     <div class="form-group">
-                      <label>Correo</label>
-                      <input type="text" class="form-control form-control-sm" placeholder="Username" aria-label="Username">
+                      <label>Telefono</label>
+                      <input type="number" class="form-control form-control-sm" placeholder="Telefono" aria-label="telefono" 
+                      [(ngModel)]="user.telefono" name="telefono">
                     </div>
                   </ng-template>
                 </ngb-tab>
@@ -96,15 +100,18 @@
                   <ng-template ngbTabContent class="tab-pane fade" id="profile-1" aria-labelledby="profile-tab">
                     <div class="form-group">
                       <label>Nro. Documento de Identidad</label>
-                      <input type="number" class="form-control form-control-sm" placeholder="Username" aria-label="Username">
+                      <input type="number" class="form-control form-control-sm" placeholder="Doc Identidad" aria-label="Doc Identidad"
+                      [(ngModel)]="user.documento" name="documento">
                     </div>
                     <div class="form-group">
                       <label>Fecha Nacimiento</label>
-                      <input type="date" class="form-control form-control-sm" placeholder="Username" aria-label="Username">
+                      <input type="date" class="form-control form-control-sm" placeholder="Fec. Nacimiento" aria-label="Fec. Nacimiento"
+                      [(ngModel)]="user.fechaNacimiento" name="nacimiento">
                     </div>
                     <div class="form-group">
                       <label>Pais</label>
-                      <select class="form-control form-control-sm" id="exampleFormControlSelect2" [(ngModel)]="user.paisResidencia" name="pais">
+                      <select class="form-control form-control-sm" id="exampleFormControlSelect2" [(ngModel)]="user.paisResidencia" name="pais"
+                        [compareWith]="compararPaises">
                         <option *ngFor="let pais of paises" [ngValue]="pais">{{pais}}</option>
                       </select>
                     </div> 
@@ -115,21 +122,26 @@
                     <p>Datos requeridos para reclamar saldo de la billetera</p>
                     <div class="form-group">
                       <label>Cuenta bancaria</label>
-                      <input type="text" class="form-control form-control-sm" placeholder="Username" aria-label="Username">
+                      <input type="text" class="form-control form-control-sm" placeholder="Numero Cuenta" aria-label="Numero Cuenta"
+                      [(ngModel)]="user.cuenta" name="cuenta">
                     </div>
                     <div class="form-group">
                       <label>Banco</label>
-                      <input type="text" class="form-control form-control-sm" placeholder="Username" aria-label="Username">
+                      <input type="text" class="form-control form-control-sm" placeholder="Banco" aria-label="Banco"
+                      [(ngModel)]="user.banco" name="banco">
                     </div>
                     <div class="form-group">
                       <label>Moneda</label>
-                      <input type="text" class="form-control form-control-sm" placeholder="Username" aria-label="Username">
+                      <input type="text" class="form-control form-control-sm" placeholder="Moneda" aria-label="Moneda"
+                      [(ngModel)]="user.moneda" name="moneda">
                     </div>
                   </ng-template>
                 </ngb-tab>
               </ngb-tabset>
             </div>
-            <button class="btn btn-outline-primary">Guardar</button>                
+            <button [disabled]="loading" class="btn btn-outline-primary" (click)="guardar()">Guardar
+              <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            </button>                
           </div>
         </div>
       </div>
@@ -159,7 +171,6 @@
         </div>
       </div>
       <p *ngIf="notPass" class="auth-link text-danger">Contraseña Requerida</p>
-      <p *ngIf="invalidPass" class="auth-link text-danger">Su contraseña debe contener al menos 6 caracteres</p>
       <div class="form-group">
         <label>Nueva Contraseña</label>
         <div class="input-group">
@@ -168,10 +179,11 @@
               <i class="ti-lock text-primary"></i>
             </span>
           </div>
-          <input type="password" class="form-control form-control-sm border-left-0" id="confirmPassword" placeholder="Confirmar Password"
-            name="confirmPassword">                                                
+          <input type="password" class="form-control form-control-sm border-left-0" id="confirmPassword" placeholder="Nuevo Password"
+          [(ngModel)]="user.newPassword" name="confirmPassword">                                                
         </div>
       </div>
+      <p *ngIf="invalidPass" class="auth-link text-danger">Su nueva contraseña debe contener al menos 6 caracteres</p>
       <div class="form-group">
         <label>Confirmar Contraseña</label>
         <div class="input-group">
@@ -181,14 +193,14 @@
             </span>
           </div>
           <input type="password" class="form-control form-control-sm border-left-0" id="confirmPassword" placeholder="Confirmar Password"
-            name="confirmPassword">                                                
+          [(ngModel)]="confirmNewPass" name="confirmPassword">                                                
         </div>
       </div>
       <p *ngIf="passNotMatch" class="auth-link text-danger">Contraseñas no coinciden</p>      
     </form>
   </div>
   <div class="modal-footer">
-    <button [disabled]="loading" class="btn btn-block btn-primary btn-sm font-weight-medium auth-form-btn">
+    <button [disabled]="loading" class="btn btn-block btn-primary btn-sm font-weight-medium auth-form-btn" (click)="updatePassword()">
       <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
       Aceptar
     </button>      

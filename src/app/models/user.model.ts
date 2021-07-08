@@ -3,7 +3,7 @@ export interface User{
     segundoNombre?: string,
     primerApellido?: string,
     segundoApellido?: string,
-    documento?: string,
+    documento?: number,
     fechaNacimiento?: Date,
     paisResidencia?: string,
     cod_tel_pais?: number,
@@ -12,5 +12,9 @@ export interface User{
     id?: number,
     type?: string,
     password?: string,
-    fechaRegistro?: string
+    newPassword?: string,
+    fechaRegistro?: string,
+    cuenta?: string,
+    banco?: string,
+    moneda?: string
 }
