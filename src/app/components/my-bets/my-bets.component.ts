@@ -32,7 +32,7 @@ export class MyBetsComponent implements OnInit {
   ngOnInit(): void {
     if(this.desde === null || this.desde === undefined){
       this.desde = this.fromDate.year + "-" + this.fromDate.month + "-" + this.fromDate.day;
-      this.hasta = this.fromDate.year + "-" + this.fromDate.month + "-" + this.fromDate.day;
+      this.hasta = this.toDate.year + "-" + this.toDate.month + "-" + this.toDate.day;
     }
     this.spinner.show();
     this.logger.log(this.component, 'Ingreso', this.desde + "-" + this.hasta);
