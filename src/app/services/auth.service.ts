@@ -58,4 +58,20 @@ export class AuthService {
   get isLoggedIn() {
     return this.loggedIn.asObservable();
   }
+
+  getHome(){
+    return this.http.get(this.url + "/inicio?idUser=" + this.activeUser.id);
+  }
+
+  getResetToken(email: string){
+    return this.http.get(this.url + "/register?email=" + email);
+  }
+
+  changePass(email: string, password: string, token: number ){
+    return this.http.put(this.url + "/register", {
+      email: email,
+      pass: password,
+      token_reset: token
+    });
+  }
 }

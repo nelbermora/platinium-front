@@ -41,7 +41,7 @@
                 Recordarme
               </label>
             </div>
-            <a href="javascript:(void)" class="auth-link text-primary">Olvidé password?</a>
+            <a class="auth-link text-primary" (click)="openForgot()">Olvidé password?</a>
           </div>
           <div class="my-3" (click)="doLogin()">
             <button [disabled]="loading" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">
@@ -135,6 +135,83 @@
   </div>
   <div class="modal-footer">
     <button [disabled]="loading" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" (click)="register()">
+      <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+      Aceptar
+    </button>      
+  </div>
+</ng-template>
+<ng-template #forgot let-modal>
+  
+  <div class="modal-header">
+      <p class="modal-title" id="modal-basic-title-2">Restablecer Contraseña</p>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <span aria-hidden="true">&times;</span>
+      </button>
+  </div>
+  <div class="modal-body">
+    <form class="pt-3">
+      <div class="form-group">
+        <label>Email</label>
+        <div class="input-group">
+          <div class="input-group-prepend bg-transparent">
+            <span class="input-group-text bg-transparent border-right-0">
+              <i class="ti-email text-primary"></i>
+            </span>
+          </div>
+          <input type="text" class="form-control form-control-lg border-left-0" placeholder="Email"
+            [(ngModel)]="emailReset"
+            name="email"
+            [readonly]="codeSent"
+            style="background-color: #2b2e4c !important;">                        
+        </div>
+      </div>
+      <p *ngIf="emailResetInvalid" class="auth-link text-danger">Usuario no existente</p>            
+      <div class="form-group" *ngIf="codeSent">
+        <label>Ingrese el Código enviado a su dirección de correo</label>
+        <div class="input-group">
+          <div class="input-group-prepend bg-transparent">
+            <span class="input-group-text bg-transparent border-right-0">
+              <i class="ti-angle-double-right text-primary"></i>
+            </span>
+          </div>
+          <input type="text" class="form-control form-control-lg border-left-0" placeholder="Código"
+            [(ngModel)]="tokenReset"
+            name="token">                        
+        </div>
+      </div>
+      <p *ngIf="invalidResetToken" class="auth-link text-danger">Token Inválido</p>
+      <div class="form-group" *ngIf="codeSent">
+        <label>Password</label>
+        <div class="input-group">
+          <div class="input-group-prepend bg-transparent">
+            <span class="input-group-text bg-transparent border-right-0">
+              <i class="ti-lock text-primary"></i>
+            </span>
+          </div>
+          <input type="password" class="form-control form-control-lg border-left-0" id="exampleInputPassword" placeholder="Nueva Contraseña"
+            [(ngModel)]="passReset"
+            name="password">                        
+        </div>
+      </div>
+      <p *ngIf="invalidNewPass" class="auth-link text-danger">Su password debe contener al menos 6 caracteres</p>
+      <div class="form-group" *ngIf="codeSent">
+        <label>Confirmar Password</label>
+        <div class="input-group">
+          <div class="input-group-prepend bg-transparent">
+            <span class="input-group-text bg-transparent border-right-0">
+              <i class="ti-lock text-primary"></i>
+            </span>
+          </div>
+          <input type="password" class="form-control form-control-lg border-left-0" id="confirmPassword" placeholder="Confirmar Password"
+            [(ngModel)]="confirmPassReset"
+            name="confirmPassword">                                                
+        </div>
+      </div>
+      <p *ngIf="passNotMatchReset" class="auth-link text-danger">Passwords no coinciden</p>      
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button [disabled]="loading" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" (click)="resetPass()">
       <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
       Aceptar
     </button>      

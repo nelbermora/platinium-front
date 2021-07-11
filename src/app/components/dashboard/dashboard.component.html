@@ -2,7 +2,7 @@
   <div class="col-md-12 grid-margin">
     <div class="row">
       <div class="col-12 col-xl-5 mb-4 mb-xl-0">
-        <h4 class="font-weight-bold">Bienvenid@</h4>        
+        <h4 class="font-weight-bold">Bienvenid@ {{username}}</h4>        
       </div>
       <div class="col-12 col-xl-7">
         <div class="dashboard-status d-flex align-items-center justify-content-between flex-wrap">
@@ -13,15 +13,15 @@
           <div class="divider mx-3"></div>
           <div class="mb-3 mb-xl-0">
             <p class="text-muted">Jugadas Activas</p>
-            <h4 class="mb-0 font-weight-bold">0</h4>
+            <h4 class="mb-0 font-weight-bold">{{jugadasActivas}}</h4>
           </div>
           <div class="divider mx-3"></div>
           <div class="mb-3 mb-xl-0 mr-3">
             <p class="text-muted">Total Jugadas</p>
-            <h4 class="mb-0 font-weight-bold">12</h4>
+            <h4 class="mb-0 font-weight-bold">{{totalJugadas}}</h4>
           </div>
           <div class="mb-3 mb-xl-0">
-            <button class="btn btn-warning rounded-0 text-white">Ver Histórico</button>
+            <button class="btn btn-warning rounded-0 text-white" routerLink="/mybets">Ver Histórico</button>
           </div>
         </div>
       </div>
@@ -58,7 +58,7 @@
       <div class="card-body">
         <p class="card-title text-md-center text-xl-left">Juegos Activos para hoy</p>
         <div class="d-flex flex-wrap justify-content-between justify-content-md-center justify-content-xl-between align-items-center">
-          <h3 class="mb-0 mb-md-2 mb-xl-0 order-md-1 order-xl-0">28</h3>
+          <h3 class="mb-0 mb-md-2 mb-xl-0 order-md-1 order-xl-0">{{juegos}}</h3>
           <i class="ti-agenda icon-md text-muted mb-0 mb-md-3 mb-xl-0"></i>
         </div>
         <p class="mb-0 mt-2 text-info">Con los mejores Odds</p>
@@ -70,7 +70,7 @@
       <div class="card-body">
         <p class="card-title text-md-center text-xl-left">Jugandose justo ahora</p>
         <div class="d-flex flex-wrap justify-content-between justify-content-md-center justify-content-xl-between align-items-center">
-          <h3 class="mb-0 mb-md-2 mb-xl-0 order-md-1 order-xl-0">2</h3>
+          <h3 class="mb-0 mb-md-2 mb-xl-0 order-md-1 order-xl-0">{{inPlayJuegos}}</h3>
           <i class="ti-layers-alt icon-md text-muted mb-0 mb-md-3 mb-xl-0"></i>
         </div>  
         <label class="badge badge-danger">En Vivo</label>
@@ -86,8 +86,8 @@
         <ngb-carousel class="carousel slide performance-overview-carousel position-static pt-2">
           <ng-template ngbSlide class="carousel-item">
             <div class="row">
-              <div class="col-md-8 item">
-                <img src="assets/images/feed_orig.png" width="450"/>
+              <div class="col-md-4 item">
+                <img src="assets/images/feed_orig.png" width="250"/>
                 <!--
                 <div class="d-flex flex-column flex-xl-row mt-4 mt-md-0">
                   <div class="icon icon-a text-white mr-3">
@@ -110,23 +110,20 @@
                 </div>
                 -->
               </div>
-              <div class="col-md-4 item">
+              <div class="col-md-8 item">
                 <div class="d-flex flex-column flex-xl-row mt-5 mt-md-0">
                   <div class="icon icon-b text-white mr-3">
-                    <i class="ti-bar-chart icon-lg ml-3"></i>
+                    <i class="ti-id-badge icon-lg ml-3"></i>
                   </div>
                   <div class="content text-white">
                     <div class="d-flex flex-wrap align-items-center mb-2 mt-3 mt-xl-1">
-                      <h3 class="font-weight-light mr-2 mb-1">Texto Superior</h3>
-                      <h3 class="mb-0">xxxxasd</h3>
+                      <h3 class="font-weight-light mr-2 mb-1">¿Quiénes Somos?</h3>
                     </div>
                     <div class="col-8 col-md-7 d-flex border-bottom border-info align-items-center justify-content-between px-0 pb-2 mb-3">
-                      <div class="d-flex align-items-center">
-                        <i class="ti-angle-down mr-2"></i>
-                        <h5 class="mb-0">2.036%</h5>
+                      <div class="d-flex align-items-center">                                                
                       </div>  
                     </div>
-                    <p class="text-white font-weight-light pr-lg-2 pr-xl-5">Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque exercitationem est obcaecati.</p>
+                    <p class="text-white font-weight-light pr-lg-2 pr-xl-5">Somos una casa de apuestas altamente orientados a la innovación. Brindamos lo mejor de todos los eventos deportivos. Marcamos la diferencia para que apostar sea fácil, rápido, cómodo y seguro.</p>
                   </div>
                 </div>
               </div>
@@ -157,29 +154,15 @@
           </ng-template>
           <ng-template ngbSlide class="carousel-item">
             <div class="row">
-              <div class="col-md-4 item">
-                <img src="assets/images/ps_origin.png" width="250"/>
-              <!--
+              <div class="col-md-3 item mx-auto my-auto">
+                
+              
                 <div class="d-flex flex-column flex-xl-row mt-4 mt-md-0">
-                  <div class="icon icon-a text-white mr-3">
-                    <i class="ti-user icon-lg ml-3"></i>
-                  </div>
                   <div class="content text-white">
-                    <div class="d-flex flex-wrap align-items-center mb-2 mt-3 mt-xl-1">
-                      <h3 class="font-weight-light mr-2 mb-1">Clients</h3>
-                      <h3 class="mb-0">49076</h3>
-                    </div>
-                    <div class="col-8 col-md-7 d-flex border-bottom border-info align-items-center justify-content-between px-0 pb-2 mb-3">
-                      <h5 class="mb-0">+59238</h5>
-                      <div class="d-flex align-items-center">
-                        <i class="ti-angle-down mr-2"></i>
-                        <h5 class="mb-0">0.056%</h5>
-                      </div>  
-                    </div>
-                    <p class="text-white font-weight-light pr-lg-2 pr-xl-5">The total number of sessions within the date range. It is the period time a user is actively engaged with your website, page or app, etc</p>
+                    <img src="assets/images/ps_origin.png" width="250"/>
                   </div>
                 </div>
-              -->
+              
               </div>
               <!--
               <div class="col-md-4 item">
@@ -204,24 +187,24 @@
                 </div>
               </div>
               -->
-              <div class="col-md-8 item">
+              <div class="col-md-9 item">
                 <div class="d-flex flex-column flex-xl-row mt-5 mt-md-0">
                   <div class="icon icon-c text-white mr-3">
-                    <i class="ti-shopping-cart-full icon-lg ml-3"></i>
+                    <i class="ti-headphone-alt icon-lg ml-3"></i>
                   </div>
                   <div class="content text-white">
                     <div class="d-flex flex-wrap align-items-center mb-2 mt-3 mt-xl-1">
-                      <h3 class="font-weight-light mr-2 mb-1">Texto Superior</h3>
-                      <h3 class="mb-0">6358</h3>
+                      <h3 class="font-weight-light mr-2 mb-1">¿Por qué elegirnos?</h3>
+                      
                     </div>
                     <div class="col-8 col-md-7 d-flex border-bottom border-info align-items-center justify-content-between px-0 pb-2 mb-3">
-                      <h5 class="mb-0">+9082</h5>
+                      
                       <div class="d-flex align-items-center">
-                        <i class="ti-angle-down mr-2"></i>
-                        <h5 class="mb-0">35.54%</h5>
+                      
                       </div>  
                     </div>
-                    <p class="text-white font-weight-light pr-lg-2 pr-xl-5">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam eveniet, iure, ab earum est praesentium ipsum blanditiis voluptates assumenda possimus tempore laudantium architecto velit explicabo cumque eius distinctio. Quis, illum!</p>
+                    <p class="text-white font-weight-light pr-lg-2 pr-xl-5">Ofrecemos atención 24/7. Ponemos foco en nuestro cliente para garantizar un servicio, rápido, eficiente donde el buen traro es la prioridad.</p>
+                    <p class="text-white font-weight-light pr-lg-2 pr-xl-5">Ponemos a disposición distintos medios de pago nacionales e internacionales para su comodidad..</p>
                   </div>
                 </div>
               </div>

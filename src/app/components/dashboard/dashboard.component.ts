@@ -1,3 +1,4 @@
+import { AuthService } from './../../services/auth.service';
 import { VersionService } from './../../services/version.service';
 import { Component, OnInit } from '@angular/core';
 import { NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
@@ -247,14 +248,30 @@ export class DashboardComponent implements OnInit {
     }
   }
   
-  version = 1.9;
+  version = 2.1;
+  saldo: number;
+  jugadasActivas: number;
+  totalJugadas: number;
+  juegos: number;
+  inPlayJuegos: number;
+  username: string;  
   constructor(config: NgbCarouselConfig, private versionSvc: VersionService,
-              private spinner: NgxSpinnerService) {
+              private spinner: NgxSpinnerService, private authSvc: AuthService) {
     config.showNavigationArrows = true;
     config.showNavigationIndicators = false;
   }
 
   ngOnInit() {
+    this.spinner.show();
+    this.username = this.authSvc.activeUser.primerNombre;
+    this.authSvc.getHome().subscribe((resp: any) => {
+      this.saldo = resp.saldo;
+      this.jugadasActivas = resp.jugadasActivas;
+      this.totalJugadas = resp.totalJugadas;
+      this.juegos = resp.juegos;
+      this.inPlayJuegos = resp.inPlayjuegos;
+      this.spinner.hide();
+    })
     this.versionSvc.getVersion().subscribe(
       (resp: any) => {
         if(resp.version != this.version){
