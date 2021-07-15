@@ -7,6 +7,7 @@ export interface Match{
     teamA?: TeamOdd,
     teamB?: TeamOdd,
     firstInningScoreYes?: number,
-    firstInningScoreNo?: number
-
+    firstInningScoreNo?: number,
+    enabled?: boolean,
+    halfEnabled?: boolean,
 }

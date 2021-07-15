@@ -1,3 +1,4 @@
+import Swal from 'sweetalert2';
 import { LoggerService } from './../../services/logger.service';
 import { Match } from './../../models/match.model';
 import { ParlayService } from './../../services/parlay.service';
@@ -6,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Sport } from 'src/app/models/sport.model';
 import { OddService } from 'src/app/services/odd.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-soccer',
@@ -15,18 +17,31 @@ import { OddService } from 'src/app/services/odd.service';
 export class SoccerComponent implements OnInit {
   activeIds: string[] = [];
   sport: Sport= {};
-  component = "SoccerOdds"
+  component = "SoccerOdds";
+  isAdmin = false;
+  editionMode: boolean = false;
+  emptyResults: boolean = false;
   constructor(private spinner: NgxSpinnerService, private oddSvc: OddService,
-              private parlaySvc: ParlayService, private logger: LoggerService) { }
+              private parlaySvc: ParlayService, private logger: LoggerService,
+              private auth: AuthService) {}
 
   ngOnInit(): void {
+    this.auth.activeUser.type === 'admin' ? this.isAdmin = true : this.isAdmin = false;  
     this.logger.log(this.component, 'Ingreso');
     this.spinner.show();
     this.oddSvc.getOdds("Soccer").subscribe(
       resp => {
         this.activeIds = ['panel-0'];
         this.sport = resp;
+        if(this.sport.leagues.length === 0){
+          this.emptyResults = true;
+        }
         this.spinner.hide();
+      }
+    );
+    this.auth.isLogged.subscribe(
+      resp => {
+        this.auth.activeUser.type === 'admin' ? this.isAdmin = true : this.isAdmin = false;        
       }
     );
   }
@@ -124,4 +139,20 @@ export class SoccerComponent implements OnInit {
     return valid;
   }
 
+  saveOdds(){
+    this.spinner.show();
+    this.oddSvc.saveOdds(this.sport).subscribe(
+      resp => {
+        if (resp){
+          this.spinner.hide();
+          this.editionMode = false;
+          Swal.fire(
+            'Cambios guardados!',
+            '',
+            'success'
+          );          
+        }
+      }
+    );    
+  }
 }

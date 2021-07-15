@@ -18,4 +18,8 @@ export class OddService{
      
         return this.http.get<Sport>(this.url + "?sport=" + sportName);
     }
+
+    saveOdds(sport: Sport){
+        return this.http.put<Sport>(this.url, sport);
+    }
 }

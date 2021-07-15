@@ -23,6 +23,7 @@ export interface TeamOdd{
     thHandicap?: number,
     tieValue?: number,
     tieValue5?: number,
-    position?: number
+    position?: number,
+    halfEnabled?: boolean
 
 }

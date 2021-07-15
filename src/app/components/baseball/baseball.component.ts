@@ -1,3 +1,5 @@
+import Swal from 'sweetalert2';
+import { AuthService } from './../../services/auth.service';
 import { LoggerService } from './../../services/logger.service';
 import { ParlayService } from './../../services/parlay.service';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -17,19 +19,32 @@ export class BaseballComponent implements OnInit {
   sport: Sport= {};
   activeIds: string[] = ['panel-0'];
   component = "BaseballOdds";
+  isAdmin = false;
+  editionMode: boolean = false;
+  emptyResults: boolean = false;
   constructor(private oddSvc: OddService, private spinner: NgxSpinnerService,
-    private parlaySvc: ParlayService, private logger: LoggerService) { }
+    private parlaySvc: ParlayService, private logger: LoggerService,
+    private auth: AuthService) { }
 
   ngOnInit(): void {
+    this.auth.activeUser.type === 'admin' ? this.isAdmin = true : this.isAdmin = false;  
     this.logger.log(this.component, 'Ingreso');
     this.spinner.show();
     this.oddSvc.getOdds("baseball").subscribe(
       resp => {
         this.sport = resp;
+        if(this.sport.leagues.length === 0){
+          this.emptyResults = true;
+        }
         this.spinner.hide();
       }
     );
-  }
+    this.auth.isLogged.subscribe(
+      resp => {
+        this.auth.activeUser.type === 'admin' ? this.isAdmin = true : this.isAdmin = false;        
+      }
+    );
+  };
 
   select(team: TeamOdd, betType: string, match: Match){
     if(this.isOddValid(team,betType,match)){
@@ -122,6 +137,23 @@ export class BaseballComponent implements OnInit {
       }
     }
     return valid;
+  }
+
+  saveOdds(){
+    this.spinner.show();
+    this.oddSvc.saveOdds(this.sport).subscribe(
+      resp => {
+        if (resp){
+          this.spinner.hide();
+          this.editionMode = false;
+          Swal.fire(
+            'Cambios guardados!',
+            '',
+            'success'
+          );          
+        }
+      }
+    );    
   }
 
 }

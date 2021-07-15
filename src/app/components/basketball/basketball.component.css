@@ -29,3 +29,7 @@
     background-color: #ffcb63;
     color: black;
 }
+
+.disabled{
+    background-color: gray !important;
+}
