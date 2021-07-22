@@ -44,7 +44,32 @@ export class BetsComponent implements OnInit {
   }
 
   calculate(){
-    this.parlaySvc.betCalculator.calculate(this.parlay);
+    if(this.isValid()){
+      this.parlaySvc.betCalculator.calculate(this.parlay);
+    }    
+  }
+
+  isValid(){
+    let valid = false;
+    if (this.parlaySvc.maxAmount !== null && this.parlaySvc.maxAmount > 0){
+      if(this.parlay.betAmount <= this.parlaySvc.maxAmount){
+        valid = true;
+      }
+    }else{
+      valid = true;
+    }
+    
+    if(!valid){
+      Swal.fire({
+        icon: 'info',
+        title: 'Información...',
+        text: 'Monto Máximo alcanzado',
+        footer: ''
+      });
+      this.parlay.betAmount = 0;
+      this.parlay.winAmount = 0;
+    }
+    return valid;    
   }
 
   save(){

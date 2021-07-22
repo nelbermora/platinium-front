@@ -1,3 +1,4 @@
+import { VersionService } from './version.service';
 import { AuthService } from './auth.service';
 import { HttpClient } from '@angular/common/http';
 import { BetCalculatorService } from './bet-calculator.service';
@@ -15,9 +16,17 @@ export class ParlayService {
   parlayEmit = new EventEmitter<Parlay>();
   parlay: Parlay;
   i = 0;
+  maxCount: number = -1;
+  maxAmount: number = -1;
 
   constructor(public betCalculator: BetCalculatorService, private http: HttpClient,
-    private authSvc: AuthService){
+    private authSvc: AuthService, private versionSvc:VersionService){
+    this.versionSvc.getVersion().subscribe(
+      (resp: any) => {
+        this.maxCount = resp.maxCount;
+        this.maxAmount = resp.maxAmount;
+      }
+    );   
     this.parlay = {
         userId: this.authSvc.activeUser.id,
         odds: []
@@ -34,7 +43,7 @@ export class ParlayService {
     if (idExists > -1) {
       this.delete(idExists);
     } else {
-      if (this.canExists(team, betType, match, sport)) {
+      if (this.canExists(team, betType, match, sport) && this.isValid()) {
         let newOdd: OddParlay = {
           sport: sport,
           teamPosition: team.position,
@@ -367,5 +376,26 @@ export class ParlayService {
 
   getParlays(desde: string, hasta: string){
     return this.http.get<Parlay[]>(this.url + "?idUser=" + this.authSvc.activeUser.id + "&desde=" + desde + "&hasta=" + hasta);
+  }
+
+  isValid(){
+    let valid = false;
+    if (this.maxCount !== null && this.maxCount > 0){
+      if(this.parlay.odds.length <= (this.maxCount - 1)){
+        valid = true;
+      }
+    }else{
+      valid = true;
+    }
+    
+    if(!valid){
+      Swal.fire({
+        icon: 'info',
+        title: 'Información...',
+        text: 'Límite de combinaciones alcanzadas',
+        footer: 'Abre un nuevo parlay para jugar mas combinaciones'
+      })
+    }
+    return valid;    
   }
 }

@@ -1,3 +1,4 @@
+import { ParlayService } from './../../services/parlay.service';
 import { AuthService } from './../../services/auth.service';
 import { VersionService } from './../../services/version.service';
 import { Component, OnInit } from '@angular/core';
