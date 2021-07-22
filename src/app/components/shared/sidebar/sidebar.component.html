@@ -6,12 +6,6 @@
         <span class="menu-title">Inicio</span>
       </a>
     </li>
-    <li class="nav-item" [ngClass]="{'active': terms.isActive}">
-      <a class="nav-link" routerLink="/terms" routerLinkActive #terms="routerLinkActive">
-        <i class="ti-palette menu-icon"></i>
-        <span class="menu-title">Reglas</span>
-      </a>
-    </li>
     <li class="nav-item" [ngClass]="{'active' : baseball.isActive || futbol.isActive || baloncesto.isActive || american.isActive || tennis.isActive  }">
       <a class="nav-link" (click)="uiBasicCollapsed = !uiBasicCollapsed" [attr.aria-expanded]="uiBasicCollapsed" aria-controls="ui-basic">
         <i class="ti-money menu-icon"></i>
@@ -62,6 +56,12 @@
       <a class="nav-link" routerLink="/users" routerLinkActive #users="routerLinkActive">
         <i class="ti-view-list-alt menu-icon"></i>
         <span class="menu-title">Usuarios</span>
+      </a>
+    </li>
+    <li class="nav-item" [ngClass]="{'active': terms.isActive}">
+      <a class="nav-link" routerLink="/terms" routerLinkActive #terms="routerLinkActive">
+        <i class="ti-palette menu-icon"></i>
+        <span class="menu-title">Reglas</span>
       </a>
     </li>
     <!--

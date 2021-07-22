@@ -11,7 +11,7 @@
                                         aria-labelledby="home-tab">
                                         <div class="form-group">
                                             <label>Maximo Jugadas por Parlay</label>
-                                            <input type="number" class="form-control form-control-sm" placeholder="Nombre"
+                                            <input type="number" class="form-control form-control-sm" placeholder="Maximo de Jugadas"
                                                 aria-label="Nombre" [(ngModel)]="config.maxCount" name="maxCount">
                                             <p class="card-description">
                                                 Si es 0 o menor que 0 no se aplica.
@@ -66,13 +66,15 @@
                                                   </tr>
                                                 </thead>
                                                 <tbody>
-                                                  <tr *ngFor="let account of config.bankAccounts">
-                                                      <td>1</td>
-                                                      <td>2012/08/03</td>
-                                                      <td>Edinburgh</td>
-                                                      <td>New York</td>
+                                                  <tr *ngFor="let account of config.bankAccounts; index as i">
+                                                      <td>{{i + 1}}</td>
+                                                      <td>{{account.number}}</td>
+                                                      <td>{{account.bank}}</td>
+                                                      <td>{{account.dni}}</td>
                                                       <td>
-                                                        <label class="badge badge-info">On hold</label>
+                                                        <button type="button" class="btn btn-icon" (click)="delete(i)">
+                                                            <i class="fa fa-times text-danger"></i>
+                                                        </button>
                                                       </td>                                                      
                                                   </tr>                                                  
                                                 </tbody>

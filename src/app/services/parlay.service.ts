@@ -24,7 +24,7 @@ export class ParlayService {
     this.versionSvc.getVersion().subscribe(
       (resp: any) => {
         this.maxCount = resp.maxCount;
-        this.maxAmount = resp.maxAmount;
+        this.maxAmount = resp.maxAmountCoefficient;
       }
     );   
     this.parlay = {

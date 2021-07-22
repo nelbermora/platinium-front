@@ -171,7 +171,7 @@
                                 <p>{{odd.sport}} {{odd.teamName}}</p>
                             </td>
                             <td *ngIf="odd.handicap !== undefined && odd.handicap !== null">
-                                <p>{{odd.type}} ({{odd.handicap | odd}}) {{odd.letter}}{{odd.odd | odd}}</p>
+                                <p>{{odd.type}} ({{odd.handicap}}) {{odd.letter}}{{odd.odd | odd}}</p>
                             </td>
                             <td *ngIf="odd.handicap === undefined || odd.handicap === null">
                                 <p>{{odd.type}} {{odd.letter}}{{odd.odd | odd}}</p>

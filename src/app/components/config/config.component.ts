@@ -1,3 +1,5 @@
+import { NgxSpinnerService } from 'ngx-spinner';
+import { VersionService } from './../../services/version.service';
 import { Config, Account } from './../../models/config.model';
 import { Component, OnInit } from '@angular/core';
 
@@ -16,7 +18,7 @@ export class ConfigComponent implements OnInit {
   dtSpanish = {
     'emptyTable': 'No hay registros para mostrar',
     'info': 'Pagina _PAGE_ de _PAGES_',
-    'infoEmpty': 'Viser 0 til 0 av 0 linjer',
+    'infoEmpty': '0 registros',
     'infoFiltered': '(encontrados _MAX_ registros)',
     'infoPostFix': '',
     'infoThousands': ' ',
@@ -41,18 +43,31 @@ export class ConfigComponent implements OnInit {
   dtopt: DataTables.Settings= {
     language: this.dtSpanish
   };
-  constructor() { }
+  constructor(private configSvc: VersionService, private spinnerSvc: NgxSpinnerService) { }
 
   ngOnInit(): void {
+    this.spinnerSvc.show();
+    this.configSvc.getVersion().subscribe(
+      resp => {
+        this.config = resp;
+        this.spinnerSvc.hide();
+      }
+    );
   }
 
   guardar(){
-
+    this.spinnerSvc.show();
+    this.configSvc.saveConfig(this.config).subscribe(
+      resp => (this.ngOnInit())
+    );
   }
 
   addAcount(){
+    this.spinnerSvc.show();
     this.config.bankAccounts.push(this.tempAccount);
-    this.tempAccount = {};
+    this.configSvc.saveConfig(this.config).subscribe(
+      resp => (this.ngOnInit())
+    );
   }
 
   isValidTempAccount(){
@@ -65,6 +80,15 @@ export class ConfigComponent implements OnInit {
       }
     }     
     return valid;
+  }
+
+  delete(index: number){
+    this.spinnerSvc.show();
+    this.config.bankAccounts.splice(index,1);
+    this.config.bankAccounts.push(this.tempAccount);
+    this.configSvc.saveConfig(this.config).subscribe(
+      resp => (this.ngOnInit())
+    );
   }
 
 }

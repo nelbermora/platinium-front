@@ -32,6 +32,7 @@ export class BetsComponent implements OnInit {
     this.parlaySvc.betCalculator.winAmount.subscribe(
       (resp: number) => {
         this.parlay.winAmount = resp;
+        this.isValid();
       }
     );
   }
@@ -44,15 +45,20 @@ export class BetsComponent implements OnInit {
   }
 
   calculate(){
-    if(this.isValid()){
+    //if(this.isValid()){
       this.parlaySvc.betCalculator.calculate(this.parlay);
-    }    
+      this.isValid();
+    //}    
   }
 
   isValid(){
+    console.log(this.parlay.winAmount);
+    console.log(this.parlay.betAmount);
+    console.log(this.parlaySvc.maxAmount);
     let valid = false;
-    if (this.parlaySvc.maxAmount !== null && this.parlaySvc.maxAmount > 0){
-      if(this.parlay.betAmount <= this.parlaySvc.maxAmount){
+    if (this.parlaySvc.maxAmount !== null && this.parlaySvc.maxAmount > 0 && this.parlay.betAmount !== null
+      && this.parlay.winAmount !== null && this.parlay.winAmount > 0){
+      if((this.parlay.winAmount/this.parlay.betAmount) <= this.parlaySvc.maxAmount){
         valid = true;
       }
     }else{
@@ -64,7 +70,7 @@ export class BetsComponent implements OnInit {
         icon: 'info',
         title: 'Información...',
         text: 'Monto Máximo alcanzado',
-        footer: ''
+        footer: 'Elimine logros del Parlay'
       });
       this.parlay.betAmount = 0;
       this.parlay.winAmount = 0;

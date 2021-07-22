@@ -1,3 +1,4 @@
+import { Config } from './../models/config.model';
 import { environment } from './../../environments/environment';
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
@@ -15,5 +16,9 @@ export class VersionService{
 
     getVersion(){
         return this.http.get(this.url);
+    }
+
+    saveConfig(config: Config){
+        return this.http.post<Config>(this.url, config);
     }
 }
