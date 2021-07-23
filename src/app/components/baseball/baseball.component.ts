@@ -27,7 +27,7 @@ export class BaseballComponent implements OnInit {
     private auth: AuthService) { }
 
   ngOnInit(): void {
-    this.auth.activeUser.type === 'admin' ? this.isAdmin = true : this.isAdmin = false;  
+    this.auth.activeUser.type === 'Admin' ? this.isAdmin = true : this.isAdmin = false;  
     this.logger.log(this.component, 'Ingreso');
     this.spinner.show();
     this.oddSvc.getOdds("baseball").subscribe(
@@ -41,7 +41,7 @@ export class BaseballComponent implements OnInit {
     );
     this.auth.isLogged.subscribe(
       resp => {
-        this.auth.activeUser.type === 'admin' ? this.isAdmin = true : this.isAdmin = false;        
+        this.auth.activeUser.type === 'Admin' ? this.isAdmin = true : this.isAdmin = false;        
       }
     );
   };

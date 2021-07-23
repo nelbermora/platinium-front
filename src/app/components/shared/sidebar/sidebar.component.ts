@@ -21,12 +21,26 @@ export class SidebarComponent implements OnInit {
   public errorCollapsed = false;
   public generalPagesCollapsed = false;
   public eCommerceCollapsed = false;
-  
+  isAdmin: boolean = false;
   isLoggedIn$: Observable<boolean>;
   constructor(private authSvc: AuthService) { }
 
   ngOnInit() {
     this.isLoggedIn$ = this.authSvc.isLoggedIn;
+    if(this.authSvc.activeUser.type === 'Admin'){
+      this.isAdmin = true;
+    }else{
+      this.isAdmin = false;
+    }
+    this.authSvc.isLogged.subscribe(
+      resp => {
+        if(this.authSvc.activeUser.type === 'Admin'){
+          this.isAdmin = true;
+        }else{
+          this.isAdmin = false;
+        }
+      }
+    )
     const body = document.querySelector('body');
 
     // add class 'hover-open' to sidebar navitem while hover in sidebar-icon-only menu

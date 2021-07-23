@@ -1,1 +1,116 @@
-<p>users works!</p>
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <button class="btn btn-primary float-right" type="submit" style="margin-bottom: 5px;" (click)="open()">Añadir
+          Usuario</button>
+        <div class="table-responsive">
+          <table id="users" datatable [dtOptions]="dtopt" [dtTrigger]="dtTrigger" class="table">
+            <thead>
+              <tr>
+                <th>Correo</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>País</th>
+                <th>Tipo Usuario</th>
+                <th>Status</th>
+                <th>Opciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let user of users; index as i">
+                <td>{{user.correo}}</td>
+                <td>{{user.primerNombre}}</td>
+                <td>{{user.primerApellido}}</td>
+                <td>{{user.paisResidencia}}</td>
+                <td>{{user.type}}</td>
+                <td>{{user.status}}</td>
+                <td>
+                  <button type="button" class="btn btn-icon" (click)="open(i)">
+                    <i class="fa fa-edit text-info"></i>
+                  </button>
+                  <button *ngIf="user.status ==='A'" type="button" class="btn btn-icon" (click)="disable(i)">
+                    <i class="fa fa-ban text-danger"></i>
+                  </button>
+                  <button *ngIf="user.status !=='A'" type="button" class="btn btn-icon" (click)="enable(i)">
+                    <i class="fa fa-check-circle text-success"></i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <p class="modal-title" id="modal-basic-title" style="font-size: .875rem;">Añadir Usuario</p>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="form-group">
+      <label>Correo</label>
+      <input type="text" class="form-control form-control-sm" placeholder="Correo" aria-label="Correo"
+        [(ngModel)]="user.correo" name="correo" [disabled]="user.id > 0" [ngClass]="{'disabled':user.id > 0}">
+    </div>
+    <div class="form-group">
+      <label>Nombre</label>
+      <input type="text" class="form-control form-control-sm" placeholder="Nombre" aria-label="Nombre"
+        [(ngModel)]="user.primerNombre" name="nombre">
+    </div>
+    <div class="form-group">
+      <label>Apellido</label>
+      <input type="text" class="form-control form-control-sm" placeholder="Apellido" aria-label="Apellido"
+        [(ngModel)]="user.primerApellido" name="apellido">
+    </div>
+    <div class="form-group">
+      <label>Telefono</label>
+      <input type="number" class="form-control form-control-sm" placeholder="Telefono" aria-label="telefono"
+        [(ngModel)]="user.telefono" name="telefono">
+    </div>
+    <div class="form-group">
+      <label>Nro. Documento de Identidad</label>
+      <input type="number" class="form-control form-control-sm" placeholder="Doc Identidad" aria-label="Doc Identidad"
+        [(ngModel)]="user.documento" name="documento">
+    </div>
+    <div class="form-group">
+      <label>Fecha Nacimiento</label>
+      <input type="date" class="form-control form-control-sm" placeholder="Fec. Nacimiento" aria-label="Fec. Nacimiento"
+        [(ngModel)]="user.fechaNacimiento" name="nacimiento">
+    </div>
+    <div class="form-group">
+      <label>Pais</label>
+      <select class="form-control form-control-sm" id="exampleFormControlSelect2" [(ngModel)]="user.paisResidencia"
+        name="pais" [compareWith]="compararPaises">
+        <option *ngFor="let pais of paises" [ngValue]="pais">{{pais}}</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Tipo Usuario</label>
+      <select class="form-control form-control-sm" id="exampleFormControlSelect" [(ngModel)]="user.type"
+        name="type" [compareWith]="compararTypes">
+        <option *ngFor="let type of types" [ngValue]="type">{{type}}</option>
+      </select>
+    </div>
+    <p *ngIf="fieldErrors" class="text-danger"> Faltan campos requeridos</p>
+    <p *ngIf="alreadyExists" class="text-danger"> Correo ya existe</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="saveUser()" style="
+      width: 80px;
+      padding-left: 1px;
+      padding-right: 1px;
+      padding-top: 4px;
+      padding-bottom: 4px;"
+      [disabled]="isLoading">
+      Guardar
+      <span *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+    </button>
+  </div>
+</ng-template>

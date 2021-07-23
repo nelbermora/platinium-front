@@ -1,10 +1,7 @@
-import { User } from './../models/user.model';
 import { AuthService } from './../services/auth.service';
 import { Injectable } from "@angular/core";
-import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from "@angular/router";
+import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from "@angular/router";
 import { Observable, of } from 'rxjs';
-import { environment } from 'src/environments/environment';
-import { HttpClient } from '@angular/common/http';
 import { catchError, map } from 'rxjs/operators';
 
 @Injectable({

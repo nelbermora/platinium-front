@@ -1,3 +1,4 @@
+import { AdminGuardian } from './guards/admin-guard';
 import { MyBetsComponent } from './components/my-bets/my-bets.component';
 import { SoccerComponent } from './components/soccer/soccer.component';
 import { BasketballComponent } from './components/basketball/basketball.component';
@@ -79,11 +80,11 @@ const routes: Routes = [
   { path: 'bets', canActivate: [AuthGuardian], component: BetsComponent },
   { path: 'terms', canActivate: [AuthGuardian], component: TermsComponent },
   { path: 'profile', canActivate: [AuthGuardian], component: ProfileComponent },
-  { path: 'config', canActivate: [AuthGuardian], component: ConfigComponent },
+  { path: 'config', canActivate: [AdminGuardian], component: ConfigComponent },
   { path: 'payments', canActivate: [AuthGuardian], component: PaymentsComponent },
   { path: 'wallet', canActivate: [AuthGuardian], component: WalletComponent },
-  { path: 'users', canActivate: [AuthGuardian], component: UsersComponent },
-  { path: 'resports', canActivate: [AuthGuardian], component: ReportsComponent },
+  { path: 'users', canActivate: [AdminGuardian], component: UsersComponent },
+  { path: 'reports', canActivate: [AdminGuardian], component: ReportsComponent },
   { path: 'terms', canActivate: [AuthGuardian], component: TermsComponent },
   { path: 'baseball', canActivate: [AuthGuardian], component: BaseballComponent },
   { path: 'basketball', canActivate: [AuthGuardian], component: BasketballComponent },

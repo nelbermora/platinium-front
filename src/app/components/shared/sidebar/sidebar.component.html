@@ -34,7 +34,7 @@
         <span class="menu-title">Datos</span>
       </a>
     </li>
-    <li class="nav-item" [ngClass]="{ 'active': config.isActive }">
+    <li class="nav-item" [ngClass]="{ 'active': config.isActive }" *ngIf="isAdmin">
       <a class="nav-link" routerLink="/config" routerLinkActive #config="routerLinkActive">
         <i class="ti-settings menu-icon"></i>
         <span class="menu-title">Configuración</span>
@@ -52,7 +52,7 @@
         <span class="menu-title">Mi Billetera</span>
       </a>
     </li>
-    <li class="nav-item" [ngClass]="{ 'active': users.isActive }">
+    <li class="nav-item" [ngClass]="{ 'active': users.isActive }" *ngIf="isAdmin">
       <a class="nav-link" routerLink="/users" routerLinkActive #users="routerLinkActive">
         <i class="ti-view-list-alt menu-icon"></i>
         <span class="menu-title">Usuarios</span>

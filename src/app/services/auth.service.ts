@@ -74,4 +74,8 @@ export class AuthService {
       token_reset: token
     });
   }
+
+  getAll(){
+    return this.http.get(this.url + "/user");
+  }
 }
