@@ -5,6 +5,7 @@ import { Parlay } from 'src/app/models/parlay.model';
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {NgbDate, NgbCalendar, NgbDateParserFormatter} from '@ng-bootstrap/ng-bootstrap';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-my-bets',
@@ -21,22 +22,48 @@ export class MyBetsComponent implements OnInit {
   desde: string;
   hasta: string;
   component = 'MyBets';
+  statusSelected: string;
+  statuses = ["Todos","En Juego", "Perdidos", "Ganados", "Anulados"];
+  consultedUser: string;
+  idUser: number;
+  ignoreDate: boolean = false;
   constructor(private parlaySvc: ParlayService, private spinner: NgxSpinnerService,
     private modalService: NgbModal, private calendar: NgbCalendar, public formatter: NgbDateParserFormatter,
-    private logger: LoggerService) { 
+    private logger: LoggerService, private route: ActivatedRoute) { 
       this.fromDate = calendar.getPrev(calendar.getToday(),'d',1);
       //this.toDate = calendar.getNext(calendar.getToday(), 'd', 10);
       this.toDate = calendar.getToday();
     }
 
-  ngOnInit(): void {
+  ngOnInit(status?: string, ignore?: boolean): void {
+    if(status === null || status === undefined){
+      this.statusSelected = 'Todos';
+    }else{
+      this.statusSelected = status;
+    }
+    this.ignoreDate = ignore;
+    this.route.queryParams.subscribe(params => {
+        this.consultedUser = params.user;
+        this.idUser = params.idUser;
+      }
+    );  
     if(this.desde === null || this.desde === undefined){
       this.desde = this.fromDate.year + "-" + this.fromDate.month + "-" + this.fromDate.day;
       this.hasta = this.toDate.year + "-" + this.toDate.month + "-" + this.toDate.day;
     }
     this.spinner.show();
     this.logger.log(this.component, 'Ingreso', this.desde + "-" + this.hasta);
-    this.parlaySvc.getParlays(this.desde,this.hasta).subscribe(
+    let from: string;
+    let to: string;
+    if(this.ignoreDate){
+      console.log('entro al ignore');
+      from = "1980-01-01";
+      to = "2980-01-01";
+    }else{
+      from = this.desde;
+      to = this.hasta;
+    }
+    this.parlaySvc.getParlays(from,to, this.idUser, this.statusSelected).subscribe(
       resp=> {
         this.parlays = resp;
         this.spinner.hide();
@@ -96,7 +123,7 @@ export class MyBetsComponent implements OnInit {
     }else{
       this.hasta = this.toDate.year + "-" + this.toDate.month + "-" + this.toDate.day;
     }    
-    this.ngOnInit();
+    this.ngOnInit(this.statusSelected, this.ignoreDate);
   }
 
 }

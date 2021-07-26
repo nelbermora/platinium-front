@@ -1,15 +1,60 @@
-import { Component, OnInit } from '@angular/core';
+import { WalletService } from './../../services/wallet.service';
+import { AuthService } from './../../services/auth.service';
+import { WalletMovement } from './../../models/wallet-movement.model';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-wallet',
   templateUrl: './wallet.component.html',
   styleUrls: ['./wallet.component.css']
 })
-export class WalletComponent implements OnInit {
-
-  constructor() { }
+export class WalletComponent implements OnInit, AfterViewInit {
+  dtSpanish = {
+    'emptyTable': 'No hay registros para mostrar',
+    'info': 'Mostrando _START_ a _END_ de _TOTAL_ registros',
+    'infoEmpty': '0 registros',
+    'infoFiltered': '(Total _MAX_)',
+    'loadingRecords': 'Procesando...',
+    'lengthMenu': 'Mostrar _MENU_ por pagina',
+    'processing': 'Procesando...',
+    'search': 'Buscar:',
+    'url': '',
+    'zeroRecords': 'No hay registros',
+    'paginate': {
+      'first': 'Primera',
+      'previous': 'Anterior',
+      'next': 'Siguiente',
+      'last': 'Ultima'
+    }
+  };
+  dtopt: DataTables.Settings= {
+    language: this.dtSpanish,
+    ordering: false
+  };
+  dtTrigger: Subject<any> = new Subject<any>();
+  movements: WalletMovement[] = [];
+  userId: number;
+  saldo: number;
+  constructor(private authSvc: AuthService, private walletSvc: WalletService) { }
 
   ngOnInit(): void {
+    this.userId = this.authSvc.activeUser.id;
+    this.authSvc.isLogged.subscribe(
+      resp =>{
+        this.userId = this.authSvc.activeUser.id;
+      }
+    );
+  }
+
+  ngAfterViewInit(): void {    
+    this.walletSvc.getMovements(this.userId).subscribe(
+      (resp: any) => {
+        this.saldo = resp.saldo;
+        this.movements = resp.movimientos;
+        this.dtTrigger.next();    
+      }
+    );
   }
 
 }

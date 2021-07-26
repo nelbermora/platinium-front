@@ -374,8 +374,31 @@ export class ParlayService {
     return this.http.post<Parlay>(this.url, this.parlay);
   }
 
-  getParlays(desde: string, hasta: string){
-    return this.http.get<Parlay[]>(this.url + "?idUser=" + this.authSvc.activeUser.id + "&desde=" + desde + "&hasta=" + hasta);
+  getParlays(desde: string, hasta: string, idUser?: number, status?: string){
+    let usuario: number;
+    let stat: string;
+    idUser > 0 ? usuario = idUser : usuario = this.authSvc.activeUser.id;
+    //"Todos","En Juego", "Perdidos", "Ganados", "Anulados"
+    switch(status){
+      case "En Juego":
+        stat = "A";
+        break;
+      case "Perdidos":
+        stat = "L";
+        break;
+      case "Ganados":
+        stat = "W";
+        break;
+      case "Anulados":
+        stat = "B";
+        break;        
+    }
+
+    let param: string;
+    stat === undefined ? 
+      param =  "?idUser=" + usuario + "&desde=" + desde + "&hasta=" + hasta :
+      param =  "?idUser=" + usuario + "&desde=" + desde + "&hasta=" + hasta + "&status=" + stat;
+    return this.http.get<Parlay[]>(this.url + param);
   }
 
   isValid(){

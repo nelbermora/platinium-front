@@ -19,7 +19,7 @@
             </thead>
             <tbody>
               <tr *ngFor="let user of users; index as i">
-                <td>{{user.correo}}</td>
+                <td style="cursor: pointer;" (click)="goBets(user.id, user.correo)">{{user.correo}}</td>
                 <td>{{user.primerNombre}}</td>
                 <td>{{user.primerApellido}}</td>
                 <td>{{user.paisResidencia}}</td>

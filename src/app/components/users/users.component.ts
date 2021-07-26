@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { AfterViewInit, Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { User } from 'src/app/models/user.model';
@@ -81,7 +82,8 @@ export class UsersComponent implements OnInit, AfterViewInit {
   fieldErrors: boolean = false;
   alreadyExists: boolean = false;
   isLoading: boolean = false;
-  constructor(private userSvc: AuthService, private modalService: NgbModal) { }
+  constructor(private userSvc: AuthService, private modalService: NgbModal,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.userSvc.getAll().subscribe(
@@ -181,6 +183,10 @@ export class UsersComponent implements OnInit, AfterViewInit {
   enable(index: number){
     this.users[index].status = 'A';
     this.userSvc.update(this.users[index]).subscribe();
+  }
+
+  goBets(id: number, emailUser: string){
+    this.router.navigate(['/mybets'], { queryParams: { idUser: id, user: emailUser } });
   }
 
 }
