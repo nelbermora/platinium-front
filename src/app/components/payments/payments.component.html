@@ -1,1 +1,148 @@
-<p>payments works!</p>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <ngb-tabset [activeId]="active">
+                            <ngb-tab title="Cargar Fondos" id="carga">
+                                <ng-template ngbTabContent class="tab-pane fade" id="carga" aria-labelledby="home-tab">
+                                    <section class="mx-auto" *ngIf="pending.length > 0">
+                                        <hr style="background-color: white !important;" />
+                                        <p>Pagos Pendientes</p>
+                                        <table class="table table-striped table-responsive table-sm">
+                                            <thead>
+                                              <tr>
+                                                <th>
+                                                  Cuenta
+                                                </th>
+                                                <th>
+                                                  Monto
+                                                </th>
+                                                <th>
+                                                  Fecha
+                                                </th>
+                                                <th>
+                                                  Status
+                                                </th>                        
+                                              </tr>
+                                            </thead>
+                                            <tbody>
+                                              <tr *ngFor="let pago of pending">
+                                                <td>
+                                                  {{pago.cta_destino}}
+                                                </td>
+                                                <td>
+                                                    {{pago.amount | number:'1.2-2':'es-Ar'}}
+                                                </td>
+                                                <td>
+                                                    {{pago.fecha_solicitud | date: 'dd/MM/yyyy'}}
+                                                </td>
+                                                <td>
+                                                    <label class="badge badge-info">Por Verificar</label>
+                                                </td>                        
+                                              </tr>                      
+                                            </tbody>
+                                          </table>
+                                          <hr style="background-color: white !important;" />
+                                    </section>
+                                    <p>
+                                        Pasos para cargar saldo:<br>
+                                        1. Transferir a alguna de las cuentas dispuestas. <a class="auth-link text-primary" style="cursor: pointer;" (click)="open()">Ver las cuentas
+                                        disponibles</a><br>
+                                        2. Completar este formulario y adjuntar el comprobante.<br>
+                                        3. Al ser verificado el pago, se acreditará el saldo a su billetera.
+                                    </p>
+                                    <hr style="background-color: white !important;" />
+                                    <div class="form-group">
+                                        <label>Cuenta Destino:</label>
+                                        <select class="form-control form-control-sm" id="exampleFormControlSelect2"
+                                            [(ngModel)]="pago.cta_destino" name="account" [compareWith]="comparar">
+                                            <option *ngFor="let cta of ctas" [ngValue]="cta.number">
+                                                {{cta.bank}}({{cta.number}})
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputUsername1">Monto</label>
+                                        <input type="number" class="form-control" id="exampleInputUsername1"
+                                            placeholder="Monto" name="monto" [(ngModel)]="pago.amount">
+                                    </div>
+                                    <div class="form-group">
+                                        <ngx-dropzone (change)="onSelect($event)" [multiple]="false"
+                                            style="width: 204px;" accept="image/jpeg,image/jpg,image/png,image/gif">
+                                            <ngx-dropzone-label>Click, para subir comprobnte</ngx-dropzone-label>
+                                            <ngx-dropzone-preview *ngFor="let f of files" [removable]="true"
+                                                (removed)="onRemove(f)">
+                                                <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+                                            </ngx-dropzone-preview>
+                                        </ngx-dropzone>
+                                    </div>
+                                    <button [disabled]="loading || !paymentValid()" class="btn btn-outline-primary text-center"
+                                        (click)="guardar()">Guardar
+                                        <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status"
+                                            aria-hidden="true"></span>
+                                    </button>                                
+                                </ng-template>
+                            </ngb-tab>
+                            <ngb-tab title="Retirar Fondos" id="retiro">
+                                <ng-template ngbTabContent class="tab-pane fade" id="retiro"
+                                    aria-labelledby="profile-tab">
+
+                                </ng-template>
+                            </ngb-tab>
+                        </ngb-tabset>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <p class="modal-title" id="modal-basic-title">Medios de Pago disponibles</p>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-12">
+                <table class="table table-striped table-responsive">
+                    <thead>
+                      <tr>
+                        <th>
+                          Banco
+                        </th>
+                        <th>
+                          Numero
+                        </th>
+                        <th>
+                          Doc. Identidad
+                        </th>
+                        <th>
+                          País
+                        </th>                        
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let cuenta of ctas">
+                        <td>
+                          {{cuenta.bank}}
+                        </td>
+                        <td>
+                            {{cuenta.number}}<i (click)="copy(cuenta.number)" class="fa fa-copy text-primary" style="float: right; cursor: pointer;"></i>
+                        </td>
+                        <td>
+                            {{cuenta.dni}}<i (click)="copy(cuenta.dni)" class="fa fa-copy text-primary" style="float: right; cursor: pointer;"></i>
+                        </td>
+                        <td>
+                            {{cuenta.pais}}
+                        </td>                        
+                      </tr>                      
+                    </tbody>
+                  </table>
+            </div>
+        </div>
+    </div>    
+</ng-template>

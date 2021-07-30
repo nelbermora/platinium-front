@@ -3,12 +3,18 @@
         <div class="row">
             <div class="col-12">
                 <div class="dashboard-status d-flex align-items-center justify-content-between flex-wrap">
-                    <div class="divider mx-3"></div>
-                    <div class="mb-3 mb-xl-0">
-                        <p class="text-muted">Saldo Actual</p>
-                        <h4 class="mb-0 font-weight-bold"> {{saldo}}</h4>
-                    </div>
-                    <div class="divider mx-3"></div>
+                  <div class="mb-3 mb-xl-0">
+                    <button class="btn btn-info rounded-0 text-white" routerLink="/payments">Cargar</button>
+                  </div>  
+                  <div class="divider mx-3"></div>
+                  <div class="mb-3 mb-xl-0">
+                      <p class="text-muted">Saldo Actual</p>
+                      <h4 class="mb-0 font-weight-bold"> {{saldo | number:'1.2-2':'es-Ar'}}</h4>
+                  </div>
+                  <div class="divider mx-3"></div>
+                  <div class="mb-3 mb-xl-0">
+                    <button class="btn btn-success rounded-0 text-white" (click)="goRetirar()">Retirar</button>
+                  </div>
                 </div>
             </div>
         </div>
@@ -32,10 +38,10 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let item of movements; index as i">
-                                <td>{{item.fecha}}</td>
+                                <td>{{item.fecha | date: 'dd/MM/yyyy'}}</td>
                                 <td>{{item.descripcion}}</td>
-                                <td>{{item.importe}}</td>
-                                <td>{{item.saldo}}</td>
+                                <td>{{item.importe | number:'1.2-2':'es-Ar'}}</td>
+                                <td>{{item.saldo | number:'1.2-2':'es-Ar'}}</td>
                             </tr>
                         </tbody>
                     </table>

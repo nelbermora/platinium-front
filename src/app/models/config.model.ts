@@ -7,5 +7,8 @@ export interface Config{
 export interface Account{
     number?: string,
     bank?: string,
-    dni?: number
+    dni?: number,
+    userId?: number,
+    id?: number,
+    pais?: string
 }

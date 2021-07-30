@@ -9,11 +9,48 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./config.component.css']
 })
 export class ConfigComponent implements OnInit {
+  paises = ['Antigua y Barbuda',
+  'Argentina',
+  'Bahamas',
+  'Barbados',
+  'Belice',
+  'Bolivia',
+  'Brasil',
+  'Canadá',
+  'Chile',
+  'Colombia',
+  'Costa Rica',
+  'Cuba',
+  'Dominica',
+  'Dominicana',
+  'Ecuador',
+  'El Salvador',
+  'Estados Unidos de América',
+  'Granada',
+  'Guatemala',
+  'Guyana',
+  'Haití',
+  'Honduras',
+  'Jamaica',
+  'México',
+  'Nicaragua',
+  'Panamá',
+  'Paraguay',
+  'Perú',
+  'Saint Kitts y Nevis',
+  'San Vicente y las Granadinas',
+  'Santa Lucía',
+  'Suriname',
+  'Trinidad y Tabago',
+  'Uruguay',
+  'Venezuela'];
   loading: boolean = false;
   config: Config = {
     bankAccounts : []
   };
-  tempAccount: Account = {};
+  tempAccount: Account = {
+    pais: ""
+  };
   
   dtSpanish = {
     'emptyTable': 'No hay registros para mostrar',
@@ -75,7 +112,7 @@ export class ConfigComponent implements OnInit {
     if (this.tempAccount !== undefined && this.tempAccount !== null){
       if(this.tempAccount.bank !== undefined && this.tempAccount.bank !== null && this.tempAccount.bank.length > 0 
         && this.tempAccount.number !== undefined && this.tempAccount.number !== null && this.tempAccount.number.length > 0 
-        && this.tempAccount.dni > 0){
+        && this.tempAccount.dni > 0 && this.tempAccount.pais.length > 0){
         valid = true;
       }
     }     
@@ -89,6 +126,13 @@ export class ConfigComponent implements OnInit {
     this.configSvc.saveConfig(this.config).subscribe(
       resp => (this.ngOnInit())
     );
+  }
+
+  compararPaises( pais1: string, pais2 :string) {
+    if (pais1 == null || pais2 == null) {
+      return false;
+    }
+    return pais1 === pais2;
   }
 
 }

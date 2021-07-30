@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { WalletService } from './../../services/wallet.service';
 import { AuthService } from './../../services/auth.service';
 import { WalletMovement } from './../../models/wallet-movement.model';
@@ -36,7 +37,8 @@ export class WalletComponent implements OnInit, AfterViewInit {
   movements: WalletMovement[] = [];
   userId: number;
   saldo: number;
-  constructor(private authSvc: AuthService, private walletSvc: WalletService) { }
+  constructor(private authSvc: AuthService, private walletSvc: WalletService,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.userId = this.authSvc.activeUser.id;
@@ -55,6 +57,10 @@ export class WalletComponent implements OnInit, AfterViewInit {
         this.dtTrigger.next();    
       }
     );
+  }
+
+  goRetirar(){
+    this.router.navigate(['/payments'], { queryParams: { tab: 'r' } });
   }
 
 }

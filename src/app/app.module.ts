@@ -1,3 +1,4 @@
+import { PaymentService } from './services/payment.service';
 import { WalletService } from './services/wallet.service';
 import { DateArSimplePipe } from './pipes/dateSimple.pipe';
 import { BetCalculatorService } from './services/bet-calculator.service';
@@ -130,6 +131,7 @@ import { BasketballComponent } from './components/basketball/basketball.componen
 import { SoccerComponent } from './components/soccer/soccer.component';
 import { ParlayService } from './services/parlay.service';
 import { MyBetsComponent } from './components/my-bets/my-bets.component';
+import { NgxDropzoneModule } from 'ngx-dropzone';
 
 registerLocaleData(localeEsAr, 'es-Ar');
 
@@ -258,7 +260,8 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
     BarRatingModule,
     FullCalendarModule,
     ScrollToModule.forRoot(),
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    NgxDropzoneModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [
@@ -281,7 +284,8 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
     VersionService,
     ParlayService,
     BetCalculatorService,
-    WalletService
+    WalletService,
+    PaymentService
   ],
   bootstrap: [AppComponent]
 })
