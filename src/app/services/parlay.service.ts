@@ -31,6 +31,14 @@ export class ParlayService {
         userId: this.authSvc.activeUser.id,
         odds: []
     };
+    this.authSvc.isLogged.subscribe(
+      resp => {
+        this.parlay = {
+          userId: this.authSvc.activeUser.id,
+          odds: []
+        };  
+      }
+    )
     if(environment.production){
       this.url = "https://platiniumsport.com/pservices/be/parlay";
     }else{

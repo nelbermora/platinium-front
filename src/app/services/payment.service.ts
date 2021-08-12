@@ -1,6 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { environment } from "src/environments/environment";
+import { Payment } from "../models/payment.model";
 
 @Injectable()
 export class PaymentService{
@@ -19,5 +20,9 @@ export class PaymentService{
 
     get(userId: number){
         return  this.http.get(this.url + '?userId=' + userId);
+    }
+
+    updatePayment(payment: Payment){
+        return  this.http.put<Payment>(this.url, payment);
     }
 }

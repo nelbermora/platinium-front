@@ -52,9 +52,6 @@ export class BetsComponent implements OnInit {
   }
 
   isValid(){
-    console.log(this.parlay.winAmount);
-    console.log(this.parlay.betAmount);
-    console.log(this.parlaySvc.maxAmount);
     let valid = false;
     if (this.parlaySvc.maxAmount !== null && this.parlaySvc.maxAmount > 0 && this.parlay.betAmount !== null
       && this.parlay.winAmount !== null && this.parlay.winAmount > 0){
@@ -87,12 +84,20 @@ export class BetsComponent implements OnInit {
           this.parlay.date = resp.date;
           this.parlay.oid = resp.oid;
           this.loading = false;
-        }else{
+        }else if(resp.oid === 0){
           Swal.fire({
             icon: 'error',
             title: 'Jugada no guardada',
             text: 'Uno de los juegos seleccionados ya inició',
             footer: 'Carga una nueva jugada con logros vigentes'
+          });
+          this.loading = false;
+        }else{
+          Swal.fire({
+            icon: 'warning',
+            title: 'Saldo insuficiente',
+            text: 'Monto jugado superior al disponible. Jugada no guardada',
+            footer: 'Prueba un monto menor o cargue su billetera'
           });
           this.loading = false;
         }        
@@ -106,8 +111,7 @@ export class BetsComponent implements OnInit {
       this.cleanParlay();
       // console.log("Cierro Modal por button");
     }, (reason) => {
-      this.cleanParlay();
-      console.log("Cierro Modal");
+      this.cleanParlay();      
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
   }

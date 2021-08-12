@@ -132,6 +132,7 @@ import { SoccerComponent } from './components/soccer/soccer.component';
 import { ParlayService } from './services/parlay.service';
 import { MyBetsComponent } from './components/my-bets/my-bets.component';
 import { NgxDropzoneModule } from 'ngx-dropzone';
+import { AngularImageViewerModule } from '@clarivate/angular-image-viewer';
 
 registerLocaleData(localeEsAr, 'es-Ar');
 
@@ -261,7 +262,8 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
     FullCalendarModule,
     ScrollToModule.forRoot(),
     NgxSpinnerModule,
-    NgxDropzoneModule
+    NgxDropzoneModule,
+    AngularImageViewerModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [

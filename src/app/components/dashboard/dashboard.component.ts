@@ -1,3 +1,4 @@
+import { User } from './../../models/user.model';
 import { ParlayService } from './../../services/parlay.service';
 import { AuthService } from './../../services/auth.service';
 import { VersionService } from './../../services/version.service';
@@ -249,13 +250,14 @@ export class DashboardComponent implements OnInit {
     }
   }
   
-  version = 2.6;
+  version = 2.7;
   saldo: number;
   jugadasActivas: number;
   totalJugadas: number;
   juegos: number;
   inPlayJuegos: number;
-  username: string;  
+  username: string;
+  user: User = {};  
   constructor(config: NgbCarouselConfig, private versionSvc: VersionService,
               private spinner: NgxSpinnerService, private authSvc: AuthService) {
     config.showNavigationArrows = true;
@@ -265,6 +267,13 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
     this.spinner.show();
     this.username = this.authSvc.activeUser.primerNombre;
+    this.user = this.authSvc.activeUser;
+    this.authSvc.isLogged.subscribe(
+      resp => {
+        this.username = this.authSvc.activeUser.primerNombre;
+        this.user = this.authSvc.activeUser;
+      }
+    )
     this.authSvc.getHome().subscribe((resp: any) => {
       this.saldo = resp.saldo;
       this.jugadasActivas = resp.jugadasActivas;

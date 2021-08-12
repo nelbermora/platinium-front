@@ -6,9 +6,9 @@
       </div>
       <div class="col-12 col-xl-7">
         <div class="dashboard-status d-flex align-items-center justify-content-between flex-wrap">
-          <div class="mb-3 mb-xl-0">
+          <div class="mb-3 mb-xl-0" *ngIf="user.type === 'Jugador'">
             <p class="text-muted">Saldo en Billetera</p>
-            <h4 class="mb-0 font-weight-bold">$ 0.00</h4>
+            <h4 class="mb-0 font-weight-bold">{{saldo | number:'1.2-2':'es-Ar'}}</h4>
           </div>
           <div class="divider mx-3"></div>
           <div class="mb-3 mb-xl-0">
@@ -32,30 +32,6 @@
   <div class="col-md-3 grid-margin stretch-card">
     <div class="card">
       <div class="card-body">
-        <p class="card-title text-md-center text-xl-left">Numero de Ligas</p>
-        <div class="d-flex flex-wrap justify-content-between justify-content-md-center justify-content-xl-between align-items-center">
-          <h3 class="mb-0 mb-md-2 mb-xl-0 order-md-1 order-xl-0">+ 50</h3>
-          <i class="ti-calendar icon-md text-muted mb-0 mb-md-3 mb-xl-0"></i>
-        </div>  
-        <p class="mb-0 mt-2 text-success">Ligas habilitadas</p>
-      </div>
-    </div>
-  </div>
-  <div class="col-md-3 grid-margin stretch-card">
-    <div class="card">
-      <div class="card-body">
-        <p class="card-title text-md-center text-xl-left">Cantidad de Clientes</p>
-        <div class="d-flex flex-wrap justify-content-between justify-content-md-center justify-content-xl-between align-items-center">
-          <h3 class="mb-0 mb-md-2 mb-xl-0 order-md-1 order-xl-0">+ 500 </h3>
-          <i class="ti-user icon-md text-muted mb-0 mb-md-3 mb-xl-0"></i>
-        </div>  
-        <p class="mb-0 mt-2 text-info">confian en nosotros</p>
-      </div>
-    </div>
-  </div>
-  <div class="col-md-3 grid-margin stretch-card">
-    <div class="card">
-      <div class="card-body">
         <p class="card-title text-md-center text-xl-left">Juegos Activos para hoy</p>
         <div class="d-flex flex-wrap justify-content-between justify-content-md-center justify-content-xl-between align-items-center">
           <h3 class="mb-0 mb-md-2 mb-xl-0 order-md-1 order-xl-0">{{juegos}}</h3>
@@ -74,6 +50,30 @@
           <i class="ti-layers-alt icon-md text-muted mb-0 mb-md-3 mb-xl-0"></i>
         </div>  
         <label class="badge badge-danger">En Vivo</label>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <p class="card-title text-md-center text-xl-left">Numero de Ligas</p>
+        <div class="d-flex flex-wrap justify-content-between justify-content-md-center justify-content-xl-between align-items-center">
+          <h3 class="mb-0 mb-md-2 mb-xl-0 order-md-1 order-xl-0">+ 50</h3>
+          <i class="ti-calendar icon-md text-muted mb-0 mb-md-3 mb-xl-0"></i>
+        </div>  
+        <p class="mb-0 mt-2 text-success">Ligas habilitadas</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <p class="card-title text-md-center text-xl-left">Cantidad de Clientes</p>
+        <div class="d-flex flex-wrap justify-content-between justify-content-md-center justify-content-xl-between align-items-center">
+          <h3 class="mb-0 mb-md-2 mb-xl-0 order-md-1 order-xl-0">+ 500 </h3>
+          <i class="ti-user icon-md text-muted mb-0 mb-md-3 mb-xl-0"></i>
+        </div>  
+        <p class="mb-0 mt-2 text-info">confian en nosotros</p>
       </div>
     </div>
   </div>

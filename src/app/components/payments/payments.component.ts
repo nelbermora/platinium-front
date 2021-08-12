@@ -1,3 +1,4 @@
+import { User } from './../../models/user.model';
 import { AuthService } from './../../services/auth.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { PaymentService } from './../../services/payment.service';
@@ -17,6 +18,7 @@ import { ClipboardService } from "ngx-clipboard";
 import { ToastrService } from "ngx-toastr";
 import Swal from 'sweetalert2';
 import { ActivatedRoute } from '@angular/router';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: "app-payments",
@@ -30,7 +32,11 @@ export class PaymentsComponent implements OnInit, AfterViewInit {
   ctas: Account[] = [];
   loading: boolean = false;
   uploadForm: FormGroup;
-  pending: Payment[] = [];  
+  pending: Payment[] = [];
+  user: User = {};
+  thumbnail: any;
+  pagoShowed: Payment = {};
+  index: number;
   constructor(
     config: NgbTabsetConfig,
     private modalService: NgbModal,
@@ -41,23 +47,26 @@ export class PaymentsComponent implements OnInit, AfterViewInit {
     private paymentSvc: PaymentService,
     private spinnerSvc: NgxSpinnerService,
     private authSvc: AuthService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private sanitizer: DomSanitizer
   ) {
     config.justify = "center";
     config.type = "pills";
   }
 
-  ngOnInit(): void {   
+  ngOnInit(): void {
     this.pago.userId = this.authSvc.activeUser.id;
+    this.user = this.authSvc.activeUser;
     this.authSvc.isLogged.subscribe(
       resp =>{
+        this.user = this.authSvc.activeUser;
         this.pago.userId = this.authSvc.activeUser.id;
       }
     );
     this.paymentSvc.get(this.pago.userId).subscribe(
       (resp: any) => {
         if(resp){
-          this.pending = resp;
+          this.pending = resp;          
         }
       }
     ); 
@@ -72,7 +81,7 @@ export class PaymentsComponent implements OnInit, AfterViewInit {
            this.active = 'retiro';
          }
       }
-    );        
+    );    
   }
 
   ngAfterViewInit(): void {}
@@ -80,7 +89,6 @@ export class PaymentsComponent implements OnInit, AfterViewInit {
   files: File[] = [];
 
   onSelect(event) {
-    console.log(event);
     if (this.files.length === 0) {      
       this.files.push(...event.addedFiles);
       this.uploadForm.get('profile').setValue(this.files[0]);
@@ -94,7 +102,7 @@ export class PaymentsComponent implements OnInit, AfterViewInit {
 
   guardar() {
     this.loading = true;
-    this.spinnerSvc.show();
+    this.spinnerSvc.show();    
     const formData = new FormData();
     formData.append('sendimage', this.uploadForm.get('profile').value);
     formData.append('data', JSON.stringify(this.pago));
@@ -118,11 +126,17 @@ export class PaymentsComponent implements OnInit, AfterViewInit {
     );
   }
 
-  open() {
+  open(index?: number, payment?: Payment) {
+    this.index = index;
+    this.pagoShowed = payment;
+    let objectURL = 'data:image/jpeg;base64,' + payment.comprobante;
+    this.thumbnail = this.sanitizer.bypassSecurityTrustUrl(objectURL);
     this.modalService
       .open(this.modalContent, { ariaLabelledBy: "modal-basic-title" })
       .result.then(
-        (result) => {},
+        (result) => {
+          this.pagoShowed = {};
+        },
         (reason) => {}
       );
   }
@@ -160,5 +174,45 @@ export class PaymentsComponent implements OnInit, AfterViewInit {
         valid = false;
       }
     return valid;
+  }
+
+  confirm(){
+    this.spinnerSvc.show();
+    this.pagoShowed.status = 'A';
+    this.pagoShowed.usuario_confirmacion = this.user.id;
+    this.paymentSvc.updatePayment(this.pagoShowed).subscribe(
+      resp => {
+        if(resp){
+          this.pending.splice(this.index,1);
+          this.modalService.dismissAll();
+          this.spinnerSvc.hide();
+          Swal.fire(
+            'Carga Aprobada',
+            'El saldo fué acreditado en la billetera',
+            'success'
+          ); 
+        }        
+      }
+    );
+  }
+
+  reject(){
+    this.spinnerSvc.show();
+    this.pagoShowed.status = 'R';
+    this.pagoShowed.usuario_confirmacion = this.user.id;
+    this.paymentSvc.updatePayment(this.pagoShowed).subscribe(
+      resp => {
+        if(resp){
+          this.pending.splice(this.index,1);
+          this.modalService.dismissAll();
+          this.spinnerSvc.hide();
+          Swal.fire(
+            'Pago rechazado',
+            'No se acreditará en billetera',
+            'warning'
+          ); 
+        }        
+      }
+    );
   }
 }

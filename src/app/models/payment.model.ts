@@ -1,3 +1,4 @@
+import { User } from './user.model';
 export interface Payment{
     id?: number,
     userId?: number,
@@ -9,5 +10,6 @@ export interface Payment{
     fecha_solicitud?: Date,
     status?: string,
     fecha_confirmacion?: Date,
-    usuario_confirmacion?: number
+    usuario_confirmacion?: number,
+    user?: User
 }
