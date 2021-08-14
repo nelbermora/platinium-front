@@ -32,6 +32,14 @@
                     </div>
                     <div class="form-group">
                         <div class="input-group">
+                            <label for="numero-parlay" style="margin-top: 10px;">Numero: </label>
+                            <input type="text" class="form-control form-control-sm" id="numero-parlay"
+                                                placeholder="Buscar por ticket"
+                                                [(ngModel)]="ticket" name="numero-parlay"/>                                                
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group">
                             <label style="margin-top: 10px;">Status: </label>
                             <select class="form-control form-control-lg" id="exampleFormControlSelect2" [(ngModel)]="statusSelected" name="pais">
                               <option *ngFor="let status of statuses" [ngValue]="status">{{status}}</option>
@@ -81,15 +89,33 @@
                     style="margin-left: 0px !important; margin-right: 0px !important;">
                     <ngb-panel id="panel-{{i}}" *ngFor="let parlay of parlays; index as i"style="margin-left: 0px !important; margin-right: 0px !important;">
                         <ng-template ngbPanelTitle>
+                            <!--<table>
+                                <tr>
+                                    <td>{{parlay.oid}}</td><td>{{parlay.date | date: 'dd/MM/yyyy H:mm:ss'}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Jugado: {{parlay.betAmount | number:'1.2-2':'es-Ar'}}</td><td>A Ganar: {{parlay.winAmount | number:'1.2-2':'es-Ar'}}</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div *ngIf="parlay.status === 'A'" class="badge badge-warning">En Juego</div>
+                                        <div *ngIf="parlay.status === 'W'" class="badge badge-success">Ganó!</div>
+                                        <div *ngIf="parlay.status === 'L'" class="badge badge-danger">Perdió</div>
+                                    </td>                                    
+                                </tr>
+                            </table>
+                        -->
                             <div class="row">
                                 <div class="col-6">
-                                    {{parlay.date | date: 'dd/MM/yyyy H:mm:ss'}}
-                                </div>
-                                <div class="col-6">
+                                    <div *ngIf="parlay.status === 'S'" class="badge badge-info">Suspendido</div>
                                     <div *ngIf="parlay.status === 'A'" class="badge badge-warning">En Juego</div>
                                     <div *ngIf="parlay.status === 'W'" class="badge badge-success">Ganó!</div>
                                     <div *ngIf="parlay.status === 'L'" class="badge badge-danger">Perdió</div>
+                                    <div *ngIf="parlay.status === 'Z'" class="badge badge-info">Pagado</div>
                                 </div>
+                                <div class="col-6">
+                                    {{parlay.oid}}
+                                </div>                                
                             </div>
                             <div class="row">
                                 <div class="col-6">
@@ -97,6 +123,11 @@
                                 </div>
                                 <div class="col-6">
                                     A Ganar: {{parlay.winAmount | number:'1.2-2':'es-Ar'}}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    {{parlay.date | date: 'dd/MM/yyyy H:mm:ss'}}
                                 </div>
                             </div>
 
@@ -126,14 +157,38 @@
                                     </tr>
                                 </tbody>
                             </table>
-                            <div class="text-right">
-                                <button type="button" class="btn btn-success" (click)="open(i)" style="
-                                    padding-left: 1px;
-                                    padding-right: 1px;
-                                    padding-top: 4px;
-                                    padding-bottom: 4px;
-                                "><i class="fa fa-print"></i></button>
-                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="text-left"
+                                        *ngIf="parlay.status === 'W' && (activeUser.type === 'Admin' || activeUser.type === 'Taquilla')">
+                                        <button type="button" class="btn btn-info" (click)="pay(i)" style="
+                                            padding-left: 1px;
+                                            padding-right: 1px;
+                                            padding-top: 4px;
+                                            padding-bottom: 4px;
+                                        "><i class="ti-credit-card"></i></button>
+                                    </div>
+                                    <div class="text-left"
+                                        *ngIf="(parlay.status === 'A' && isNulleable(i))">
+                                        <button type="button" class="btn btn-danger" (click)="cancel(i)" style="
+                                            padding-left: 1px;
+                                            padding-right: 1px;
+                                            padding-top: 4px;
+                                            padding-bottom: 4px;
+                                        "><i class="fa fa-minus-circle"></i></button>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="text-right">
+                                        <button type="button" class="btn btn-success" (click)="open(i)" style="
+                                            padding-left: 1px;
+                                            padding-right: 1px;
+                                            padding-top: 4px;
+                                            padding-bottom: 4px;
+                                        "><i class="fa fa-print"></i></button>
+                                    </div>
+                                </div>
+                            </div>                            
                         </ng-template>
                     </ngb-panel>                    
                 </ngb-accordion>

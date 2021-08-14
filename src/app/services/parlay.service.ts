@@ -212,6 +212,16 @@ export class ParlayService {
                && this.getBetName(betType) !== "Si" && this.getBetName(betType) !== "No"){
               can = false;
             }
+            if(element.letter === "A"){
+              if (this.getBetName(betType) === "Si"){
+                can = false;
+              }
+            }
+            if(element.letter === "B"){
+              if (this.getBetName(betType) === "No"){
+                can = false;
+              }
+            }   
           }
 
           if(element.type === "Alta/Baja 1er Mitad"){
@@ -220,6 +230,16 @@ export class ParlayService {
                && this.getBetName(betType) !== "RunLine" && this.getBetName(betType) !== "RunLine 1er Mitad"){
               can = false;
             }
+            if(element.letter === "A"){
+              if (this.getBetName(betType) === "Si"){
+                can = false;
+              }
+            }
+            if(element.letter === "B"){
+              if (this.getBetName(betType) === "No"){
+                can = false;
+              }
+            }   
           }
 
           if(element.type === "RunLine" || element.type === "RunLine 1er Mitad"){
@@ -271,7 +291,12 @@ export class ParlayService {
               && this.getBetName(betType) !== "Alta/Baja" && this.getBetName(betType) !== "Alta/Baja 1er Mitad"
               && this.getBetName(betType) !== "Anota Primero"){
                 can = false;
-              }              
+              }
+              if(this.getBetName(betType) !== "Alta/Baja" || this.getBetName(betType) !== "Alta/Baja 1er Mitad"){
+                if(team.ouLetter === 'A'){
+                  can = false;
+                }
+              }
             }            
           }
 
@@ -286,6 +311,11 @@ export class ParlayService {
               && this.getBetName(betType) !== "Alta/Baja" && this.getBetName(betType) !== "Alta/Baja 1er Mitad"
               && this.getBetName(betType) !== "Anota Primero"){
                 can = false;
+              }
+              if(this.getBetName(betType) !== "Alta/Baja" || this.getBetName(betType) !== "Alta/Baja 1er Mitad"){
+                if(team.ouLetter === 'B'){
+                  can = false;
+                }
               }              
             }
           }
@@ -382,7 +412,11 @@ export class ParlayService {
     return this.http.post<Parlay>(this.url, this.parlay);
   }
 
-  getParlays(desde: string, hasta: string, idUser?: number, status?: string){
+  update(parlay: Parlay){
+    return this.http.put<Parlay>(this.url, parlay);
+  }
+
+  getParlays(desde: string, hasta: string, idUser?: number, status?: string, ticket ?: string){
     let usuario: number;
     let stat: string;
     idUser > 0 ? usuario = idUser : usuario = this.authSvc.activeUser.id;
@@ -404,8 +438,8 @@ export class ParlayService {
 
     let param: string;
     stat === undefined ? 
-      param =  "?idUser=" + usuario + "&desde=" + desde + "&hasta=" + hasta :
-      param =  "?idUser=" + usuario + "&desde=" + desde + "&hasta=" + hasta + "&status=" + stat;
+      param =  "?idUser=" + usuario + "&desde=" + desde + "&hasta=" + hasta + "&ticket=" + ticket:
+      param =  "?idUser=" + usuario + "&desde=" + desde + "&hasta=" + hasta + "&ticket=" + ticket + "&status=" + stat;
     return this.http.get<Parlay[]>(this.url + param);
   }
 

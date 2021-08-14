@@ -1,14 +1,15 @@
 import { NgxSpinnerService } from 'ngx-spinner';
 import { VersionService } from './../../services/version.service';
 import { Config, Account } from './../../models/config.model';
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-config',
   templateUrl: './config.component.html',
   styleUrls: ['./config.component.css']
 })
-export class ConfigComponent implements OnInit {
+export class ConfigComponent implements OnInit, AfterViewInit {
   paises = ['Antigua y Barbuda',
   'Argentina',
   'Bahamas',
@@ -52,15 +53,15 @@ export class ConfigComponent implements OnInit {
     pais: ""
   };
   
+  dtTrigger: Subject<any> = new Subject<any>();
+
   dtSpanish = {
     'emptyTable': 'No hay registros para mostrar',
-    'info': 'Pagina _PAGE_ de _PAGES_',
+    'info': 'Mostrando _START_ a _END_ de _TOTAL_ registros',
     'infoEmpty': '0 registros',
-    'infoFiltered': '(encontrados _MAX_ registros)',
-    'infoPostFix': '',
-    'infoThousands': ' ',
+    'infoFiltered': '(Total _MAX_)',
     'loadingRecords': 'Procesando...',
-    'lengthMenu': 'Mostrar _MENU_ registros',
+    'lengthMenu': 'Mostrar _MENU_ por pagina',
     'processing': 'Procesando...',
     'search': 'Buscar:',
     'url': '',
@@ -70,10 +71,6 @@ export class ConfigComponent implements OnInit {
       'previous': 'Anterior',
       'next': 'Siguiente',
       'last': 'Ultima'
-    },
-    'aria': {
-      'sortAscending': ': aktiver for å sortere kolonnen stigende',
-      'sortDescending': ': aktiver for å sortere kolonnen synkende'
     }
   };
 
@@ -81,15 +78,31 @@ export class ConfigComponent implements OnInit {
     language: this.dtSpanish
   };
   constructor(private configSvc: VersionService, private spinnerSvc: NgxSpinnerService) { }
+  
 
   ngOnInit(): void {
-    this.spinnerSvc.show();
     this.configSvc.getVersion().subscribe(
       resp => {
         this.config = resp;
+        this.dtopt = {
+          language: this.dtSpanish
+        };         
         this.spinnerSvc.hide();
       }
-    );
+    );    
+    
+  }
+
+  ngAfterViewInit(): void {
+    this.configSvc.getVersion().subscribe(
+      resp => {
+        this.config = resp;
+        this.dtopt = {
+          language: this.dtSpanish
+        }; 
+        this.dtTrigger.next();        
+      }
+    );    
   }
 
   guardar(){
@@ -103,7 +116,10 @@ export class ConfigComponent implements OnInit {
     this.spinnerSvc.show();
     this.config.bankAccounts.push(this.tempAccount);
     this.configSvc.saveConfig(this.config).subscribe(
-      resp => (this.ngOnInit())
+      resp => {
+        this.tempAccount = {}
+        this.ngOnInit();
+      }
     );
   }
 

@@ -1,3 +1,4 @@
+import { AuthService } from 'src/app/services/auth.service';
 import { LoggerService } from './../../services/logger.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ParlayService } from './../../services/parlay.service';
@@ -6,6 +7,9 @@ import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {NgbDate, NgbCalendar, NgbDateParserFormatter} from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
+import { User } from 'src/app/models/user.model';
+import Swal from 'sweetalert2';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-my-bets',
@@ -27,9 +31,17 @@ export class MyBetsComponent implements OnInit {
   consultedUser: string;
   idUser: number;
   ignoreDate: boolean = false;
+  ticket: string = "";
+  activeUser: User = {};
   constructor(private parlaySvc: ParlayService, private spinner: NgxSpinnerService,
     private modalService: NgbModal, private calendar: NgbCalendar, public formatter: NgbDateParserFormatter,
-    private logger: LoggerService, private route: ActivatedRoute) { 
+    private logger: LoggerService, private route: ActivatedRoute, private authSvc: AuthService) { 
+      this.activeUser = this.authSvc.activeUser;
+      this.authSvc.isLogged.subscribe(
+        resp => {
+          this.activeUser = this.authSvc.activeUser;
+        }
+      );
       this.fromDate = calendar.getPrev(calendar.getToday(),'d',1);
       //this.toDate = calendar.getNext(calendar.getToday(), 'd', 10);
       this.toDate = calendar.getToday();
@@ -56,16 +68,16 @@ export class MyBetsComponent implements OnInit {
     let from: string;
     let to: string;
     if(this.ignoreDate){
-      console.log('entro al ignore');
       from = "1980-01-01";
       to = "2980-01-01";
     }else{
       from = this.desde;
       to = this.hasta;
     }
-    this.parlaySvc.getParlays(from,to, this.idUser, this.statusSelected).subscribe(
+    this.parlaySvc.getParlays(from,to, this.idUser, this.statusSelected, this.ticket).subscribe(
       resp=> {
         this.parlays = resp;
+        this.ticket = "";
         this.spinner.hide();
       }
     );
@@ -74,6 +86,62 @@ export class MyBetsComponent implements OnInit {
   open(index: number) {
     this.parlay = this.parlays[index];
     this.modalService.open(this.modalContent, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {}, (reason) => {});
+  }
+
+  pay(index:number){
+    if(confirm('Desea marcar como pagado el Parlay ' + this.parlays[index].oid + '?')){
+      this.spinner.show();
+      this.parlays[index].status = 'Z';
+      this.parlaySvc.update(this.parlays[index]).subscribe(
+        resp => {
+          if(resp.oid > 0){
+            this.spinner.hide();
+            Swal.fire(
+              'Parlay marcado como pagado',
+              '',
+              'success'
+            );
+          }
+        }
+      );
+    }
+  }
+
+  isNulleable(index: number){        
+    let nulleable = false;
+    let now = new Date();
+    let deadLine = new Date(new Date(this.parlays[index].date).getTime() + 5*60000);
+    if(now <= deadLine){
+      nulleable = true;
+    }
+    return nulleable;
+  }
+
+  cancel(index: number){
+    if(confirm('Desea anular el Parlay' + this.parlays[index].oid + '?')){
+      this.spinner.show();
+      this.parlays[index].status = 'S';
+      this.parlaySvc.update(this.parlays[index]).subscribe(
+        resp => {
+          if(resp.oid > 0){
+            this.spinner.hide();
+            Swal.fire(
+              'Parlay anulado',
+              '',
+              'success'
+            );
+          }else{
+            this.parlays[index].status = 'A';
+            this.spinner.hide();
+            Swal.fire(
+              'Anulación no satisfactoria',
+              'Expiró el tiempo para anular la jugada o inició alguno de los juegos',
+              'warning'
+            );
+          }
+        }
+      )
+    }
   }
   
   onDateSelection(date: NgbDate) {
