@@ -128,7 +128,7 @@ export class ConfigComponent implements OnInit, AfterViewInit {
     if (this.tempAccount !== undefined && this.tempAccount !== null){
       if(this.tempAccount.bank !== undefined && this.tempAccount.bank !== null && this.tempAccount.bank.length > 0 
         && this.tempAccount.number !== undefined && this.tempAccount.number !== null && this.tempAccount.number.length > 0 
-        && this.tempAccount.dni > 0 && this.tempAccount.pais.length > 0){
+        && this.tempAccount.dni !==undefined && this.tempAccount.dni > 0 && this.tempAccount.pais.length > 0){
         valid = true;
       }
     }     

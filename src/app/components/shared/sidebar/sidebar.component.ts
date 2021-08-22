@@ -59,4 +59,8 @@ export class SidebarComponent implements OnInit {
 
   }
 
+  toggleRightSidebar() {
+    document.querySelector('.sidebar-offcanvas').classList.toggle('active');
+  }
+
 }

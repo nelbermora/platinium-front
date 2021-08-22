@@ -17,5 +17,6 @@ export interface User{
     cuenta?: string,
     banco?: string,
     moneda?: string,
-    status?: string
+    status?: string,
+    saldo?: number
 }

@@ -94,6 +94,19 @@
             <ngb-tabset [activeId]="active" *ngIf="user.type=='Admin'">
               <ngb-tab title="Cargas" id="carga">
                 <ng-template ngbTabContent class="tab-pane fade" id="carga" aria-labelledby="home-tab">
+                  <section class="mx-auto" *ngIf="pending.length === 0">
+                    <div class="card">
+                      <div class="row" style="margin-left: 5px !important;" >
+                        <div class="col-12">
+                          <div class="card-body">
+                              <p class="mb-12">
+                                No hay cargas por verificar.
+                              </p>          
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </section>
                   <section class="mx-auto" *ngIf="pending.length > 0">
                     <hr style="background-color: white !important;" />
                     <p>Cargas por verificar</p>

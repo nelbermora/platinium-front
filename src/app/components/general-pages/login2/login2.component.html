@@ -27,13 +27,18 @@
                   <i class="ti-lock text-primary"></i>
                 </span>
               </div>
-              <input type="password" class="form-control form-control-lg border-left-0" id="exampleInputPassword" placeholder="Password" [(ngModel)]="password" name="password">                        
+              <input [type]="!watchPass ? 'password' : 'text'" name="passowrd" class="form-control form-control-lg border-left-0" id="exampleInputPassword" placeholder="Password" [(ngModel)]="password" name="password">                        
+              <div class="input-group-append" (click)="verPass()"><span class="input-group-text">
+                <i *ngIf="!watchPass" class="fa fa-eye"></i>
+                <i *ngIf="watchPass" class="fa fa-eye-slash"></i></span>
+              </div>
             </div>
           </div>
           <div *ngIf="invalidLogin" class="my-2 d-flex justify-content-between align-items-center">
             <p class="auth-link text-danger">Credenciales inválidas</p>
           </div>
           <div class="my-2 d-flex justify-content-between align-items-center">
+            <!--
             <div class="form-check">
               <label class="form-check-label text-muted">
                 <input type="checkbox" class="form-check-input">
@@ -41,6 +46,7 @@
                 Recordarme
               </label>
             </div>
+            -->
             <a class="auth-link text-primary" (click)="openForgot()">Olvidé password?</a>
           </div>
           <div class="my-3" (click)="doLogin()">

@@ -14,52 +14,52 @@
       </a>
       <div class="collapse" id="ui-basic" [ngbCollapse]="!uiBasicCollapsed">
         <ul class="nav flex-column sub-menu">
-          <li class="nav-item"> <a class="nav-link" routerLink="/baseball" routerLinkActive="active" #baseball="routerLinkActive">Baseball</a></li>
-          <li class="nav-item"> <a class="nav-link" routerLink="/soccer" routerLinkActive="active" #futbol="routerLinkActive">Futbol</a></li>
-          <li class="nav-item"> <a class="nav-link" routerLink="/basketball" routerLinkActive="active" #baloncesto="routerLinkActive">Baloncesto</a></li>
-          <li class="nav-item"> <a class="nav-link" routerLink="/bets" routerLinkActive="active" #american="routerLinkActive">Futbol Americano</a></li>
-          <li class="nav-item"> <a class="nav-link" routerLink="/bets" routerLinkActive="active" #tennis="routerLinkActive">Tennis</a></li>                    
+          <li class="nav-item"> <a class="nav-link" routerLink="/baseball" routerLinkActive="active" #baseball="routerLinkActive" (click)="toggleRightSidebar()">Baseball</a></li>
+          <li class="nav-item"> <a class="nav-link" routerLink="/soccer" routerLinkActive="active" #futbol="routerLinkActive" (click)="toggleRightSidebar()">Futbol</a></li>
+          <li class="nav-item"> <a class="nav-link" routerLink="/basketball" routerLinkActive="active" #baloncesto="routerLinkActive" (click)="toggleRightSidebar()">Baloncesto</a></li>
+          <li class="nav-item" hidden> <a class="nav-link" routerLink="/bets" routerLinkActive="active" #american="routerLinkActive" (click)="toggleRightSidebar()">Futbol Americano</a></li>
+          <li class="nav-item" hidden> <a class="nav-link" routerLink="/bets" routerLinkActive="active" #tennis="routerLinkActive" (click)="toggleRightSidebar()">Tennis</a></li>                              
         </ul>
       </div>
     </li>
     <li class="nav-item" [ngClass]="{'active': mybets.isActive}">
-      <a class="nav-link" routerLink="/mybets" routerLinkActive #mybets="routerLinkActive">
+      <a class="nav-link" routerLink="/mybets" routerLinkActive #mybets="routerLinkActive" (click)="toggleRightSidebar()">
         <i class="ti-control-play menu-icon"></i>
         <span class="menu-title">Jugadas</span>
       </a>
     </li>
     <li class="nav-item" [ngClass]="{'active': profile.isActive}">
-      <a class="nav-link" routerLink="/profile" routerLinkActive #profile="routerLinkActive">
+      <a class="nav-link" routerLink="/profile" routerLinkActive #profile="routerLinkActive" (click)="toggleRightSidebar()">
         <i class="ti-user menu-icon"></i>
         <span class="menu-title">Datos</span>
       </a>
     </li>
     <li class="nav-item" [ngClass]="{ 'active': config.isActive }" *ngIf="isAdmin">
-      <a class="nav-link" routerLink="/config" routerLinkActive #config="routerLinkActive">
+      <a class="nav-link" routerLink="/config" routerLinkActive #config="routerLinkActive" (click)="toggleRightSidebar()">
         <i class="ti-settings menu-icon"></i>
         <span class="menu-title">Configuración</span>
       </a>
     </li>
     <li class="nav-item" [ngClass]="{ 'active': payments.isActive }">
-      <a class="nav-link" routerLink="/payments" routerLinkActive #payments="routerLinkActive">
+      <a class="nav-link" routerLink="/payments" routerLinkActive #payments="routerLinkActive" (click)="toggleRightSidebar()">
         <i class="ti-credit-card menu-icon"></i>
         <span class="menu-title">Pagos</span>
       </a>
     </li>
     <li class="nav-item" [ngClass]="{ 'active': wallet.isActive }">
-      <a class="nav-link" routerLink="/wallet" routerLinkActive #wallet="routerLinkActive">
+      <a class="nav-link" routerLink="/wallet" routerLinkActive #wallet="routerLinkActive" (click)="toggleRightSidebar()">
         <i class="ti-wallet menu-icon"></i>
         <span class="menu-title">Mi Billetera</span>
       </a>
     </li>
     <li class="nav-item" [ngClass]="{ 'active': users.isActive }" *ngIf="isAdmin">
-      <a class="nav-link" routerLink="/users" routerLinkActive #users="routerLinkActive">
+      <a class="nav-link" routerLink="/users" routerLinkActive #users="routerLinkActive" (click)="toggleRightSidebar()">
         <i class="ti-view-list-alt menu-icon"></i>
         <span class="menu-title">Usuarios</span>
       </a>
     </li>
     <li class="nav-item" [ngClass]="{'active': terms.isActive}">
-      <a class="nav-link" routerLink="/terms" routerLinkActive #terms="routerLinkActive">
+      <a class="nav-link" routerLink="/terms" routerLinkActive #terms="routerLinkActive" (click)="toggleRightSidebar()">
         <i class="ti-palette menu-icon"></i>
         <span class="menu-title">Reglas</span>
       </a>

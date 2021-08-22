@@ -15,6 +15,7 @@ export class Login2Component implements OnInit {
   @ViewChild("content") modalContent: TemplateRef<any>;
   @ViewChild("forgot") modalForgot: TemplateRef<any>;
   component = 'login';
+  watchPass: boolean = false;
   paises = ['Antigua y Barbuda',
   'Argentina',
   'Bahamas',
@@ -253,5 +254,8 @@ export class Login2Component implements OnInit {
     return valid;
   }
 
+  verPass(){
+    this.watchPass = !this.watchPass;
+  }
 
 }

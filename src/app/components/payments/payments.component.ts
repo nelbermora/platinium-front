@@ -127,10 +127,12 @@ export class PaymentsComponent implements OnInit, AfterViewInit {
   }
 
   open(index?: number, payment?: Payment) {
-    this.index = index;
-    this.pagoShowed = payment;
-    let objectURL = 'data:image/jpeg;base64,' + payment.comprobante;
-    this.thumbnail = this.sanitizer.bypassSecurityTrustUrl(objectURL);
+    if(payment !== undefined && payment !== null){
+      this.index = index;
+      this.pagoShowed = payment;
+      let objectURL = 'data:image/jpeg;base64,' + payment.comprobante;
+      this.thumbnail = this.sanitizer.bypassSecurityTrustUrl(objectURL);
+    }
     this.modalService
       .open(this.modalContent, { ariaLabelledBy: "modal-basic-title" })
       .result.then(
@@ -177,42 +179,46 @@ export class PaymentsComponent implements OnInit, AfterViewInit {
   }
 
   confirm(){
-    this.spinnerSvc.show();
-    this.pagoShowed.status = 'A';
-    this.pagoShowed.usuario_confirmacion = this.user.id;
-    this.paymentSvc.updatePayment(this.pagoShowed).subscribe(
-      resp => {
-        if(resp){
-          this.pending.splice(this.index,1);
-          this.modalService.dismissAll();
-          this.spinnerSvc.hide();
-          Swal.fire(
-            'Carga Aprobada',
-            'El saldo fué acreditado en la billetera',
-            'success'
-          ); 
-        }        
-      }
-    );
+    if(confirm('Desea confirmar este pago?')){
+      this.spinnerSvc.show();
+      this.pagoShowed.status = 'A';
+      this.pagoShowed.usuario_confirmacion = this.user.id;
+      this.paymentSvc.updatePayment(this.pagoShowed).subscribe(
+        resp => {
+          if(resp){
+            this.pending.splice(this.index,1);
+            this.modalService.dismissAll();
+            this.spinnerSvc.hide();
+            Swal.fire(
+              'Carga Aprobada',
+              'El saldo fué acreditado en la billetera',
+              'success'
+            ); 
+          }        
+        }
+      );     
+    }    
   }
 
   reject(){
-    this.spinnerSvc.show();
-    this.pagoShowed.status = 'R';
-    this.pagoShowed.usuario_confirmacion = this.user.id;
-    this.paymentSvc.updatePayment(this.pagoShowed).subscribe(
-      resp => {
-        if(resp){
-          this.pending.splice(this.index,1);
-          this.modalService.dismissAll();
-          this.spinnerSvc.hide();
-          Swal.fire(
-            'Pago rechazado',
-            'No se acreditará en billetera',
-            'warning'
-          ); 
-        }        
-      }
-    );
+    if(confirm('Desea rechazar este pago?')){
+      this.spinnerSvc.show();
+      this.pagoShowed.status = 'R';
+      this.pagoShowed.usuario_confirmacion = this.user.id;
+      this.paymentSvc.updatePayment(this.pagoShowed).subscribe(
+        resp => {
+          if(resp){
+            this.pending.splice(this.index,1);
+            this.modalService.dismissAll();
+            this.spinnerSvc.hide();
+            Swal.fire(
+              'Pago rechazado',
+              'No se acreditará en billetera',
+              'warning'
+            ); 
+          }        
+        }
+      );  
+    }    
   }
 }

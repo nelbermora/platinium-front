@@ -4,6 +4,9 @@ import { AfterViewInit, Component, OnInit, TemplateRef, ViewChild } from '@angul
 import { User } from 'src/app/models/user.model';
 import { Subject } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import Swal from 'sweetalert2';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { DataTableDirective } from 'angular-datatables';
 
 @Component({
   selector: 'app-users',
@@ -12,6 +15,8 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class UsersComponent implements OnInit, AfterViewInit {
   @ViewChild("content") modalContent: TemplateRef<any>;
+  @ViewChild(DataTableDirective, {static: false})
+  datatableElement: any = DataTableDirective;
   dtSpanish = {
     'emptyTable': 'No hay registros para mostrar',
     'info': 'Mostrando _START_ a _END_ de _TOTAL_ registros',
@@ -75,6 +80,8 @@ export class UsersComponent implements OnInit, AfterViewInit {
     language: this.dtSpanish
   };
   dtTrigger: Subject<any> = new Subject<any>();
+  dtElement: DataTableDirective;
+
   users: User[] = [];
   user: User = {
     type: "Jugador"
@@ -83,15 +90,17 @@ export class UsersComponent implements OnInit, AfterViewInit {
   alreadyExists: boolean = false;
   isLoading: boolean = false;
   constructor(private userSvc: AuthService, private modalService: NgbModal,
-    private router: Router) { }
+    private router: Router, private spinnerSvc: NgxSpinnerService) { }
 
   ngOnInit(): void {
+    this.users = [];
     this.userSvc.getAll().subscribe(
       (resp: any) => {
         this.users = resp;
         this.dtopt = {
           language: this.dtSpanish
         };
+        this.spinnerSvc.hide();
       }
     );
   }
@@ -119,11 +128,18 @@ export class UsersComponent implements OnInit, AfterViewInit {
 
   saveUser(){
     if(this.isUserValid()){
+      this.spinnerSvc.show();
       this.isLoading = true;
       this.userSvc.update(this.user).subscribe(
         (resp: any) => {
           if(this.user.id !== undefined && this.user.id > 0){
             this.isLoading = false;
+            this.spinnerSvc.hide();
+            Swal.fire(
+              'Cambios guardados!',
+              '',
+              'success'
+            );  
             this.modalService.dismissAll();
             this.alreadyExists = false;
             this.ngOnInit();            
@@ -135,8 +151,21 @@ export class UsersComponent implements OnInit, AfterViewInit {
               this.isLoading = false;
               this.modalService.dismissAll();
               this.alreadyExists = false;
-              this.ngOnInit();
-            }
+              Swal.fire(
+                'Cambios guardados!',
+                '',
+                'success'
+              );
+              this.user.id = resp.id;                        
+              this.user.status = 'A';
+              this.users.push(this.user);
+              this.user = {};
+              this.datatableElement.dtInstance.then((dtInstance: DataTables.Api) => {
+                dtInstance.destroy();
+                this.dtTrigger.next();
+              });
+              this.spinnerSvc.hide();
+            }            
           }
           
         }
@@ -153,8 +182,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
       this.user.correo !== undefined && this.user.correo.length > 0
       && this.user.primerNombre !== undefined && this.user.primerNombre.length > 0
       && this.user.primerApellido !== undefined && this.user.primerApellido.length > 0
-      && this.user.paisResidencia !== undefined && this.user.paisResidencia.length > 0
-      && this.user.documento !== undefined && this.user.documento > 0
+      && this.user.paisResidencia !== undefined && this.user.paisResidencia.length > 0      
     ){
       valid = true;
     }
