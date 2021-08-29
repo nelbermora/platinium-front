@@ -87,7 +87,71 @@
               </ngb-tab>
               <ngb-tab title="Retirar Fondos" id="retiro">
                 <ng-template ngbTabContent class="tab-pane fade" id="retiro" aria-labelledby="profile-tab">
-
+                  <p>
+                    Pasos para retirar saldo:<br>
+                    1. Debe tener asociada una cuenta bancaria a su billetera. <a class="auth-link text-primary"
+                      style="cursor: pointer;" routerLink="/profile">Si aún no lo ha hecho puede hacer click
+                      aqui</a><br>
+                    2. Ingresar a continuación el saldo que desea retirar.<br>
+                    3. Al procesar su solicitud, se debitará automaticamente el saldo de la billetera.
+                  </p>
+                  <hr style="background-color: white !important;" />
+                  <div class="form-group">
+                    <label for="exampleInputUsername1">Monto</label>
+                    <input type="number" class="form-control" id="exampleInputUsername1" placeholder="Monto"
+                      name="monto" [(ngModel)]="withdrawal.amount">
+                  </div>
+                  <div class="form-group">
+                    <label>Cuenta Destino:</label>
+                    <select class="form-control form-control-sm" id="ctaDest">
+                      <option *ngIf="user.cuenta !== undefined && user.cuenta.length > 0"> {{user.cuenta}}
+                        [{{user.moneda}}]
+                      </option>
+                    </select>
+                  </div>
+                  <button [disabled]="loading || !withdrawalValid()" class="btn btn-outline-primary text-center"
+                    (click)="withdraw()">Solicitar
+                    <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status"
+                      aria-hidden="true"></span>
+                  </button>
+                  <hr style="background-color: white !important;" />
+                  <p>Histórico de Retiros</p>
+                  <table class="table table-striped table-sm table-responsive w-100 d-block d-md-table">
+                    <thead>
+                      <tr>
+                        <th>
+                          Cuenta
+                        </th>
+                        <th>
+                          Monto
+                        </th>
+                        <th>
+                          Fecha
+                        </th>
+                        <th>
+                          Status
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let pago of withdrawals; index as i;">
+                        <td>
+                          {{pago.cta_destino}}
+                        </td>
+                        <td>
+                          {{pago.amount | number:'1.2-2':'es-Ar'}}
+                        </td>
+                        <td>
+                          {{pago.fecha_solicitud | date: 'dd/MM/yyyy'}}
+                        </td>
+                        <td>
+                          <label class="badge badge-info" *ngIf="pago.status === 'S'">En Proceso</label>
+                          <label class="badge badge-success" *ngIf="pago.status === 'A'">Procesado</label>
+                          <i class="fa fa-eye text-primary" *ngIf="pago.status === 'A'" style="cursor: pointer;" (click)="openWdModal(i)"></i>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </ng-template>
               </ngb-tab>
             </ngb-tabset>
@@ -96,12 +160,12 @@
                 <ng-template ngbTabContent class="tab-pane fade" id="carga" aria-labelledby="home-tab">
                   <section class="mx-auto" *ngIf="pending.length === 0">
                     <div class="card">
-                      <div class="row" style="margin-left: 5px !important;" >
+                      <div class="row" style="margin-left: 5px !important;">
                         <div class="col-12">
                           <div class="card-body">
-                              <p class="mb-12">
-                                No hay cargas por verificar.
-                              </p>          
+                            <p class="mb-12">
+                              No hay cargas por verificar.
+                            </p>
                           </div>
                         </div>
                       </div>
@@ -156,7 +220,66 @@
               </ngb-tab>
               <ngb-tab title="Retiros" id="retiro">
                 <ng-template ngbTabContent class="tab-pane fade" id="retiro" aria-labelledby="profile-tab">
-
+                  <table class="table table-striped table-sm table-responsive w-100 d-block d-md-table">
+                    <thead>
+                      <tr>
+                        <th>
+                          Cuenta
+                        </th>
+                        <th>
+                          Banco
+                        </th>
+                        <th>
+                          Monto
+                        </th>
+                        <th>
+                          Usuario
+                        </th>
+                        <th>
+                          Documento
+                        </th>
+                        <th>
+                          Fecha
+                        </th>
+                        <th>
+                          Status
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let pago of withdrawals; index as i;">
+                        <td>
+                          {{pago.cta_destino}}[{{pago.moneda}}] <i (click)="copy(pago.cta_destino)"
+                            class="fa fa-copy text-primary" style="float: right; cursor: pointer;"></i>
+                        </td>
+                        <td>
+                          {{pago.user.banco}}
+                        </td>
+                        <td>
+                          {{pago.amount | number:'1.2-2':'es-Ar'}}
+                        </td>
+                        <td>
+                          {{pago.user.primerNombre}} {{pago.user.primerapellido}} {{pago.user.correo}}
+                        </td>
+                        <td>
+                          {{pago.user.documento}} <i (click)="copy(pago.user.documento)" class="fa fa-copy text-primary"
+                            style="float: right; cursor: pointer;"></i>
+                        </td>
+                        <td>
+                          {{pago.fecha_solicitud | date: 'dd/MM/yyyy'}}
+                        </td>
+                        <td>
+                          <label class="badge badge-info" *ngIf="pago.status === 'S'">En Proceso</label>
+                          <i class="fa fa-upload text-primary" (click)="openWdModal(i)" *ngIf="pago.status === 'S'" style="cursor: pointer;"></i>
+                          <label class="badge badge-success" *ngIf="pago.status === 'A'">Procesado</label>
+                          <i class="fa fa-eye text-primary" *ngIf="pago.status === 'A'" style="cursor: pointer;" (click)="openWdModal(i)">Ver</i>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <p *ngIf="withdrawals.length === 0" class="mb-12">
+                    No hay retiros por procesar.
+                  </p>
                 </ng-template>
               </ngb-tab>
             </ngb-tabset>
@@ -169,7 +292,8 @@
 <ng-template #content let-modal>
   <div class="modal-header">
     <p class="modal-title" id="modal-basic-title" *ngIf="user.type=='Jugador'">Medios de Pago disponibles</p>
-    <p class="modal-title" id="modal-basic-title" *ngIf="user.type=='Admin'">{{pagoShowed.user.correo}} -> {{pagoShowed.amount | number:'1.2-2':'es-Ar'}} </p>
+    <p class="modal-title" id="modal-basic-title" *ngIf="user.type=='Admin'">{{pagoShowed.user.correo}} ->
+      {{pagoShowed.amount | number:'1.2-2':'es-Ar'}} </p>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -178,7 +302,7 @@
     <div class="row">
       <div class="col-12">
         <section *ngIf="user.type == 'Admin'" style="display: flex; justify-content: center;">
-          <img [src]='thumbnail' style="max-width: 300px;"/>
+          <img [src]='thumbnail' style="max-width: 300px;" />
         </section>
         <table class="table table-striped table-responsive" *ngIf="user.type=='Jugador'">
           <thead>
@@ -193,7 +317,7 @@
                 Doc. Identidad
               </th>
               <th>
-                País
+                Moneda
               </th>
             </tr>
           </thead>
@@ -224,6 +348,41 @@
       <div class="col-12">
         <button type="button" (click)="confirm()" class="btn btn-success btn-sm">Confirmar</button>
         <button type="button" (click)="reject()" class="btn btn-danger btn-sm">Rechazar</button>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #wdContent let-modal>
+  <div class="modal-header">
+    <p class="modal-title" id="modal-basic-title" *ngIf="user.type=='Jugador'">Comprobante</p>
+    <p class="modal-title" id="modal-basic-title" *ngIf="user.type=='Admin'">{{wdShowed.user.correo}} ->
+      {{wdShowed.amount | number:'1.2-2':'es-Ar'}} </p>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-12">
+        <section *ngIf="user.type == 'Jugador'" style="display: flex; justify-content: center;">
+          <img [src]='thumbnail' style="max-width: 300px;" />
+        </section>
+        <ngx-dropzone (change)="onSelect($event)" [multiple]="false" style="width: 204px;"
+          accept="image/jpeg,image/jpg,image/png,image/gif"
+          *ngIf="user.type == 'Admin'">
+          <ngx-dropzone-label>Click, para subir comprobnte</ngx-dropzone-label>
+          <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
+            <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+          </ngx-dropzone-preview>
+        </ngx-dropzone>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer" *ngIf="user.type == 'Admin'">
+    <div class="row">
+      <div class="col-12">
+        <button type="button" (click)="uploadWd()" class="btn btn-success btn-sm">Confirmar</button>        
       </div>
     </div>
   </div>

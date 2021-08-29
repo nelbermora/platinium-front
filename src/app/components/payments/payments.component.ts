@@ -27,15 +27,19 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class PaymentsComponent implements OnInit, AfterViewInit {
   @ViewChild("content") modalContent: TemplateRef<any>;
+  @ViewChild("wdContent") wdContent: TemplateRef<any>;
   active = "carga";
   pago: Payment = {};
   ctas: Account[] = [];
   loading: boolean = false;
   uploadForm: FormGroup;
   pending: Payment[] = [];
+  withdrawal: Payment = {};
+  withdrawals: Payment[] = [];
   user: User = {};
   thumbnail: any;
   pagoShowed: Payment = {};
+  wdShowed: Payment = {};
   index: number;
   constructor(
     config: NgbTabsetConfig,
@@ -56,11 +60,13 @@ export class PaymentsComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.pago.userId = this.authSvc.activeUser.id;
+    this.withdrawal.userId = this.authSvc.activeUser.id;
     this.user = this.authSvc.activeUser;
     this.authSvc.isLogged.subscribe(
       resp =>{
         this.user = this.authSvc.activeUser;
         this.pago.userId = this.authSvc.activeUser.id;
+        this.withdrawal.userId = this.authSvc.activeUser.id;
       }
     );
     this.paymentSvc.get(this.pago.userId).subscribe(
@@ -69,7 +75,14 @@ export class PaymentsComponent implements OnInit, AfterViewInit {
           this.pending = resp;          
         }
       }
-    ); 
+    );
+    this.paymentSvc.getWithdrawals(this.pago.userId) .subscribe(
+      (resp: any) => {
+        if(resp){
+          this.withdrawals = resp;
+        }
+      }
+    )
     this.uploadForm = this.formBuilder.group({
       profile: ['']
     });
@@ -89,7 +102,8 @@ export class PaymentsComponent implements OnInit, AfterViewInit {
   files: File[] = [];
 
   onSelect(event) {
-    if (this.files.length === 0) {      
+    if (this.files.length === 0) { 
+      console.log(event);
       this.files.push(...event.addedFiles);
       this.uploadForm.get('profile').setValue(this.files[0]);
     }
@@ -178,6 +192,15 @@ export class PaymentsComponent implements OnInit, AfterViewInit {
     return valid;
   }
 
+  withdrawalValid(){
+    let valid = true;
+    if(this.user.cuenta === undefined || this.user.cuenta.length === 0 ||
+      this.withdrawal.amount === undefined || this.withdrawal.amount <= 0){
+        valid = false;
+      }
+      return valid;
+  }
+
   confirm(){
     if(confirm('Desea confirmar este pago?')){
       this.spinnerSvc.show();
@@ -220,5 +243,95 @@ export class PaymentsComponent implements OnInit, AfterViewInit {
         }
       );  
     }    
+  }
+
+  withdraw(){
+    if(confirm('Desea retirar ' + this.withdrawal.amount + ' de su billetera?')){
+      this.loading = true;
+      this.spinnerSvc.show();
+      this.withdrawal.cta_destino = this.user.cuenta;
+      this.withdrawal.moneda = this.user.moneda;
+      this.withdrawal.status = 'S';
+      this.paymentSvc.saveWithdrawal(this.withdrawal).subscribe(
+        (resp: Payment) => {
+          this.loading = false;
+          this.spinnerSvc.hide();
+          if(resp !== null && resp.id > 0){
+            Swal.fire(
+              'Solicitud guardada',
+              'En breve será procesado y se le notificará por correo.',
+              'success'
+            );
+            this.withdrawals.push(resp);
+          }else{
+            if(resp !== null && resp.id <0){
+              Swal.fire(
+                'Saldo insuficiente',
+                'Por favor intente con un monto menor',
+                'warning'
+              ); 
+            }else{
+              Swal.fire(
+                'Error en el servicio',
+                'Por favor intente en unos minutos nuevamente',
+                'error'
+              ); 
+            }            
+          }
+        }
+      )
+    }
+  }
+
+  openWdModal(index: number){
+    let objectURL = 'data:image/jpeg;base64,' + this.withdrawals[index].comprobante;
+    this.thumbnail = this.sanitizer.bypassSecurityTrustUrl(objectURL);
+    this.wdShowed = this.withdrawals[index];
+    this.modalService
+      .open(this.wdContent, { ariaLabelledBy: "modal-basic-title" })
+      .result.then(
+        (result) => {
+          this.wdShowed = {};
+        },
+        (reason) => {}
+      );
+  }
+
+  uploadWd(){
+    this.loading = true;
+    this.spinnerSvc.show();    
+    const formData = new FormData();
+    formData.append('sendimage', this.uploadForm.get('profile').value);
+    this.paymentSvc.uploadWithdrawal(formData, this.wdShowed.id).subscribe(
+      (resp: any) =>{
+        this.loading = false;
+        this.spinnerSvc.hide();
+        if(resp.id  > 0){
+          this.updateRow(this.wdShowed.id);
+          this.modalService.dismissAll();
+        }else{
+          Swal.fire(
+            'Error',
+            resp.message,
+            'error'
+          );           
+        }
+      }
+    )
+  }
+
+  updateRow(id: number){
+    let indice = 0;
+    let foundit = false;
+    this.withdrawals.forEach((element,index) => {
+      if(element.id === id){
+        foundit = true;
+        indice = index;
+        element.status = 'A';
+      }
+    });
+    if (foundit){
+      this.withdrawals.splice(indice,1);
+    }
   }
 }

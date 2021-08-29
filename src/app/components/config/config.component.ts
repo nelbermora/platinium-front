@@ -10,7 +10,8 @@ import { Subject } from 'rxjs';
   styleUrls: ['./config.component.css']
 })
 export class ConfigComponent implements OnInit, AfterViewInit {
-  paises = ['Antigua y Barbuda',
+  paises = ['ARS', 'BRL', 'CLP', 'COP', 'USD', 'PEN', 'VES'];
+  /*paises = ['Antigua y Barbuda',
   'Argentina',
   'Bahamas',
   'Barbados',
@@ -44,7 +45,7 @@ export class ConfigComponent implements OnInit, AfterViewInit {
   'Suriname',
   'Trinidad y Tabago',
   'Uruguay',
-  'Venezuela'];
+  'Venezuela'];*/
   loading: boolean = false;
   config: Config = {
     bankAccounts : []

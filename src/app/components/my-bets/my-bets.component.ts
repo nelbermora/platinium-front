@@ -33,6 +33,10 @@ export class MyBetsComponent implements OnInit {
   ignoreDate: boolean = false;
   ticket: string = "";
   activeUser: User = {};
+  totalJugado: number;
+  totalDevolucion: number;
+  cantidadJugado: number;
+  cantidadDevolucion: number;
   constructor(private parlaySvc: ParlayService, private spinner: NgxSpinnerService,
     private modalService: NgbModal, private calendar: NgbCalendar, public formatter: NgbDateParserFormatter,
     private logger: LoggerService, private route: ActivatedRoute, private authSvc: AuthService) { 
@@ -79,6 +83,7 @@ export class MyBetsComponent implements OnInit {
         this.parlays = resp;
         this.ticket = "";
         this.spinner.hide();
+        this.setTotals();
       }
     );
   }
@@ -192,6 +197,40 @@ export class MyBetsComponent implements OnInit {
       this.hasta = this.toDate.year + "-" + this.toDate.month + "-" + this.toDate.day;
     }    
     this.ngOnInit(this.statusSelected, this.ignoreDate);
+  }
+ /* <div *ngIf="parlay.status === 'S'" class="badge badge-info">Suspendido</div>
+  <div *ngIf="parlay.status === 'A'" class="badge badge-warning">En Juego</div>
+  <div *ngIf="parlay.status === 'W'" class="badge badge-success">Ganó!</div>
+  <div *ngIf="parlay.status === 'L'" class="badge badge-danger">Perdió</div>
+  <div *ngIf="parlay.status === 'Z'" class="badge badge-info">Pagado</div>*/
+  setTotals(){
+    let jugado: number = 0;
+    let cantJugado: number = 0;
+    let dev: number = 0;
+    let cantDev: number = 0;
+    this.parlays.forEach(element => {
+      if(element.status === 'A'){
+        jugado = jugado + (+element.betAmount);
+        cantJugado = cantJugado + 1;
+      }else if(element.status === 'W'){
+        jugado = jugado + (+element.betAmount);
+        cantJugado = cantJugado + 1;
+        dev = dev + (+element.winAmount);
+        cantDev = cantDev + 1;
+      }else if(element.status === 'S'){
+        jugado = jugado + (+element.betAmount);
+        cantJugado = cantJugado + 1;
+        dev = dev + (+element.betAmount);
+        cantDev = cantDev + 1;
+      }else if(element.status === 'L'){
+        jugado = jugado + (+element.betAmount);
+        cantJugado = cantJugado + 1;
+      }
+    });
+    this.totalJugado = jugado;
+    this.cantidadJugado = cantJugado;
+    this.totalDevolucion = dev;
+    this.cantidadDevolucion = cantDev;
   }
 
 }

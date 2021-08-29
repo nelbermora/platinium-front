@@ -85,6 +85,23 @@
                         </p>
                     </div>
                 </div>
+                <div *ngIf="parlays !== undefined && parlays.length > 0 && (activeUser.type === 'Admin' || activeUser.type === 'Taquilla')" class="card card-inverse-secondary mb-12">
+                    <div class="card-body">
+                        <table class="table table-striped table-sm table-responsive w-100 d-block d-md-table">
+                            <thead>
+                                <th>Concepto</th><th>Monto</th><th>Cantidad</th>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Jugado:</td><td>{{totalJugado | number:'1.2-2':'es-Ar'}}</td><td>{{cantidadJugado}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Devolución:</td><td>{{totalDevolucion | number:'1.2-2':'es-Ar'}}</td><td>{{cantidadDevolucion}}</td>
+                                </tr>
+                            </tbody>
+                        </table>                        
+                    </div>
+                </div>
                 <ngb-accordion class="accordion-bets accordion-bordered" [closeOthers]="false"
                     style="margin-left: 0px !important; margin-right: 0px !important;">
                     <ngb-panel id="panel-{{i}}" *ngFor="let parlay of parlays; index as i"style="margin-left: 0px !important; margin-right: 0px !important;">

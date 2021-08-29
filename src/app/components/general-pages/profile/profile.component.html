@@ -132,8 +132,14 @@
                     </div>
                     <div class="form-group">
                       <label>Moneda</label>
-                      <input type="text" class="form-control form-control-sm" placeholder="Moneda" aria-label="Moneda"
-                      [(ngModel)]="user.moneda" name="moneda">
+                      <select class="form-control form-control-sm" id="exampleFormControlSelect2"
+                        [(ngModel)]="user.moneda" name="moneda" [compareWith]="comparar">
+                        <option *ngFor="let currency of currencies" [ngValue]="currency">
+                          {{currency}}
+                        </option>
+                      </select>
+                      <!--<input type="text" class="form-control form-control-sm" placeholder="Moneda" aria-label="Moneda"
+                      [(ngModel)]="user.moneda" name="moneda">-->
                     </div>
                   </ng-template>
                 </ngb-tab>

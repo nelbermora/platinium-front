@@ -50,6 +50,7 @@ export class ProfileComponent implements OnInit {
   'Trinidad y Tabago',
   'Uruguay',
   'Venezuela'];
+  currencies = ['ARS', 'BRL', 'CLP', 'COP', 'USD', 'PEN', 'VES'];
   loading = false;
   notPass = false;
   invalidPass = false;
@@ -169,6 +170,13 @@ export class ProfileComponent implements OnInit {
     }
 
     return valid;
+  }
+
+  comparar( item1: string, item2 :string) {
+    if (item1 == null || item2 == null) {
+      return false;
+    }
+    return item1 === item2;
   }
 
 }

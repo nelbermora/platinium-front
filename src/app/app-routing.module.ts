@@ -78,7 +78,7 @@ const routes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
   { path: 'dashboard', canActivate: [AuthGuardian], component: DashboardComponent },
   { path: 'bets', canActivate: [AuthGuardian], component: BetsComponent },
-  { path: 'terms', canActivate: [AuthGuardian], component: TermsComponent },
+  { path: 'terms', component: TermsComponent },
   { path: 'profile', canActivate: [AuthGuardian], component: ProfileComponent },
   { path: 'config', canActivate: [AdminGuardian], component: ConfigComponent },
   { path: 'payments', canActivate: [AuthGuardian], component: PaymentsComponent },

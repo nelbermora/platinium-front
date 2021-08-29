@@ -1,7 +1,7 @@
+import { Payment } from './../models/payment.model';
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { environment } from "src/environments/environment";
-import { Payment } from "../models/payment.model";
 
 @Injectable()
 export class PaymentService{
@@ -18,11 +18,23 @@ export class PaymentService{
         return  this.http.post<any>(this.url, form);
     }
 
+    uploadWithdrawal(form: FormData, id: number){
+        return  this.http.post<any>(this.url + '?id=' + id, form);
+    }
+
     get(userId: number){
         return  this.http.get(this.url + '?userId=' + userId);
     }
 
+    getWithdrawals(userId: number){
+        return  this.http.get(this.url + '?userId=' + userId + "&w=1");
+    }
+
     updatePayment(payment: Payment){
         return  this.http.put<Payment>(this.url, payment);
+    }
+
+    saveWithdrawal(payment: Payment){
+        return  this.http.post<any>(this.url + "?w=1", payment);
     }
 }

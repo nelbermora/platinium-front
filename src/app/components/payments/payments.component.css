@@ -1,0 +1,18 @@
+.table thead th, .dataTables_wrapper .dataTable thead th {
+    border-top: 0;
+    border-bottom-width: 1px;
+    font-weight: 500;
+    font-size: 0.9rem !important;
+}
+
+.table td, .dataTables_wrapper .dataTable td {
+    font-size: 0.9rem;
+}
+
+.badge {
+    border-radius: 0;
+    font-size: 9px !important;
+    line-height: 1;
+    padding: .375rem .5625rem;
+    font-weight: normal;
+}
