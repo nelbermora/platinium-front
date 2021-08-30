@@ -225,6 +225,11 @@ export class MyBetsComponent implements OnInit {
       }else if(element.status === 'L'){
         jugado = jugado + (+element.betAmount);
         cantJugado = cantJugado + 1;
+      }else if(element.status === 'Z'){
+        jugado = jugado + (+element.betAmount);
+        cantJugado = cantJugado + 1;
+        dev = dev + (+element.winAmount);
+        cantDev = cantDev + 1;
       }
     });
     this.totalJugado = jugado;

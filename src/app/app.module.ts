@@ -133,6 +133,7 @@ import { ParlayService } from './services/parlay.service';
 import { MyBetsComponent } from './components/my-bets/my-bets.component';
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { AngularImageViewerModule } from '@clarivate/angular-image-viewer';
+import { FootballComponent } from './components/football/football.component';
 
 registerLocaleData(localeEsAr, 'es-Ar');
 
@@ -223,7 +224,8 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
     DateArSimplePipe,
     BasketballComponent,
     SoccerComponent,
-    MyBetsComponent
+    MyBetsComponent,
+    FootballComponent
   ],
   imports: [
     BrowserModule,

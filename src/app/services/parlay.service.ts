@@ -191,6 +191,26 @@ export class ParlayService {
             }
           }
           
+        }else if(sport === "Football"){
+          if(element.type === "Ganar" || element.type === "Ganar 1er Mitad"){
+            if(this.getBetName(betType) !== "Alta/Baja" && this.getBetName(betType) !== "Alta/Baja 1er Mitad"){
+              can = false;
+            }
+          }
+
+          if(element.type === "Alta/Baja" || element.type === "Alta/Baja 1er Mitad"){
+            if(this.getBetName(betType) !== "Ganar" && this.getBetName(betType) !== "Ganar 1er Mitad"
+             && this.getBetName(betType) !== "RunLine" && this.getBetName(betType) !== "RunLine 1er Mitad"){
+              can = false;
+            }
+          }
+
+          if(element.type === "RunLine" || element.type === "RunLine 1er Mitad"){
+            if(this.getBetName(betType) !== "Alta/Baja" && this.getBetName(betType) !== "Alta/Baja 1er Mitad"){
+              can = false;
+            }
+          }
+          
         }else if(sport === "Baseball"){
           if(element.type === "Ganar" || element.type === "Ganar 1er Mitad"){
             if(this.getBetName(betType) === "Anota Primero"){

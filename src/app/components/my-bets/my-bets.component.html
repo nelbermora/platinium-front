@@ -98,6 +98,12 @@
                                 <tr>
                                     <td>Devolución:</td><td>{{totalDevolucion | number:'1.2-2':'es-Ar'}}</td><td>{{cantidadDevolucion}}</td>
                                 </tr>
+                                <tr>
+                                    <td>Total:</td><td>
+                                        <strong class="text-success" *ngIf="totalJugado >= totalDevolucion">{{totalJugado - totalDevolucion | number:'1.2-2':'es-Ar'}}</strong>
+                                        <strong class="text-danger" *ngIf="totalJugado < totalDevolucion">{{totalJugado - totalDevolucion | number:'1.2-2':'es-Ar'}}</strong>                                        
+                                    </td><td>--</td>
+                                </tr>
                             </tbody>
                         </table>                        
                     </div>

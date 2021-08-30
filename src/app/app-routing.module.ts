@@ -1,3 +1,4 @@
+import { FootballComponent } from './components/football/football.component';
 import { AdminGuardian } from './guards/admin-guard';
 import { MyBetsComponent } from './components/my-bets/my-bets.component';
 import { SoccerComponent } from './components/soccer/soccer.component';
@@ -90,6 +91,7 @@ const routes: Routes = [
   { path: 'basketball', canActivate: [AuthGuardian], component: BasketballComponent },
   { path: 'soccer', canActivate: [AuthGuardian], component: SoccerComponent },
   { path: 'mybets', canActivate: [AuthGuardian], component: MyBetsComponent },
+  { path: 'football', canActivate: [AuthGuardian], component: FootballComponent },
   { path: 'widgets', component: WidgetsComponent },
   { path: 'accordions', component: AccordionsComponent },
   { path: 'buttons', component: ButtonsComponent },
