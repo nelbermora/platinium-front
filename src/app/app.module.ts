@@ -1,3 +1,4 @@
+import { ReportService } from './services/report.service';
 import { PaymentService } from './services/payment.service';
 import { WalletService } from './services/wallet.service';
 import { DateArSimplePipe } from './pipes/dateSimple.pipe';
@@ -289,7 +290,8 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
     ParlayService,
     BetCalculatorService,
     WalletService,
-    PaymentService
+    PaymentService,
+    ReportService
   ],
   bootstrap: [AppComponent]
 })

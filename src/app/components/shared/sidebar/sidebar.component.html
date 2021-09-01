@@ -64,13 +64,12 @@
         <span class="menu-title">Reglas</span>
       </a>
     </li>
-    <!--
-    <li class="nav-item" [ngClass]="{ 'active' : popups.isActive }">
-      <a class="nav-link" routerLink="popups" routerLinkActive #popups="routerLinkActive">
+    <li class="nav-item" [ngClass]="{ 'active' : reports.isActive }" *ngIf="isAdmin">
+      <a class="nav-link" routerLink="/reports" routerLinkActive #reports="routerLinkActive" (click)="toggleRightSidebar()">
         <i class="ti-export menu-icon"></i>
-        <span class="menu-title">Popups</span>
+        <span class="menu-title">Reportes</span>
       </a>
-    </li>
+    </li><!--
     <li class="nav-item" [ngClass]="{ 'active' : notifications.isActive }">
       <a class="nav-link" routerLink="notifications" routerLinkActive #notifications="routerLinkActive">
         <i class="ti-bell menu-icon"></i>

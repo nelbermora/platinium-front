@@ -256,6 +256,9 @@
                             Juego
                         </th>
                         <th class="text-center">
+                            Apuesta
+                        </th>
+                        <th class="text-center">
                             Logro
                         </th>
                         <th class="text-center">
@@ -263,22 +266,35 @@
                         </th>
                     </thead>
                     <tbody>
+                        <!--style="
+                        padding-left: 10px;
+                        padding-right: 10px;"-->
                         <tr *ngFor="let odd of parlay.odds">
                             <td style="padding-top: 2px; padding-bottom: 2px;">
-                                <p>{{odd.sport}} {{odd.teamName}}</p>
+                                {{odd.sport}} {{odd.teamName}}
                             </td>
                             <td *ngIf="odd.handicap !== undefined && odd.handicap !== null">
-                                <p>{{odd.type}} ({{odd.handicap}}) {{odd.letter}}{{odd.odd | odd}}</p>
+                                {{odd.type}} ({{odd.handicap}}) {{odd.letter}}
+                            </td>
+                            <td *ngIf="odd.handicap !== undefined && odd.handicap !== null" style="
+                                padding-left: 10px;
+                                padding-right: 10px;">
+                                {{odd.odd | odd}}
                             </td>
                             <td *ngIf="odd.handicap === undefined || odd.handicap === null">
-                                <p>{{odd.type}} {{odd.letter}}{{odd.odd | odd}}</p>
+                               {{odd.type}} {{odd.letter}}
+                            </td>
+                            <td *ngIf="odd.handicap === undefined || odd.handicap === null" style="
+                                padding-left: 10px;
+                                padding-right: 10px;">
+                                {{odd.odd | odd}}
                             </td>
                             <td>
-                                <p *ngIf="odd.status === 'L'">Perdió</p>
-                                <p *ngIf="odd.status === 'W'">Ganó</p>
-                                <p *ngIf="odd.status === 'S'">Suspendido</p>
-                                <p *ngIf="odd.status === 'A'">En Juego</p>
-                                <p *ngIf="odd.status === 'E'">Logro Empatado</p>
+                                <section *ngIf="odd.status === 'L'">Perdió</section>
+                                <section *ngIf="odd.status === 'W'">Ganó</section>
+                                <section *ngIf="odd.status === 'S'">Suspendido</section>
+                                <section *ngIf="odd.status === 'A'">En Juego</section>
+                                <section *ngIf="odd.status === 'E'">Logro Empatado</section>
                             </td>
                         </tr>
                     </tbody>
