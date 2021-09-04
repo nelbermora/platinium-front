@@ -134,7 +134,7 @@ export class ProfileComponent implements OnInit {
             }else{
               Swal.fire(
                 "Cambio no guardado",
-                "Para cambiar la moneda de su cuenta, debe primero retirar todo el saldo de su billetera",
+                "La moneda de su cuenta no puede ser distinta a la moneda en la que efectuó la carga de fondos.",
                 "error"
               );
             }

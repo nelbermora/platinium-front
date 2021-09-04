@@ -58,7 +58,7 @@
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
-    <div class="modal-body-receipt" style="padding-left: 10px; padding-right: 10px; padding-top: 10px;">
+    <div class="modal-body-receipt" style="padding-left: 10px; padding-right: 10px; padding-top: 10px;" id="print-section">
         <div class="row">
             <div class="col-12">
                 Platinium Sport
@@ -131,11 +131,12 @@
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-success" (click)="modal.close('Save click')" style="
-      width: 80px;
-      padding-left: 1px;
-      padding-right: 1px;
-      padding-top: 4px;
-      padding-bottom: 4px;
-  ">Imprimir</button>
+            width: 80px;
+            padding-left: 1px;
+            padding-right: 1px;
+            padding-top: 4px;
+            padding-bottom: 4px;"
+            [useExistingCss]="true"
+        printSectionId="print-section" ngxPrint>Imprimir</button>
     </div>
 </ng-template>

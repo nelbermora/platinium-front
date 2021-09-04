@@ -135,6 +135,7 @@ import { MyBetsComponent } from './components/my-bets/my-bets.component';
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { AngularImageViewerModule } from '@clarivate/angular-image-viewer';
 import { FootballComponent } from './components/football/football.component';
+import { NgxPrintModule } from 'ngx-print';
 
 registerLocaleData(localeEsAr, 'es-Ar');
 
@@ -266,7 +267,8 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
     ScrollToModule.forRoot(),
     NgxSpinnerModule,
     NgxDropzoneModule,
-    AngularImageViewerModule
+    AngularImageViewerModule,
+    NgxPrintModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [

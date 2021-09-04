@@ -67,6 +67,7 @@
     "ngx-dropzone": "^3.0.0",
     "ngx-dropzone-wrapper": "^9.0.0",
     "ngx-owl-carousel-o": "^3.1.0",
+    "ngx-print": "^1.2.1",
     "ngx-spinner": "^10.0.1",
     "ngx-summernote": "^0.7.7",
     "ngx-toastr": "^13.0.0",
