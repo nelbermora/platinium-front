@@ -13,6 +13,7 @@ export class AuthService {
   private loggedIn = new BehaviorSubject<boolean>(false);
   url: string = "";
   isLogged = new EventEmitter<boolean>();
+  fundsChange = new EventEmitter<boolean>();
   constructor(private router: Router, private http: HttpClient) {
     if (environment.production) {
       this.url = "https://platiniumsport.com/pservices/be";

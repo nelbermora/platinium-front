@@ -1,8 +1,8 @@
 import { User } from './../../../models/user.model';
 import { AuthService } from './../../../services/auth.service';
 import { LoggerService } from './../../../services/logger.service';
-import { Router } from '@angular/router';
-import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnInit, TemplateRef, ViewChild, AfterViewInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import Swal from 'sweetalert2';
 
@@ -11,7 +11,7 @@ import Swal from 'sweetalert2';
   templateUrl: './login2.component.html',
   styleUrls: ['./login2.component.scss']
 })
-export class Login2Component implements OnInit {
+export class Login2Component implements OnInit, AfterViewInit {
   @ViewChild("content") modalContent: TemplateRef<any>;
   @ViewChild("forgot") modalForgot: TemplateRef<any>;
   component = 'login';
@@ -72,14 +72,21 @@ export class Login2Component implements OnInit {
   passNotMatchReset: boolean;
   invalidResetToken: boolean;
   constructor(private authSvc: AuthService, private router: Router,
-              private logger: LoggerService,private modalService: NgbModal) { }
+              private logger: LoggerService,private modalService: NgbModal,
+              private route: ActivatedRoute) { }
+  ngAfterViewInit(): void {
+    this.route.queryParams.subscribe(params => {
+      if((params.l === 1) || (params.l === "1")){
+        this.logger.log(this.component, 'logger initializer');
+      }
+    });
+    this.logger.log(this.component, 'ingresa a la web');
+  }
   email: string;
   password: string;
   invalidLogin: boolean = false;
   invalidRegistration: boolean = false;
-  ngOnInit() {
-    this.logger.log(this.component, 'ingresa a la web');
-  }
+  ngOnInit() {}
 
   doLogin(){
     this.loading = true;

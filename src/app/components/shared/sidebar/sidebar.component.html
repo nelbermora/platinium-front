@@ -1,6 +1,6 @@
 <nav class="sidebar sidebar-offcanvas" id="sidebar" *ngIf="(isLoggedIn$ | async)">
   <ul class="nav">
-    <li class="nav-item" [ngClass]="{ 'active': dashboard.isActive }">
+    <li class="nav-item" [ngClass]="{ 'active': dashboard.isActive }" (click)="toggleRightSidebar()">
       <a class="nav-link" routerLink="/dashboard" routerLinkActive #dashboard="routerLinkActive">
         <i class="ti-home menu-icon"></i>
         <span class="menu-title">Inicio</span>
@@ -64,7 +64,7 @@
         <span class="menu-title">Reglas</span>
       </a>
     </li>
-    <li class="nav-item" [ngClass]="{ 'active' : reports.isActive }" *ngIf="isAdmin">
+    <li class="nav-item" [ngClass]="{ 'active' : reports.isActive }" *ngIf="isAdmin || isTaquilla">
       <a class="nav-link" routerLink="/reports" routerLinkActive #reports="routerLinkActive" (click)="toggleRightSidebar()">
         <i class="ti-export menu-icon"></i>
         <span class="menu-title">Reportes</span>

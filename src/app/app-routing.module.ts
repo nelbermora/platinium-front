@@ -85,7 +85,7 @@ const routes: Routes = [
   { path: 'payments', canActivate: [AuthGuardian], component: PaymentsComponent },
   { path: 'wallet', canActivate: [AuthGuardian], component: WalletComponent },
   { path: 'users', canActivate: [AdminGuardian], component: UsersComponent },
-  { path: 'reports', canActivate: [AdminGuardian], component: ReportsComponent },
+  { path: 'reports', canActivate: [AuthGuardian], component: ReportsComponent },
   { path: 'terms', canActivate: [AuthGuardian], component: TermsComponent },
   { path: 'baseball', canActivate: [AuthGuardian], component: BaseballComponent },
   { path: 'basketball', canActivate: [AuthGuardian], component: BasketballComponent },

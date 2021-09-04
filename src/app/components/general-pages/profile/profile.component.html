@@ -76,8 +76,8 @@
                   </a>
                 </li>
               </ul>-->
-              <ngb-tabset>
-                <ngb-tab title="Identificación">
+              <ngb-tabset [activeId]="active">
+                <ngb-tab title="Identificación" id="basic">
                   <ng-template ngbTabContent class="tab-pane fade" id="home-1" aria-labelledby="home-tab">
                     <div class="form-group">
                       <label>Nombre</label>
@@ -96,7 +96,7 @@
                     </div>
                   </ng-template>
                 </ngb-tab>
-                <ngb-tab title="Perfil">
+                <ngb-tab title="Perfil" id="id">
                   <ng-template ngbTabContent class="tab-pane fade" id="profile-1" aria-labelledby="profile-tab">
                     <div class="form-group">
                       <label>Nro. Documento de Identidad</label>
@@ -117,7 +117,7 @@
                     </div> 
                   </ng-template>
                 </ngb-tab>
-                <ngb-tab title="Bancarios">
+                <ngb-tab title="Bancarios" id="banc">
                   <ng-template ngbTabContent class="tab-pane fade" id="contact-1" aria-labelledby="contact-tab">
                     <p>Datos requeridos para reclamar saldo de la billetera</p>
                     <div class="form-group">

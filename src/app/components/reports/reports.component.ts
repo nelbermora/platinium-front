@@ -1,3 +1,4 @@
+import { AuthService } from 'src/app/services/auth.service';
 import { ReportService } from './../../services/report.service';
 import { Component, OnInit } from '@angular/core';
 import { NgbCalendar, NgbDate, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
@@ -19,8 +20,10 @@ export class ReportsComponent implements OnInit {
   types = ["Todos", "Taquilla", "Jugador", "Admin"];
   users: User[] = [];
   empty: boolean;
+  isTaquilla: boolean = false;
   constructor(public formatter: NgbDateParserFormatter, private calendar: NgbCalendar,
-    private reportsSvc: ReportService, private spinner: NgxSpinnerService) {
+    private reportsSvc: ReportService, private spinner: NgxSpinnerService,
+    private authSvc: AuthService) {
     this.fromDate = calendar.getPrev(calendar.getToday(),'d',1);
     this.toDate = calendar.getToday();
    }
@@ -30,6 +33,22 @@ export class ReportsComponent implements OnInit {
       this.desde = this.fromDate.year + "-" + this.fromDate.month + "-" + this.fromDate.day;
       this.hasta = this.toDate.year + "-" + this.toDate.month + "-" + this.toDate.day;
     }
+    if(this.authSvc.activeUser.type === 'Taquilla'){
+      this.isTaquilla = true;
+      this.typeSelected = "Taquilla";
+    }else{
+      this.isTaquilla = false;
+    }
+    this.authSvc.isLogged.subscribe(
+      resp => {
+        if(this.authSvc.activeUser.type === 'Taquilla'){
+          this.isTaquilla = true;
+          this.typeSelected = "Taquilla";
+        }else{
+          this.isTaquilla = false;
+        }
+      }
+    );
   }
 
   onDateSelection(date: NgbDate) {

@@ -135,6 +135,16 @@ export class PaymentsComponent implements OnInit, AfterViewInit {
             userId: this.authSvc.activeUser.id
           };
           this.ngOnInit();
+        }else{
+          Swal.fire(
+            'Error',
+            'Tamaño de archivo excede al permitido.',
+            'error'
+          ); 
+          this.files = [];
+          this.pago = {
+            userId: this.authSvc.activeUser.id
+          };
         }
       }
     );
@@ -263,6 +273,7 @@ export class PaymentsComponent implements OnInit, AfterViewInit {
               'success'
             );
             this.withdrawals.push(resp);
+            this.authSvc.fundsChange.emit(true);
           }else{
             if(resp !== null && resp.id <0){
               Swal.fire(

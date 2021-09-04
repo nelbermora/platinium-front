@@ -8,7 +8,7 @@
                         <div class="input-group">
                             <label style="margin-top: 10px;">Tipo: </label>
                             <select class="form-control form-control-lg" id="exampleFormControlSelect2"
-                                [(ngModel)]="typeSelected" name="pais">
+                                [(ngModel)]="typeSelected" name="pais" [disabled]="isTaquilla">
                                 <option *ngFor="let type of types" [ngValue]="type">{{type}}</option>
                             </select>
                         </div>

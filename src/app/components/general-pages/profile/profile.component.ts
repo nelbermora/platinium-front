@@ -1,182 +1,261 @@
-import { LoggerService } from './../../../services/logger.service';
-import { User } from './../../../models/user.model';
-import { AuthService } from './../../../services/auth.service';
-import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import Swal from 'sweetalert2';
+import { LoggerService } from "./../../../services/logger.service";
+import { User } from "./../../../models/user.model";
+import { AuthService } from "./../../../services/auth.service";
+import { Component, OnInit, TemplateRef, ViewChild } from "@angular/core";
+import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import Swal from "sweetalert2";
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
-  selector: 'app-profile',
-  templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.scss']
+  selector: "app-profile",
+  templateUrl: "./profile.component.html",
+  styleUrls: ["./profile.component.scss"],
 })
 export class ProfileComponent implements OnInit {
   @ViewChild("content") modalContent: TemplateRef<any>;
-  component = 'Profile';
+  component = "Profile";
   user: User = {};
   invalidMail = false;
-  paises = ['Antigua y Barbuda',
-  'Argentina',
-  'Bahamas',
-  'Barbados',
-  'Belice',
-  'Bolivia',
-  'Brasil',
-  'Canadá',
-  'Chile',
-  'Colombia',
-  'Costa Rica',
-  'Cuba',
-  'Dominica',
-  'Dominicana',
-  'Ecuador',
-  'El Salvador',
-  'Estados Unidos de América',
-  'Granada',
-  'Guatemala',
-  'Guyana',
-  'Haití',
-  'Honduras',
-  'Jamaica',
-  'México',
-  'Nicaragua',
-  'Panamá',
-  'Paraguay',
-  'Perú',
-  'Saint Kitts y Nevis',
-  'San Vicente y las Granadinas',
-  'Santa Lucía',
-  'Suriname',
-  'Trinidad y Tabago',
-  'Uruguay',
-  'Venezuela'];
-  currencies = ['ARS', 'BRL', 'CLP', 'COP', 'USD', 'PEN', 'VES'];
+  paises = [
+    "Antigua y Barbuda",
+    "Argentina",
+    "Bahamas",
+    "Barbados",
+    "Belice",
+    "Bolivia",
+    "Brasil",
+    "Canadá",
+    "Chile",
+    "Colombia",
+    "Costa Rica",
+    "Cuba",
+    "Dominica",
+    "Dominicana",
+    "Ecuador",
+    "El Salvador",
+    "Estados Unidos de América",
+    "Granada",
+    "Guatemala",
+    "Guyana",
+    "Haití",
+    "Honduras",
+    "Jamaica",
+    "México",
+    "Nicaragua",
+    "Panamá",
+    "Paraguay",
+    "Perú",
+    "Saint Kitts y Nevis",
+    "San Vicente y las Granadinas",
+    "Santa Lucía",
+    "Suriname",
+    "Trinidad y Tabago",
+    "Uruguay",
+    "Venezuela",
+  ];
+  currencies = ["ARS", "BRL", "CLP", "COP", "USD", "PEN", "VES"];
   loading = false;
   notPass = false;
   invalidPass = false;
   confirmNewPass: string;
   passNotMatch = false;
-  constructor(private auth: AuthService, private modalService: NgbModal,
-    private logger: LoggerService) { }
+  active: string = "basic";
+  constructor(
+    private auth: AuthService,
+    private modalService: NgbModal,
+    private logger: LoggerService,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit() {
-    this.logger.log(this.component, 'Ingreso');
+    this.logger.log(this.component, "Ingreso");
     this.user = this.auth.activeUser;
-    this.auth.isLogged.subscribe(
-      resp => {
-        this.user = this.auth.activeUser;
+    this.auth.isLogged.subscribe((resp) => {
+      this.user = this.auth.activeUser;
+    });
+    this.route.queryParams.subscribe((params) => {
+      if (params.tab === "b") {
+        this.active = "banc";
       }
-    );
+      if (params.tab === "i") {
+        this.active = "id";
+      }
+    });
   }
 
-  validMail(){
+  validMail() {
     let valid = false;
-    if(this.user.correo.includes('@') 
-    && this.user.correo.includes('.')
-    && this.user.correo.length > 7){
+    if (
+      this.user.correo.includes("@") &&
+      this.user.correo.includes(".") &&
+      this.user.correo.length > 7
+    ) {
       this.invalidMail = false;
       valid = true;
-    }else{    
+    } else {
       this.invalidMail = true;
-    }    
+    }
     return valid;
   }
 
-  open(){
-    this.modalService.open(this.modalContent, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {}, (reason) => {});
+  open() {
+    this.modalService
+      .open(this.modalContent, { ariaLabelledBy: "modal-basic-title" })
+      .result.then(
+        (result) => {},
+        (reason) => {}
+      );
   }
 
-  compararPaises( pais1: string, pais2 :string) {
+  compararPaises(pais1: string, pais2: string) {
     if (pais1 == null || pais2 == null) {
       return false;
     }
     return pais1 === pais2;
   }
 
-  guardar(){
-    this.loading = true;
-    this.logger.log(this.component, 'Actualiza datos', JSON.stringify(this.user));
-    this.auth.update(this.user).subscribe(
-      resp => {
-        if(resp){
-          Swal.fire(
-            'Datos guardados!',
-            '',
-            'success'
-          );          
-        }else{
-          this.logger.log(this.component, 'Error al guardar', JSON.stringify(resp));
-          Swal.fire({
-            icon: 'warning',
-            title: 'Alerta...',
-            text: 'No se ha podido ejecutar la operacion solicitada',
-            footer: 'Intente en unos minutos'
-          })
-        }
-        this.loading = false;
-      }
-    )
-  }
-
-  updatePassword(){
-    if(this.validPasswordChange()){
-      this.logger.log(this.component, 'Cambia Password');
-      this.loading = true;
-      this.auth.updatePass(this.user).subscribe(
-        resp =>{
-          this.modalService.dismissAll();
-          if(resp){
-            Swal.fire(
-              'Contraseña cambiada!',
-              '',
-              'success'
-            );          
-          }else{
-            this.logger.log(this.component, 'Error al cambiar pasword', JSON.stringify(resp));
+  guardar() {
+    
+      if (this.isValid()) {
+        this.loading = true;
+        this.logger.log(
+          this.component,
+          "Actualiza datos",
+          JSON.stringify(this.user)
+        );
+        this.auth.update(this.user).subscribe((resp:any) => {
+          if (resp) {
+            if(resp.affected >= 0){
+              Swal.fire(
+                "Datos guardados!",
+                "Ahora que comience la diversión!",
+                "success"
+              );
+            }else{
+              Swal.fire(
+                "Cambio no guardado",
+                "Para cambiar la moneda de su cuenta, debe primero retirar todo el saldo de su billetera",
+                "error"
+              );
+            }
+            
+          } else {
+            this.logger.log(
+              this.component,
+              "Error al guardar",
+              JSON.stringify(resp)
+            );
             Swal.fire({
-              icon: 'warning',
-              title: 'Alerta...',
-              text: 'Credenciales inválidas',
-              footer: 'Intente nuevamente ingresando su actual contraseña correcta'
-            })
+              icon: "warning",
+              title: "Alerta...",
+              text: "No se ha podido ejecutar la operacion solicitada",
+              footer: "Intente en unos minutos",
+            });
           }
           this.loading = false;
-        }
-      )
+        });      
     }
-    
   }
 
-  validPasswordChange(){
+  updatePassword() {
+    if (this.validPasswordChange()) {
+      this.logger.log(this.component, "Cambia Password");
+      this.loading = true;
+      this.auth.updatePass(this.user).subscribe((resp) => {
+        this.modalService.dismissAll();
+        if (resp) {
+          Swal.fire("Contraseña cambiada!", "", "success");
+        } else {
+          this.logger.log(
+            this.component,
+            "Error al cambiar pasword",
+            JSON.stringify(resp)
+          );
+          Swal.fire({
+            icon: "warning",
+            title: "Alerta...",
+            text: "Credenciales inválidas",
+            footer:
+              "Intente nuevamente ingresando su actual contraseña correcta",
+          });
+        }
+        this.loading = false;
+      });
+    }
+  }
+
+  validPasswordChange() {
     let valid = true;
-    if(this.user.password === null || this.user.password === undefined){
+    if (this.user.password === null || this.user.password === undefined) {
       this.notPass = true;
       valid = false;
-    }else{
+    } else {
       this.notPass = false;
     }
-    if(this.user.newPassword === null || this.user.newPassword === undefined || this.user.newPassword.length < 6){
+    if (
+      this.user.newPassword === null ||
+      this.user.newPassword === undefined ||
+      this.user.newPassword.length < 6
+    ) {
       this.invalidPass = true;
       valid = false;
-    }else{
+    } else {
       this.invalidPass = false;
     }
 
-    if(this.confirmNewPass !== this.user.newPassword){
+    if (this.confirmNewPass !== this.user.newPassword) {
       this.passNotMatch = true;
       valid = false;
-    }else{
+    } else {
       this.passNotMatch = false;
     }
 
     return valid;
   }
 
-  comparar( item1: string, item2 :string) {
+  comparar(item1: string, item2: string) {
     if (item1 == null || item2 == null) {
       return false;
     }
     return item1 === item2;
   }
 
+  isValid() {
+    let valid = true;
+    
+    if(this.user.fechaNacimiento === undefined 
+      || this.invalidBirthday()
+      || this.user.documento === undefined
+      || this.user.documento == 0){
+      Swal.fire({
+        icon: "warning",
+        title: "Falta poco...",
+        text: "Debe completar fecha de nacimiento y Numero de documento",        
+      });
+      this.active = 'id';
+      valid = false;
+    }
+    
+    if(this.user.primerNombre === undefined ||
+      this.user.primerNombre === null ||
+      this.user.primerNombre.length === 0){
+        Swal.fire({
+          icon: "warning",
+          title: "Falta poco...",
+          text: "Por favor completar su nombre",        
+        });
+        this.active = 'basic';
+        valid = false;
+      }
+    return valid;
+  }
+
+  invalidBirthday(){
+    let invalid = true;
+    let fecnac = new Date(this.user.fechaNacimiento);    
+    if(fecnac.getFullYear() > 0){
+      invalid = false;
+    }
+    return invalid;
+  }
 }

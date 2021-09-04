@@ -18,7 +18,8 @@ export class AppComponent implements OnInit{
     // Removing Sidebar, Navbar, Footer for Documentation and Auth pages
     router.events.forEach((event) => {   
       if(event instanceof NavigationStart) {
-        if((event['url'] == '/documentation') || (event['url'] == '/login') || (event['url'] == '/login-2') || (event['url'] == '/register') || (event['url'] == '/register-2') || (event['url'] == '/lock-screen') || (event['url'] == '/error-404') || (event['url'] == '/error-500') ) {
+        if((event['url'] == '/documentation') || (event['url'] == '/login') || (event['url'] == '/login-2') || (event['url'] == '/register') || (event['url'] == '/register-2') || (event['url'] == '/lock-screen') || (event['url'] == '/error-404') || (event['url'] == '/error-500')
+            || (event['url'] == '/login?l=1') ) {
           this.showSidebar = false;
           this.showNavbar = false;
           this.showFooter = false;

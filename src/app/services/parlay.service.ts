@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { VersionService } from './version.service';
 import { AuthService } from './auth.service';
 import { HttpClient } from '@angular/common/http';
@@ -20,7 +21,8 @@ export class ParlayService {
   maxAmount: number = -1;
 
   constructor(public betCalculator: BetCalculatorService, private http: HttpClient,
-    private authSvc: AuthService, private versionSvc:VersionService){
+    private authSvc: AuthService, private versionSvc:VersionService,
+    private router: Router){
     this.versionSvc.getVersion().subscribe(
       (resp: any) => {
         this.maxCount = resp.maxCount;
@@ -51,7 +53,7 @@ export class ParlayService {
     if (idExists > -1) {
       this.delete(idExists);
     } else {
-      if (this.canExists(team, betType, match, sport) && this.isValid()) {
+      if (this.canExists(team, betType, match, sport) && this.isValid() && this.isAdult()) {
         let newOdd: OddParlay = {
           sport: sport,
           teamPosition: team.position,
@@ -482,5 +484,25 @@ export class ParlayService {
       })
     }
     return valid;    
+  }
+
+  isAdult(){
+    let age = (+new Date()- +new Date(this.authSvc.activeUser.fechaNacimiento));
+    console.log(age);
+    if(age >= 567600000000){
+      return true;
+    }else{
+      Swal.fire({
+        icon: 'warning',
+        title: 'Alerta...',
+        text: 'Para jugar debes cargar tu fecha de nacimiento y ser mayor de edad',
+        confirmButtonText: "Actualizar Datos"
+      }).then((result)=>{
+        if(result.isConfirmed){
+          this.router.navigate(['/profile'], { queryParams: { tab: 'i' } });        
+        }
+      });    
+      return false;
+    }        
   }
 }

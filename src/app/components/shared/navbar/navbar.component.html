@@ -68,6 +68,9 @@
         </div>
       </li>
       -->
+      <li class="nav-item" *ngIf="saldo > 0 && user.type === 'Jugador'">
+        <section class="nav-settings d-none d-lg-flex">Billetera: &nbsp;</section> {{ saldo | number:'1.2-2':'es-Ar'}}
+      </li>
       <li class="nav-item dropdown" ngbDropdown>
         <a class="nav-link count-indicator dropdown-toggle" href="javascript:;" ngbDropdownToggle>
           <i class="ti-bell mx-0"></i>
@@ -131,7 +134,7 @@
         </a>
         <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown" ngbDropdownMenu>
           <a class="dropdown-item">
-            {{user}}
+            {{user.correo}}
           </a>
           <hr style="border-top: 1px solid blanchedalmond;margin-top: 0px;margin-bottom: 0px;">
           <a class="dropdown-item" routerLink="/profile">
@@ -143,12 +146,7 @@
             Salir
           </a>
         </div>
-      </li>
-      <li class="nav-item nav-settings d-none d-lg-flex" (click)="closeSettingsSidebar()">
-        <a class="nav-link" href="javascript:;">
-          <i class="ti-more"></i>
-        </a>
-      </li>
+      </li>      
     </ul>
     <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" (click)="toggleRightSidebar()">
       <span class="ti-layout-grid2"></span>

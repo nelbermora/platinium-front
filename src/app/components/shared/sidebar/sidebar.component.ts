@@ -22,6 +22,7 @@ export class SidebarComponent implements OnInit {
   public generalPagesCollapsed = false;
   public eCommerceCollapsed = false;
   isAdmin: boolean = false;
+  isTaquilla: boolean = false;
   isLoggedIn$: Observable<boolean>;
   constructor(private authSvc: AuthService) { }
 
@@ -32,12 +33,23 @@ export class SidebarComponent implements OnInit {
     }else{
       this.isAdmin = false;
     }
+    if(this.authSvc.activeUser.type === 'Taquilla'){
+      this.isTaquilla = true;
+    }else{
+      this.isTaquilla = false;
+    }
     this.authSvc.isLogged.subscribe(
       resp => {
         if(this.authSvc.activeUser.type === 'Admin'){
           this.isAdmin = true;
         }else{
           this.isAdmin = false;
+        }
+
+        if(this.authSvc.activeUser.type === 'Taquilla'){
+          this.isTaquilla = true;
+        }else{
+          this.isTaquilla = false;
         }
       }
     )

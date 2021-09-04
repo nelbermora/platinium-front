@@ -1,3 +1,4 @@
+import { AuthService } from 'src/app/services/auth.service';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { ParlayService } from './../../services/parlay.service';
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
@@ -17,7 +18,8 @@ export class BetsComponent implements OnInit {
   loading = false;
   activeIds: string[] = ['panel-0'];
   closeResult= '';
-  constructor(private parlaySvc: ParlayService, private modalService: NgbModal) {
+  constructor(private parlaySvc: ParlayService, private modalService: NgbModal,
+    private authSvc: AuthService) {
     this.parlay = this.parlaySvc.parlay;
     this.i = this.parlaySvc.i;
   }
@@ -84,6 +86,7 @@ export class BetsComponent implements OnInit {
           this.parlay.date = resp.date;
           this.parlay.oid = resp.oid;
           this.loading = false;
+          this.authSvc.fundsChange.emit(true);
         }else if(resp.oid === 0){
           Swal.fire({
             icon: 'error',

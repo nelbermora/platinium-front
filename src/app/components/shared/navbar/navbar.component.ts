@@ -1,3 +1,4 @@
+import { User } from './../../../models/user.model';
 import { AuthService } from './../../../services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { NgbDropdownConfig } from '@ng-bootstrap/ng-bootstrap';
@@ -10,9 +11,10 @@ import { Observable } from 'rxjs';
   providers: [NgbDropdownConfig]
 })
 export class NavbarComponent implements OnInit {
-  user: string;
+  user: User;
   public iconOnlyToggled = false;
   public sidebarToggled = false;  
+  saldo: number = 0;
   isLoggedIn$: Observable<boolean>;
   toggleSidebar() {
     let body = document.querySelector('body');
@@ -38,13 +40,26 @@ export class NavbarComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.user = this.authSvc.activeUser.correo;
+    this.user = this.authSvc.activeUser;
     this.authSvc.isLogged.subscribe(
       resp => {
-        this.user = this.authSvc.activeUser.correo;
+        this.user = this.authSvc.activeUser;
+        this.authSvc.getHome().subscribe((resp: any) => {
+          this.saldo = resp.saldo;      
+        });
       }
     );
+    this.authSvc.getHome().subscribe((resp: any) => {
+      this.saldo = resp.saldo;      
+    })
     this.isLoggedIn$ = this.authSvc.isLoggedIn;
+    this.authSvc.fundsChange.subscribe(
+      resp => {
+        this.authSvc.getHome().subscribe((resp: any) => {
+          this.saldo = resp.saldo;      
+        });  
+      }
+    )
   }
 
   closeSettingsSidebar() {
