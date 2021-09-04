@@ -238,6 +238,25 @@
                 Ticket N: {{parlay.oid}}
             </div>
             <div class="col-6">
+                <div *ngIf="parlay.status === 'S'" class="badge badge-info" style="
+                padding-top: 0px;
+                padding-bottom: 0px;">Suspendido</div>
+                <div *ngIf="parlay.status === 'A'" class="badge badge-warning" style="
+                padding-top: 0px;
+                padding-bottom: 0px;">En Juego</div>
+                <div *ngIf="parlay.status === 'W'" class="badge badge-success" style="
+                padding-top: 0px;
+                padding-bottom: 0px;">Ganó!</div>
+                <div *ngIf="parlay.status === 'L'" class="badge badge-danger" style="
+                padding-top: 0px;
+                padding-bottom: 0px;" >Perdió</div>
+                <div *ngIf="parlay.status === 'Z'" class="badge badge-info" style="
+                padding-top: 0px;
+                padding-bottom: 0px;">Pagado</div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
                 Fecha: {{parlay.date | date: 'dd/MM/yyyy H:mm:ss'}}
             </div>
         </div>
