@@ -99,9 +99,13 @@
               <i class="ti-lock text-primary"></i>
             </span>
           </div>
-          <input type="password" class="form-control form-control-lg border-left-0" id="exampleInputPassword" placeholder="Password"
+          <input [type]="!watchPass ? 'password' : 'text'" class="form-control form-control-lg border-left-0" id="exampleInputPassword" placeholder="Password"
             [(ngModel)]="usuarioRegistro.password"
-            name="password">                        
+            name="password">
+            <div class="input-group-append" (click)="verPass()"><span class="input-group-text">
+              <i *ngIf="!watchPass" class="fa fa-eye"></i>
+              <i *ngIf="watchPass" class="fa fa-eye-slash"></i></span>
+            </div>                        
         </div>
       </div>
       <p *ngIf="notPass" class="auth-link text-danger">Password Requerido</p>
@@ -114,8 +118,12 @@
               <i class="ti-lock text-primary"></i>
             </span>
           </div>
-          <input type="password" class="form-control form-control-lg border-left-0" id="confirmPassword" placeholder="Confirmar Password" [(ngModel)]="confirmPass"
-            name="confirmPassword">                                                
+          <input [type]="!watchPass ? 'password' : 'text'" class="form-control form-control-lg border-left-0" id="confirmPassword" placeholder="Confirmar Password" [(ngModel)]="confirmPass"
+            name="confirmPassword">  
+            <div class="input-group-append" (click)="verPass()"><span class="input-group-text">
+              <i *ngIf="!watchPass" class="fa fa-eye"></i>
+              <i *ngIf="watchPass" class="fa fa-eye-slash"></i></span>
+            </div>                                              
         </div>
       </div>
       <p *ngIf="passNotMatch" class="auth-link text-danger">Passwords no coinciden</p>
