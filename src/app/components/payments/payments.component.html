@@ -72,7 +72,7 @@
                   <div class="form-group">
                     <ngx-dropzone (change)="onSelect($event)" [multiple]="false" style="width: 204px;"
                       accept="image/jpeg,image/jpg,image/png,image/gif">
-                      <ngx-dropzone-label>Click, para subir comprobnte</ngx-dropzone-label>
+                      <ngx-dropzone-label>Click para subir comprobante (jpeg, jpg, png)</ngx-dropzone-label>
                       <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
                         <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
                       </ngx-dropzone-preview>

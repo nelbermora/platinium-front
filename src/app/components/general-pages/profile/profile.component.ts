@@ -53,7 +53,15 @@ export class ProfileComponent implements OnInit {
     "Uruguay",
     "Venezuela",
   ];
-  currencies = ["ARS", "BRL", "CLP", "COP", "USD", "PEN", "VES"];
+  currencies = [
+    {codigo: "ARS",desc:"Pesos Argentinos"},
+    {codigo: "BRL",desc:"Reales"},
+    {codigo: "CLP",desc:"Pesos Chilenos"},
+    {codigo: "COP",desc:"Pesos Colombianos"},
+    {codigo: "USD",desc:"Dolares"},
+    {codigo: "PEN",desc:"Soles Peruanos"},
+    {codigo: "VES",desc:"Bolívares"}
+    ];
   loading = false;
   notPass = false;
   invalidPass = false;
@@ -69,10 +77,11 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit() {
     this.logger.log(this.component, "Ingreso");
-    this.user = this.auth.activeUser;
-    this.auth.isLogged.subscribe((resp) => {
-      this.user = this.auth.activeUser;
-    });
+    this.auth.getAll().subscribe(
+      (resp: User) => {
+        this.user = resp;
+      }
+    );
     this.route.queryParams.subscribe((params) => {
       if (params.tab === "b") {
         this.active = "banc";
@@ -243,6 +252,24 @@ export class ProfileComponent implements OnInit {
           icon: "warning",
           title: "Falta poco...",
           text: "Por favor completar su nombre",        
+        });
+        this.active = 'basic';
+        valid = false;
+      }
+
+    if(this.user.cuenta === undefined ||
+      this.user.cuenta === null ||
+      this.user.cuenta.length === 0 || 
+      this.user.banco === undefined ||
+      this.user.banco === null ||
+      this.user.banco.length === 0 || 
+      this.user.moneda === undefined ||
+      this.user.moneda === null ||
+      this.user.moneda.length === 0 ){
+        Swal.fire({
+          icon: "warning",
+          title: "Por último...",
+          text: "Por favor completar todos los datos bancarios",        
         });
         this.active = 'basic';
         valid = false;

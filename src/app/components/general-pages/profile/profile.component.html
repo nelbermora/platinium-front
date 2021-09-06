@@ -134,8 +134,8 @@
                       <label>Moneda</label>
                       <select class="form-control form-control-sm" id="exampleFormControlSelect2"
                         [(ngModel)]="user.moneda" name="moneda" [compareWith]="comparar">
-                        <option *ngFor="let currency of currencies" [ngValue]="currency">
-                          {{currency}}
+                        <option *ngFor="let currency of currencies" [ngValue]="currency.codigo">
+                          {{currency.desc}}
                         </option>
                       </select>
                       <!--<input type="text" class="form-control form-control-sm" placeholder="Moneda" aria-label="Moneda"

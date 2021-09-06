@@ -59,30 +59,27 @@ export class PaymentsComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.pago.userId = this.authSvc.activeUser.id;
-    this.withdrawal.userId = this.authSvc.activeUser.id;
-    this.user = this.authSvc.activeUser;
-    this.authSvc.isLogged.subscribe(
-      resp =>{
-        this.user = this.authSvc.activeUser;
-        this.pago.userId = this.authSvc.activeUser.id;
-        this.withdrawal.userId = this.authSvc.activeUser.id;
-      }
-    );
-    this.paymentSvc.get(this.pago.userId).subscribe(
-      (resp: any) => {
-        if(resp){
-          this.pending = resp;          
+    this.authSvc.getAll().subscribe((resp: User) => {
+      this.user = resp;
+      this.pago.userId = resp.id;
+      this.withdrawal.userId = resp.id;
+      this.paymentSvc.get(this.pago.userId).subscribe(
+        (resp: any) => {
+          if(resp){
+            this.pending = resp;          
+          }
         }
-      }
-    );
-    this.paymentSvc.getWithdrawals(this.pago.userId) .subscribe(
-      (resp: any) => {
-        if(resp){
-          this.withdrawals = resp;
+      );
+      this.paymentSvc.getWithdrawals(this.pago.userId) .subscribe(
+        (resp: any) => {
+          if(resp){
+            this.withdrawals = resp;
+          }
         }
-      }
-    )
+      );
+    })
+    
+    
     this.uploadForm = this.formBuilder.group({
       profile: ['']
     });
