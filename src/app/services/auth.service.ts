@@ -77,6 +77,10 @@ export class AuthService {
   }
 
   getAll(){
+    return this.http.get(this.url + "/user?all=1");
+  }
+
+  get(){
     return this.http.get(this.url + "/user");
   }
 }

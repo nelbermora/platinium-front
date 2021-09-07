@@ -115,7 +115,7 @@ export class MyBetsComponent implements OnInit {
   isNulleable(index: number){        
     let nulleable = false;
     let now = new Date();
-    let deadLine = new Date(new Date(this.parlays[index].date).getTime() + 5*60000);
+    let deadLine = new Date(new Date(this.parlays[index].date).getTime() + 20*60000);
     if(now <= deadLine){
       nulleable = true;
     }

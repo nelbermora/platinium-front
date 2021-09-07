@@ -59,7 +59,7 @@ export class PaymentsComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.authSvc.getAll().subscribe((resp: User) => {
+    this.authSvc.get().subscribe((resp: User) => {
       this.user = resp;
       this.pago.userId = resp.id;
       this.withdrawal.userId = resp.id;

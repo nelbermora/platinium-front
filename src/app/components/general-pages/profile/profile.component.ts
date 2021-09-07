@@ -77,7 +77,7 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit() {
     this.logger.log(this.component, "Ingreso");
-    this.auth.getAll().subscribe(
+    this.auth.get().subscribe(
       (resp: User) => {
         this.user = resp;
       }
