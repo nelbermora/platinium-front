@@ -486,7 +486,7 @@ export class ParlayService {
     return valid;    
   }
 
-  isAdult(){
+  isAdult(){/*
     let age = (+new Date()- +new Date(this.authSvc.activeUser.fechaNacimiento));
     console.log(age);
     if(age >= 567600000000){
@@ -503,6 +503,7 @@ export class ParlayService {
         }
       });    
       return false;
-    }        
+    } */
+    return true;       
   }
 }

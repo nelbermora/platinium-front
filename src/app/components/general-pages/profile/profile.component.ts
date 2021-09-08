@@ -87,7 +87,7 @@ export class ProfileComponent implements OnInit {
         this.active = "banc";
       }
       if (params.tab === "i") {
-        this.active = "id";
+        this.active = "basic";
       }
     });
   }
@@ -232,14 +232,12 @@ export class ProfileComponent implements OnInit {
   isValid() {
     let valid = true;
     
-    if(this.user.fechaNacimiento === undefined 
-      || this.invalidBirthday()
-      || this.user.documento === undefined
+    if(this.user.documento === undefined
       || this.user.documento == 0){
       Swal.fire({
         icon: "warning",
         title: "Falta poco...",
-        text: "Debe completar fecha de nacimiento y Numero de documento",        
+        text: "Debe completar Numero de documento",        
       });
       this.active = 'id';
       valid = false;

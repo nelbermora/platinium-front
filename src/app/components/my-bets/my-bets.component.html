@@ -135,6 +135,7 @@
                                     <div *ngIf="parlay.status === 'W'" class="badge badge-success">Ganó!</div>
                                     <div *ngIf="parlay.status === 'L'" class="badge badge-danger">Perdió</div>
                                     <div *ngIf="parlay.status === 'Z'" class="badge badge-info">Pagado</div>
+                                    <div *ngIf="parlay.status === 'E'" class="badge badge-dark">Anulado</div>  
                                 </div>
                                 <div class="col-6">
                                     {{parlay.oid}}
@@ -150,7 +151,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-12">
-                                    {{parlay.date | date: 'dd/MM/yyyy H:mm:ss'}}
+                                    {{parlay.date | dateFull}}
                                 </div>
                             </div>
 
@@ -253,11 +254,14 @@
                 <div *ngIf="parlay.status === 'Z'" class="badge badge-info" style="
                 padding-top: 0px;
                 padding-bottom: 0px;">Pagado</div>
+                <div *ngIf="parlay.status === 'E'" class="badge badge-dark" style="
+                padding-top: 0px;
+                padding-bottom: 0px;">Anulado</div>                
             </div>
         </div>
         <div class="row">
             <div class="col-6">
-                Fecha: {{parlay.date | date: 'dd/MM/yyyy H:mm:ss'}}
+                Fecha: {{parlay.date | dateFull}}
             </div>
         </div>
         <div class="row">

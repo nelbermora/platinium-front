@@ -1,3 +1,4 @@
+import { DateFullPipe } from './pipes/dateFull.pipe';
 import { ReportService } from './services/report.service';
 import { PaymentService } from './services/payment.service';
 import { WalletService } from './services/wallet.service';
@@ -224,6 +225,7 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
     OddsPipe,
     DateArPipe,
     DateArSimplePipe,
+    DateFullPipe,
     BasketballComponent,
     SoccerComponent,
     MyBetsComponent,

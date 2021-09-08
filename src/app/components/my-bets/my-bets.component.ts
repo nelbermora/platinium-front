@@ -119,13 +119,16 @@ export class MyBetsComponent implements OnInit {
     if(now <= deadLine){
       nulleable = true;
     }
+    if(this.activeUser.type === 'Admin'){
+      nulleable = true;
+    }
     return nulleable;
   }
 
   cancel(index: number){
     if(confirm('Desea anular el Parlay' + this.parlays[index].oid + '?')){
       this.spinner.show();
-      this.parlays[index].status = 'S';
+      this.parlays[index].status = 'E';
       this.parlaySvc.update(this.parlays[index]).subscribe(
         resp => {
           if(resp.oid > 0){
