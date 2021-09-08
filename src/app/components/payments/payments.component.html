@@ -36,7 +36,7 @@
                             {{pago.amount | number:'1.2-2':'es-Ar'}}
                           </td>
                           <td>
-                            {{pago.fecha_solicitud | date: 'dd/MM/yyyy'}}
+                            {{pago.fecha_solicitud | dateFull}}
                           </td>
                           <td>
                             <label class="badge badge-info">Por Verificar</label>
@@ -142,7 +142,7 @@
                           {{pago.amount | number:'1.2-2':'es-Ar'}}
                         </td>
                         <td>
-                          {{pago.fecha_solicitud | date: 'dd/MM/yyyy'}}
+                          {{pago.fecha_solicitud | dateFull}}
                         </td>
                         <td>
                           <label class="badge badge-info" *ngIf="pago.status === 'S'">En Proceso</label>
@@ -206,7 +206,7 @@
                             {{pago.amount | number:'1.2-2':'es-Ar'}}
                           </td>
                           <td>
-                            {{pago.fecha_solicitud | date: 'dd/MM/yyyy'}}
+                            {{pago.fecha_solicitud | dateFull}}
                           </td>
                           <td (click)="open(i, pago)">
                             <label class="badge badge-info">Pendiente</label>
@@ -266,7 +266,7 @@
                             style="float: right; cursor: pointer;"></i>
                         </td>
                         <td>
-                          {{pago.fecha_solicitud | date: 'dd/MM/yyyy'}}
+                          {{pago.fecha_solicitud | dateFull}}
                         </td>
                         <td>
                           <label class="badge badge-info" *ngIf="pago.status === 'S'">En Proceso</label>
