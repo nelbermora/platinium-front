@@ -104,7 +104,7 @@
                   <div class="form-group">
                     <label>Cuenta Destino:</label>
                     <select class="form-control form-control-sm" id="ctaDest">
-                      <option *ngIf="user.cuenta !== undefined && user.cuenta.length > 0"> {{user.cuenta}}
+                      <option *ngIf="user.cuenta !== undefined && user.cuenta != null && user.cuenta.length > 0"> {{user.cuenta}}
                         [{{user.moneda}}]
                       </option>
                     </select>

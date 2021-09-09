@@ -5,6 +5,7 @@ import { Component, OnInit, TemplateRef, ViewChild } from "@angular/core";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import Swal from "sweetalert2";
 import { ActivatedRoute } from "@angular/router";
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: "app-profile",
@@ -72,13 +73,16 @@ export class ProfileComponent implements OnInit {
     private auth: AuthService,
     private modalService: NgbModal,
     private logger: LoggerService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private spinnerSvc: NgxSpinnerService
   ) {}
 
   ngOnInit() {
+    this.spinnerSvc.show();
     this.logger.log(this.component, "Ingreso");
     this.auth.get().subscribe(
       (resp: User) => {
+        this.spinnerSvc.hide();
         this.user = resp;
       }
     );

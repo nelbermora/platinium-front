@@ -40,7 +40,7 @@
         <span class="menu-title">Configuración</span>
       </a>
     </li>
-    <li class="nav-item" [ngClass]="{ 'active': payments.isActive }">
+    <li class="nav-item" [ngClass]="{ 'active': payments.isActive }" *ngIf="!isTaquilla">
       <a class="nav-link" routerLink="/payments" routerLinkActive #payments="routerLinkActive" (click)="toggleRightSidebar()">
         <i class="ti-credit-card menu-icon"></i>
         <span class="menu-title">Pagos</span>

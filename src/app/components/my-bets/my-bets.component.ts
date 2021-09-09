@@ -9,7 +9,6 @@ import {NgbDate, NgbCalendar, NgbDateParserFormatter} from '@ng-bootstrap/ng-boo
 import { ActivatedRoute } from '@angular/router';
 import { User } from 'src/app/models/user.model';
 import Swal from 'sweetalert2';
-import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-my-bets',
@@ -112,11 +111,20 @@ export class MyBetsComponent implements OnInit {
     }
   }
 
-  isNulleable(index: number){        
+  isNulleable(index: number){    
+    // date del parlay
+    let parlayServerDate = new Date();
+    let strDate = this.parlays[index].date + "";
+    parlayServerDate.setFullYear(+strDate.substring(0,4));
+    parlayServerDate.setMonth((+strDate.substring(5,7))-1);
+    parlayServerDate.setDate(+strDate.substring(8,10));
+    parlayServerDate.setHours((+strDate.substring(11,13)),+strDate.substring(14,16))    
     let nulleable = false;
-    let now = new Date();
-    let deadLine = new Date(new Date(this.parlays[index].date).getTime() + 20*60000);
-    if(now <= deadLine){
+    let date = new Date();
+    date.setTime( date.getTime() + date.getTimezoneOffset()*60*1000 )
+    date.setHours(date.getHours() - 3);
+    parlayServerDate.setMinutes(parlayServerDate.getMinutes() + 20);    
+    if(date <= parlayServerDate){
       nulleable = true;
     }
     if(this.activeUser.type === 'Admin'){

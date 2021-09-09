@@ -59,6 +59,7 @@ export class PaymentsComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
+    this.spinnerSvc.show();
     this.authSvc.get().subscribe((resp: User) => {
       this.user = resp;
       this.pago.userId = resp.id;
@@ -66,6 +67,7 @@ export class PaymentsComponent implements OnInit, AfterViewInit {
       this.paymentSvc.get(this.pago.userId).subscribe(
         (resp: any) => {
           if(resp){
+            this.spinnerSvc.hide();
             this.pending = resp;          
           }
         }
@@ -100,14 +102,12 @@ export class PaymentsComponent implements OnInit, AfterViewInit {
 
   onSelect(event) {
     if (this.files.length === 0) { 
-      console.log(event);
       this.files.push(...event.addedFiles);
       this.uploadForm.get('profile').setValue(this.files[0]);
     }
   }
 
   onRemove(event) {
-    console.log(event);
     this.files.splice(this.files.indexOf(event), 1);
   }
 
@@ -201,8 +201,9 @@ export class PaymentsComponent implements OnInit, AfterViewInit {
 
   withdrawalValid(){
     let valid = true;
-    if(this.user.cuenta === undefined || this.user.cuenta.length === 0 ||
-      this.withdrawal.amount === undefined || this.withdrawal.amount <= 0){
+    if(this.user.cuenta === undefined || this.user.cuenta === null
+       || this.user.cuenta.length === 0 ||
+       this.withdrawal.amount === undefined || this.withdrawal.amount <= 0){
         valid = false;
       }
       return valid;

@@ -170,7 +170,7 @@ export class ParlayService {
   canExists(team: TeamOdd, betType: string, match: Match, sport: string) {
     let can = true;
     this.parlay.odds.forEach(element => {
-      if(element.matchOid === match.oid){
+      if(element.matchId === match.id){
         if(sport === "Soccer"){
           can = false;
         }else if(sport === "Basketball"){
@@ -358,8 +358,8 @@ export class ParlayService {
   exists(team: TeamOdd, betType: string, match: Match) {
     let position = -1;
     this.parlay.odds.forEach((element, index) => {
-        if(element.teamId === team.oid_team
-            && element.matchOid === team.oid_match
+        if(element.teamName === team.team.name
+            && element.matchId === team.matchId
             && element.type === this.getBetName(betType)){
                 position = index;
             }

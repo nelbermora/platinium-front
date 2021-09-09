@@ -4,6 +4,7 @@ export interface TeamOdd{
     oid?: number,
     oid_match?: number,
     oid_team?: number,
+    matchId?: number,
     team?: Team,
     win?: number,
     win5?: number,
