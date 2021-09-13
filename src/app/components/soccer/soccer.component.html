@@ -35,7 +35,7 @@
       </div>
     </div>
   </div>
-<ngb-accordion class="accordion" [closeOthers]="true" [activeIds]="activeIds">
+<ngb-accordion class="accordion" [closeOthers]="false" [activeIds]="activeIds">
   <ngb-panel id="panel-{{i}}" *ngFor="let league of sport.leagues; index as i">
     <ng-template ngbPanelTitle>
       <i *ngIf="league.country=== 'world'"  class="ti-world"></i>      

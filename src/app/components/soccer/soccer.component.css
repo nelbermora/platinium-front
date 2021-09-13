@@ -25,6 +25,10 @@
     font-size: 0.720rem;
 }
 
+.table, .dataTables_wrapper .dataTable {
+    color: #fff;
+}
+
 .selected{
 background-color: #ffcb63;
 color: black;
