@@ -18,5 +18,14 @@ export interface User{
     banco?: string,
     moneda?: string,
     status?: string,
-    saldo?: number
+    saldo?: number,
+    singles?: Currency,
+    doubles?: Currency,
+    parlays?: Currency
+}
+
+export interface Currency{
+    jugado: number,
+    ganado: number,
+    total: number
 }

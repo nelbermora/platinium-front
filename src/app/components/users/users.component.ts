@@ -86,6 +86,15 @@ export class UsersComponent implements OnInit, AfterViewInit {
   user: User = {
     type: "Jugador"
   };
+  currencies = [
+    {codigo: "ARS",desc:"Pesos Argentinos"},
+    {codigo: "BRL",desc:"Reales"},
+    {codigo: "CLP",desc:"Pesos Chilenos"},
+    {codigo: "COP",desc:"Pesos Colombianos"},
+    {codigo: "USD",desc:"Dolares"},
+    {codigo: "PEN",desc:"Soles Peruanos"},
+    {codigo: "VES",desc:"Bolívares"}
+    ];
   fieldErrors: boolean = false;
   alreadyExists: boolean = false;
   isLoading: boolean = false;
@@ -201,6 +210,13 @@ export class UsersComponent implements OnInit, AfterViewInit {
       return false;
     }
     return pais1 === pais2;
+  }
+
+  comparar(item1: string, item2: string) {
+    if (item1 == null || item2 == null) {
+      return false;
+    }
+    return item1 === item2;
   }
 
   disable(index: number){

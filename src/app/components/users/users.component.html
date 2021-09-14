@@ -116,6 +116,17 @@
         <option *ngFor="let type of types" [ngValue]="type">{{type}}</option>
       </select>
     </div>
+    <div class="form-group" *ngIf="user.type !== 'Jugador'">
+      <label>Moneda</label>
+      <select class="form-control form-control-sm" id="exampleFormControlSelect2"
+        [(ngModel)]="user.moneda" name="moneda" [compareWith]="comparar">
+        <option *ngFor="let currency of currencies" [ngValue]="currency.codigo">
+          {{currency.desc}}
+        </option>
+      </select>
+      <!--<input type="text" class="form-control form-control-sm" placeholder="Moneda" aria-label="Moneda"
+      [(ngModel)]="user.moneda" name="moneda">-->
+    </div>
     <p *ngIf="fieldErrors" class="text-danger"> Faltan campos requeridos</p>
     <p *ngIf="alreadyExists" class="text-danger"> Correo ya existe</p>
   </div>

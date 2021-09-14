@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgbCalendar, NgbDate, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { User } from 'src/app/models/user.model';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { ReportCurrency } from 'src/app/models/report-currency.model';
 
 @Component({
   selector: 'app-reports',
@@ -21,6 +22,7 @@ export class ReportsComponent implements OnInit {
   users: User[] = [];
   empty: boolean;
   isTaquilla: boolean = false;
+  currencies: ReportCurrency[] = [];
   constructor(public formatter: NgbDateParserFormatter, private calendar: NgbCalendar,
     private reportsSvc: ReportService, private spinner: NgxSpinnerService,
     private authSvc: AuthService) {
@@ -110,12 +112,13 @@ export class ReportsComponent implements OnInit {
         }else{
           this.empty = false;
         }
+        this.setTotals();
         this.spinner.hide();
       }
     );
   }
 
-  nullFormatter(value: string){
+  nullFormatter(value: any){
     if(value === undefined || value === null){
       return 0;
     }else{
@@ -123,6 +126,30 @@ export class ReportsComponent implements OnInit {
     }
   }
   
+  setTotals(){
+    this.currencies = [];
+    this.users.forEach(userItem => {
+      let existCurrency = false;
+      this.currencies.forEach(currencyItem => {
+        if(currencyItem.codigo === userItem.moneda){
+          existCurrency = true;
+          currencyItem.jugado = currencyItem.jugado + this.nullFormatter(userItem.singles.jugado) + this.nullFormatter(userItem.doubles.jugado) + this.nullFormatter(userItem.parlays.jugado);
+          currencyItem.ganado = currencyItem.ganado + this.nullFormatter(userItem.singles.ganado) + this.nullFormatter(userItem.doubles.ganado) + this.nullFormatter(userItem.parlays.ganado);
+        }
+      });
+      if(!existCurrency){
+        let newCurrency: ReportCurrency = {};
+        newCurrency.codigo = userItem.moneda;
+        newCurrency.jugado = this.nullFormatter(userItem.singles.jugado) + this.nullFormatter(userItem.doubles.jugado) + this.nullFormatter(userItem.parlays.jugado);
+        newCurrency.ganado = this.nullFormatter(userItem.singles.ganado)+ this.nullFormatter(userItem.doubles.ganado) + this.nullFormatter(userItem.parlays.ganado);
+        this.currencies.push(newCurrency);
+      }
+    }); 
+    this.currencies.forEach(element => {
+      element.total = element.jugado - element.ganado;
+    });   
+  }  
+
   getTotal(user: any){
     //return 4;
     return this.nullFormatter(user.singles.jugado)

@@ -132,6 +132,16 @@ export class PaymentsComponent implements OnInit, AfterViewInit {
             userId: this.authSvc.activeUser.id
           };
           this.ngOnInit();
+        }else if(resp !== null && resp.id === 0){
+          Swal.fire(
+            'Error',
+            'Su saldo actual está asociado a otra moneda. Por favor consuma la totalidad del saldo si desea recargar en una moneda distinta',
+            'error'
+          ); 
+          this.files = [];
+          this.pago = {
+            userId: this.authSvc.activeUser.id
+          };
         }else{
           Swal.fire(
             'Error',
@@ -279,6 +289,16 @@ export class PaymentsComponent implements OnInit, AfterViewInit {
                 'Por favor intente con un monto menor',
                 'warning'
               ); 
+            }else if(resp !== null && resp.id === 0){
+              Swal.fire(
+                'Error',
+                'Su saldo actual está asociado a otra moneda. Por favor registre una cuenta de la misma moneda a la de su ultima carga.',
+                'error'
+              ); 
+              this.files = [];
+              this.pago = {
+                userId: this.authSvc.activeUser.id
+              };
             }else{
               Swal.fire(
                 'Error en el servicio',

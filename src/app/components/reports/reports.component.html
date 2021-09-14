@@ -67,6 +67,54 @@
     </div>
 </div>
 
+<div class="col-md-12 grid-margin stretch-card" *ngIf="users.length > 0 && !isTaquilla">
+    <div class="card">
+        <div class="card-body">
+            <table class="table table-striped table-sm table-responsive w-100 d-block d-md-table">
+                <thead>
+                    <tr>
+                        <th class="text-center">
+                            Moneda
+                        </th>
+                        <th class="text-center">
+                            Jugado
+                        </th>
+                        <th class="text-center">
+                            Ganado
+                        </th>
+                        <th class="text-center">
+                            Total
+                        </th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let currency of currencies">
+                        <td>
+                            {{currency.codigo}}
+                        </td>
+                        <td>
+                            {{nullFormatter(currency.jugado) | number:'1.2-2':'es-Ar'}}
+                        </td>
+                        <td class="text-right">
+                            {{nullFormatter(currency.ganado) | number:'1.2-2':'es-Ar'}}
+                        </td>
+                        <td class="text-right">
+                            <strong *ngIf="currency.total>=0" class="text-success">
+                                {{currency.total |number:'1.2-2':'es-Ar'}}
+                            </strong>
+                            <strong *ngIf="currency.total<0" class="text-danger">
+                                {{currency.total |number:'1.2-2':'es-Ar'}}
+                            </strong>
+                            
+                        </td>                       
+                    </tr>
+                </tbody>                            
+            </table>
+        </div>
+    </div>
+</div>
+
 <div class="col-md-12 grid-margin stretch-card" *ngIf="users.length > 0">
     <div class="card">
         <div class="card-body">
