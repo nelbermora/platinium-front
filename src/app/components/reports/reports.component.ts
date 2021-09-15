@@ -22,7 +22,19 @@ export class ReportsComponent implements OnInit {
   users: User[] = [];
   empty: boolean;
   isTaquilla: boolean = false;
+  isAdmin: boolean = false;
   currencies: ReportCurrency[] = [];
+  currenciesOpt = [
+    {codigo: "ARS",desc:"Pesos Argentinos"},
+    {codigo: "BRL",desc:"Reales"},
+    {codigo: "CLP",desc:"Pesos Chilenos"},
+    {codigo: "COP",desc:"Pesos Colombianos"},
+    {codigo: "USD",desc:"Dolares"},
+    {codigo: "PEN",desc:"Soles Peruanos"},
+    {codigo: "VES",desc:"Bolívares"},
+    {codigo: "", desc:"Todas"}
+    ];
+    currOpt = "";
   constructor(public formatter: NgbDateParserFormatter, private calendar: NgbCalendar,
     private reportsSvc: ReportService, private spinner: NgxSpinnerService,
     private authSvc: AuthService) {
@@ -31,6 +43,7 @@ export class ReportsComponent implements OnInit {
    }
 
   ngOnInit(): void {
+    this.currOpt = "";
     if(this.desde === null || this.desde === undefined){
       this.desde = this.fromDate.year + "-" + this.fromDate.month + "-" + this.fromDate.day;
       this.hasta = this.toDate.year + "-" + this.toDate.month + "-" + this.toDate.day;
@@ -41,6 +54,11 @@ export class ReportsComponent implements OnInit {
     }else{
       this.isTaquilla = false;
     }
+    if(this.authSvc.activeUser.type === 'Admin'){
+      this.isAdmin = true;      
+    }else{
+      this.isAdmin = false;      
+    }
     this.authSvc.isLogged.subscribe(
       resp => {
         if(this.authSvc.activeUser.type === 'Taquilla'){
@@ -48,6 +66,11 @@ export class ReportsComponent implements OnInit {
           this.typeSelected = "Taquilla";
         }else{
           this.isTaquilla = false;
+        }
+        if(this.authSvc.activeUser.type === 'Admin'){
+          this.isAdmin = true;      
+        }else{
+          this.isAdmin = false;      
         }
       }
     );
@@ -104,7 +127,7 @@ export class ReportsComponent implements OnInit {
     if(this.typeSelected !== "Todos"){
       type = this.typeSelected;
     }
-    this.reportsSvc.getReport(type, this.desde, this.hasta).subscribe(
+    this.reportsSvc.getReport(type, this.desde, this.hasta, this.currOpt).subscribe(
       (resp: any) => {
         this.users = resp;
         if(this.users.length === 0){
@@ -160,6 +183,13 @@ export class ReportsComponent implements OnInit {
          - this.nullFormatter(user.parlays.ganado);
     /*return (user.singles.jugado + user.doubles.jugado + user.parlays.jugado)
           -(user.singles.ganado + user.doubles.ganado + user.parlays.ganado);*/
+  }
+
+  comparar(item1: any, item2: any) {
+    if (item1 == null || item2 == null) {
+      return false;
+    }
+    return item1 === item2;
   }
 
 }

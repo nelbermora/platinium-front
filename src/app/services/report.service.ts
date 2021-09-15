@@ -13,10 +13,14 @@ export class ReportService{
         }
     }
 
-    getReport(type: string, desde: string, hasta: string){
-        let parameters = "?desde=" + desde + "&hasta=" + hasta + "&type=" + type;
+    getReport(type: string, desde: string, hasta: string, currency: string){
+        let curParam: string;
+        if(currency !== ""){
+            curParam = "&moneda=" + currency;
+        }
+        let parameters = "?desde=" + desde + "&hasta=" + hasta + "&type=" + type + curParam;
         if(type === undefined || type === null){
-            parameters = "?desde=" + desde + "&hasta=" + hasta;
+            parameters = "?desde=" + desde + "&hasta=" + hasta  + curParam;
         }
         return this.http.get(this.url + parameters);
     }

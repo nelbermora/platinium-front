@@ -14,6 +14,19 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-lg-4 mg-t-20 mg-lg-t-0" *ngIf="isAdmin">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <label style="margin-top: 10px;">Moneda: </label>
+                            <select class="form-control form-control-sm" id="exampleFormControlSelect2"
+                                [(ngModel)]="currOpt" name="moneda" [compareWith]="comparar">
+                                <option *ngFor="let currencyOpt of currenciesOpt" [ngValue]="currencyOpt.codigo">
+                                {{currencyOpt.desc}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
                 <div class="col-lg-4">
                     <div class="form-group hidden">
                         <div class="input-group">
@@ -169,7 +182,7 @@
                             </td>
                         </tr>
                         <tr style="background-color: #000000;">
-                            <td><strong>Totales</strong></td>
+                            <td><strong>Totales</strong><strong *ngIf="isAdmin"> [{{user.moneda}}]</strong></td>
                             <td class="text-right"><strong>{{nullFormatter(user.singles.jugado) +
                                 nullFormatter(user.doubles.jugado) + nullFormatter(user.parlays.jugado) |
                                 number:'1.2-2':'es-Ar'}}</strong></td>
