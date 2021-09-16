@@ -14,7 +14,7 @@ export class ReportService{
     }
 
     getReport(type: string, desde: string, hasta: string, currency: string){
-        let curParam: string;
+        let curParam: string = "";
         if(currency !== ""){
             curParam = "&moneda=" + currency;
         }

@@ -102,6 +102,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
     private router: Router, private spinnerSvc: NgxSpinnerService) { }
 
   ngOnInit(): void {
+    this.spinnerSvc.show();
     this.users = [];
     this.userSvc.getAll().subscribe(
       (resp: any) => {

@@ -18,6 +18,7 @@ export class BetsComponent implements OnInit {
   loading = false;
   activeIds: string[] = ['panel-0'];
   closeResult= '';
+  isTaquilla: boolean = false;
   constructor(private parlaySvc: ParlayService, private modalService: NgbModal,
     private authSvc: AuthService) {
     this.parlay = this.parlaySvc.parlay;
@@ -35,6 +36,20 @@ export class BetsComponent implements OnInit {
       (resp: number) => {
         this.parlay.winAmount = resp;
         this.isValid();
+      }
+    );
+    if(this.authSvc.activeUser.type === 'Taquilla'){
+      this.isTaquilla = true;      
+    }else{
+      this.isTaquilla = false;
+    }
+    this.authSvc.isLogged.subscribe(
+      resp => {
+        if(this.authSvc.activeUser.type === 'Taquilla'){
+          this.isTaquilla = true;          
+        }else{
+          this.isTaquilla = false;
+        }        
       }
     );
   }
