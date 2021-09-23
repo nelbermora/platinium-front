@@ -315,9 +315,11 @@ export class ParlayService {
                 can = false;
               }
               if(this.getBetName(betType) !== "Alta/Baja" || this.getBetName(betType) !== "Alta/Baja 1er Mitad"){
-                if(team.ouLetter === 'A'){
-                  can = false;
-                }
+                if (this.getBetName(betType) !== "RunLine" && this.getBetName(betType) !== "RunLine 1er Mitad"){
+                  if(team.ouLetter === 'A'){
+                    can = false;
+                  }
+                }                
               }
             }            
           }
@@ -335,9 +337,11 @@ export class ParlayService {
                 can = false;
               }
               if(this.getBetName(betType) !== "Alta/Baja" || this.getBetName(betType) !== "Alta/Baja 1er Mitad"){
-                if(team.ouLetter === 'B'){
-                  can = false;
-                }
+                if (this.getBetName(betType) !== "RunLine" && this.getBetName(betType) !== "RunLine 1er Mitad"){
+                  if(team.ouLetter === 'B'){
+                    can = false;
+                  }
+                }                
               }              
             }
           }

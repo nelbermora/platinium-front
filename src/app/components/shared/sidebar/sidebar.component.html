@@ -46,7 +46,7 @@
         <span class="menu-title">Pagos</span>
       </a>
     </li>
-    <li class="nav-item" [ngClass]="{ 'active': wallet.isActive }">
+    <li class="nav-item" [ngClass]="{ 'active': wallet.isActive }" *ngIf="!isTaquilla">
       <a class="nav-link" routerLink="/wallet" routerLinkActive #wallet="routerLinkActive" (click)="toggleRightSidebar()">
         <i class="ti-wallet menu-icon"></i>
         <span class="menu-title">Mi Billetera</span>
