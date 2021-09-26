@@ -4,6 +4,7 @@ import { AuthService } from './../../services/auth.service';
 import { WalletMovement } from './../../models/wallet-movement.model';
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
+import { LoggerService } from 'src/app/services/logger.service';
 
 @Component({
   selector: 'app-wallet',
@@ -37,10 +38,12 @@ export class WalletComponent implements OnInit, AfterViewInit {
   movements: WalletMovement[] = [];
   userId: number;
   saldo: number;
+  component = "Wallet";
   constructor(private authSvc: AuthService, private walletSvc: WalletService,
-    private router: Router) { }
+    private router: Router, private logger: LoggerService) { }
 
   ngOnInit(): void {
+    this.logger.log(this.component, 'Ingreso');
     this.userId = this.authSvc.activeUser.id;
     this.authSvc.isLogged.subscribe(
       resp =>{

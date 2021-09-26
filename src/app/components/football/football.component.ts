@@ -8,6 +8,7 @@ import { LoggerService } from 'src/app/services/logger.service';
 import { OddService } from 'src/app/services/odd.service';
 import { ParlayService } from 'src/app/services/parlay.service';
 import Swal from 'sweetalert2';
+import jspdf from 'jspdf';
 
 @Component({
   selector: 'app-football',
@@ -19,14 +20,17 @@ export class FootballComponent implements OnInit {
   sport: Sport= {};
   component = "FootballOdds";
   isAdmin = false;
+  isTaquilla = false
   editionMode: boolean = false;
   emptyResults: boolean = false;
+  loadingPdf = false;
   constructor(private spinner: NgxSpinnerService, private oddSvc: OddService,
     private parlaySvc: ParlayService, private logger: LoggerService,
     private auth: AuthService) { }
 
   ngOnInit(): void {
     this.auth.activeUser.type === 'Admin' ? this.isAdmin = true : this.isAdmin = false;  
+    this.auth.activeUser.type === 'Taquilla' ? this.isTaquilla = true : this.isTaquilla = false;
     this.logger.log(this.component, 'Ingreso');
     this.spinner.show();
     this.oddSvc.getOdds("football").subscribe(
@@ -41,6 +45,7 @@ export class FootballComponent implements OnInit {
     this.auth.isLogged.subscribe(
       resp => {
         this.auth.activeUser.type === 'Admin' ? this.isAdmin = true : this.isAdmin = false;        
+        this.auth.activeUser.type === 'Taquilla' ? this.isTaquilla = true : this.isTaquilla = false;
       }
     );
   }
@@ -153,6 +158,33 @@ export class FootballComponent implements OnInit {
         }
       }
     );    
+  }
+
+  getPdf(){
+    this.loadingPdf = true;
+    let data = document.getElementById("pdf");  
+    var doc = new jspdf();
+    doc.setFontSize(9);
+    doc.html(data, {
+      // A, B, bottom, left 
+     margin: [2, 2, 5, 10],
+     callback: function (doc) {
+       var totalPages = doc.internal.pages.length;
+       for (let i = 1; i <= totalPages; i++) {
+         doc.setPage(i);
+         doc.setFontSize(14)
+         doc.setTextColor(150);         
+         doc.text('www.platitniumsport.com',75, doc.internal.pageSize.height);         
+       }
+       var today = new Date(); 
+       doc.save('Football_' + today.getDate() + '_' + (today.getMonth()+1));
+     },
+    x: 4,
+    y: 4,
+    html2canvas: {
+            scale: 0.24,
+        },
+    });    
   }
 
 }

@@ -1,4 +1,4 @@
-<section *ngIf="isAdmin">
+<section *ngIf="isAdmin || isTaquilla">
 <div class="col-12">
     <div class="card">
       <div class="row" style="margin-left: 5px !important;">
@@ -6,11 +6,15 @@
           <div class="card-body">
             <div class="template-demo">
               <div class="btn-group" role="group" aria-label="Basic example">
-                <button type="button" class="btn btn-outline-secondary" (click)="editionMode=!editionMode">
+                <button type="button" class="btn btn-outline-secondary" (click)="editionMode=!editionMode" *ngIf="isAdmin">
                   <i class="fa fa-edit"></i>
                 </button>
-                <button type="button" class="btn btn-outline-secondary" (click)="saveOdds()">
+                <button type="button" class="btn btn-outline-secondary" (click)="saveOdds()" *ngIf="isAdmin">
                   <i class="fa fa-save"></i>
+                </button>
+                <button type="button" class="btn btn-outline-secondary" (click)="getPdf()" *ngIf="isTaquilla || isAdmin">
+                  <span *ngIf="loadingPdf" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                  <i class="fa fa-print" aria-hidden="true"></i>
                 </button>
               </div>
               <p class="text-center" *ngIf="editionMode">Modo Edición Activo</p>
@@ -35,7 +39,7 @@
     </div>
   </div>
 </div>
-<ngb-accordion class="accordion" [closeOthers]="false" [activeIds]="activeIds">
+<ngb-accordion class="accordion" [closeOthers]="false" [activeIds]="activeIds" id="MyDIv">
   <ngb-panel id="panel-{{i}}" *ngFor="let league of sport.leagues; index as i">
     <ng-template ngbPanelTitle>
       <i *ngIf="league.country=== 'world'"  class="ti-world"></i>
@@ -131,3 +135,80 @@
   </ngb-panel>  
 </ngb-accordion>
 <app-bets></app-bets>
+<section hidden>
+  <section id ="pdf">
+    <section *ngFor="let league of sport.leagues; index as i">
+      {{league.name}}
+      <table class="table">
+        <tbody>
+          <tr *ngFor="let match of league.matches">
+            <ng-container *ngIf="match.enabled">
+              <td style="padding-left: 0px;">
+                <table class="table">
+                    <thead>
+                      <tr style="color: black;">
+                        <td>{{match.date | dateAr }}</td>
+                        <td>Ganar</td>
+                        <td>R. Line</td>
+                        <td>Alta/Baja</td>
+                        <td>Ganar<br/>5to Inn</td>
+                        <td>R. Line<br/>5to Inn</td>
+                        <td>Alta/Baja<br/>5to Inn</td>
+                        <td>Anota<br/>Primero</td>
+                        <td>SI/NO</td>                            
+                        <td>Total Hits</td>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr style="background-color: black" [ngClass]="{'disabled': !match.enabled}">
+                        <td>{{match.teamA.team.name}}</td>
+                        <td style="cursor: pointer;" [ngClass]="{'selected':this.isSelected(match.teamA, 'win', match)}" (click)="select(match.teamA, 'win', match)">{{match.teamA.win | odd}}</td>
+                        <td style="cursor: pointer;" [ngClass]="{'selected':this.isSelected(match.teamA, 'rl', match)}" (click)="select(match.teamA, 'rl', match)">{{match.teamA.rlHandicap | odd}} {{match.teamA.runLine | odd}}</td>
+                        <td style="cursor: pointer;" [ngClass]="{'selected':this.isSelected(match.teamA, 'ou', match)}" (click)="select(match.teamA, 'ou', match)">{{match.teamA.ouHandicap}} <strong class="text-primary">{{match.teamA.ouLetter}}</strong>{{match.teamA.overUnder | odd}}</td>
+                        <td style="cursor: pointer;" [ngClass]="{'selected':this.isSelected(match.teamA, 'win5', match)}" [ngClass]="{'disabled': !match.halfEnabled && editionMode}">
+                          <section *ngIf="match.halfEnabled" (click)="select(match.teamA, 'win5', match)" >{{match.teamA.win5 | odd}}</section>
+                        </td>
+                        <td style="cursor: pointer;" [ngClass]="{'selected':this.isSelected(match.teamA, 'rl5', match)}" [ngClass]="{'disabled': !match.halfEnabled && editionMode}">
+                          <section *ngIf="match.halfEnabled" (click)="select(match.teamA, 'rl5', match)">{{match.teamA.rlHandicap5 | odd}} {{match.teamA.runLine5 | odd}}</section>
+                        </td>
+                        <td style="cursor: pointer;" [ngClass]="{'selected':this.isSelected(match.teamA, 'ou5', match)}" [ngClass]="{'disabled': !match.halfEnabled && editionMode}">
+                          <section *ngIf="match.halfEnabled" (click)="select(match.teamA, 'ou5', match)">{{match.teamA.ouHandicap5}} <strong class="text-primary">{{match.teamA.ouLetter5}}</strong>{{match.teamA.overUnder5 | odd}}</section>
+                        </td>
+                        <td style="cursor: pointer;" [ngClass]="{'selected':this.isSelected(match.teamA, 'sf', match)}" (click)="select(match.teamA, 'sf', match)">{{match.teamA.scoresFirst | odd}}</td>
+                        <td style="cursor: pointer;" [ngClass]="{'selected':this.isSelected(match.teamA, 'fiy', match)}" (click)="select(match.teamA, 'fiy', match)"><strong class="text-primary">SI</strong> {{match.firstInningScoreYes | odd}}</td>
+                        <td style="cursor: pointer;" [ngClass]="{'selected':this.isSelected(match.teamA, 'th', match)}" (click)="select(match.teamA, 'th', match)">{{match.teamA.thHandicap}} <strong class="text-primary">{{match.teamA.thLetter}}</strong>{{match.teamA.totalHits | odd}}</td>
+                      </tr>
+                      <tr style="background-color: black" [ngClass]="{'disabled': !match.enabled}">
+                        <td *ngIf="editionMode">
+                          <input
+                          type="checkbox"
+                          [checked]="match.halfEnabled"
+                          (change)="match.halfEnabled = !match.halfEnabled"/>
+                          Mitad Habilitada</td>
+                        <td>{{match.teamB.team.name}}</td>
+                        <td style="cursor: pointer;" [ngClass]="{'selected':this.isSelected(match.teamB, 'win', match)}" (click)="select(match.teamB, 'win', match)">{{match.teamB.win | odd}}</td>
+                        <td style="cursor: pointer;" [ngClass]="{'selected':this.isSelected(match.teamB, 'rl', match)}" (click)="select(match.teamB, 'rl', match)">{{match.teamB.rlHandicap | odd}} {{match.teamB.runLine | odd}}</td>
+                        <td style="cursor: pointer;" [ngClass]="{'selected':this.isSelected(match.teamB, 'ou', match)}" (click)="select(match.teamB, 'ou', match)">{{match.teamB.ouHandicap}} <strong class="text-primary">{{match.teamB.ouLetter}}</strong>{{match.teamB.overUnder | odd}}</td>
+                        <td style="cursor: pointer;" [ngClass]="{'selected':this.isSelected(match.teamB, 'win5', match)}" [ngClass]="{'disabled': !match.halfEnabled && editionMode}">
+                          <section (click)="select(match.teamB, 'win5', match)" *ngIf="match.halfEnabled">{{match.teamB.win5 | odd}}</section>
+                        </td>
+                        <td style="cursor: pointer;" [ngClass]="{'selected':this.isSelected(match.teamB, 'rl5', match)}"  [ngClass]="{'disabled': !match.halfEnabled && editionMode}">
+                          <section (click)="select(match.teamB, 'rl5', match)" *ngIf="match.halfEnabled">{{match.teamB.rlHandicap5 | odd}} {{match.teamB.runLine5 | odd}}</section>
+                        </td>
+                        <td style="cursor: pointer;" [ngClass]="{'selected':this.isSelected(match.teamB, 'ou5', match)}" [ngClass]="{'disabled': !match.halfEnabled && editionMode}">
+                          <section (click)="select(match.teamB, 'ou5', match)" *ngIf="match.halfEnabled">{{match.teamB.ouHandicap5}} <strong class="text-primary">{{match.teamB.ouLetter5}}</strong>{{match.teamB.overUnder5 | odd}}</section>
+                        </td>
+                        <td style="cursor: pointer;" [ngClass]="{'selected':this.isSelected(match.teamB, 'sf', match)}" (click)="select(match.teamB, 'sf', match)">{{match.teamB.scoresFirst | odd}}</td>
+                        <td style="cursor: pointer;" [ngClass]="{'selected':this.isSelected(match.teamB, 'fin', match)}" (click)="select(match.teamB, 'fin', match)"><strong class="text-primary">NO</strong> {{match.firstInningScoreNo | odd}}</td>
+                        <td style="cursor: pointer;" [ngClass]="{'selected':this.isSelected(match.teamB, 'th', match)}" (click)="select(match.teamB, 'th', match)">{{match.teamB.thHandicap}} <strong class="text-primary">{{match.teamB.thLetter}}</strong>{{match.teamB.totalHits | odd}}</td>
+                      </tr>
+                    </tbody>
+                </table>
+              </td>
+            </ng-container>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </section>
+</section>
