@@ -6,7 +6,7 @@
         <span class="menu-title">Inicio</span>
       </a>
     </li>
-    <li class="nav-item" [ngClass]="{'active' : baseball.isActive || futbol.isActive || baloncesto.isActive || american.isActive || tennis.isActive  }">
+    <li class="nav-item" [ngClass]="{'active' : baseball.isActive || futbol.isActive || baloncesto.isActive || american.isActive || hockey.isActive  }">
       <a class="nav-link" (click)="uiBasicCollapsed = !uiBasicCollapsed" [attr.aria-expanded]="uiBasicCollapsed" aria-controls="ui-basic">
         <i class="ti-money menu-icon"></i>
         <span class="menu-title">Apuestas</span>
@@ -18,7 +18,7 @@
           <li class="nav-item"> <a class="nav-link" routerLink="/soccer" routerLinkActive="active" #futbol="routerLinkActive" (click)="toggleRightSidebar()">Futbol</a></li>
           <li class="nav-item"> <a class="nav-link" routerLink="/basketball" routerLinkActive="active" #baloncesto="routerLinkActive" (click)="toggleRightSidebar()">Baloncesto</a></li>
           <li class="nav-item"> <a class="nav-link" routerLink="/football" routerLinkActive="active" #american="routerLinkActive" (click)="toggleRightSidebar()">Futbol Americano</a></li>
-          <li class="nav-item" hidden> <a class="nav-link" routerLink="/bets" routerLinkActive="active" #tennis="routerLinkActive" (click)="toggleRightSidebar()">Tennis</a></li>                              
+          <li class="nav-item"> <a class="nav-link" routerLink="/hockey" routerLinkActive="active" #hockey="routerLinkActive" (click)="toggleRightSidebar()">Hockey</a></li>                              
         </ul>
       </div>
     </li>

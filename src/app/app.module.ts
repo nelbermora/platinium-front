@@ -137,6 +137,7 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
 import { AngularImageViewerModule } from '@clarivate/angular-image-viewer';
 import { FootballComponent } from './components/football/football.component';
 import { NgxPrintModule } from 'ngx-print';
+import { HockeyComponent } from './components/hockey/hockey.component';
 
 registerLocaleData(localeEsAr, 'es-Ar');
 
@@ -229,7 +230,8 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
     BasketballComponent,
     SoccerComponent,
     MyBetsComponent,
-    FootballComponent
+    FootballComponent,
+    HockeyComponent
   ],
   imports: [
     BrowserModule,
