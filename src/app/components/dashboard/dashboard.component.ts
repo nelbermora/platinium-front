@@ -250,7 +250,7 @@ export class DashboardComponent implements OnInit {
     }
   }
   
-  version = 6;
+  version = 6.1;
   saldo: number;
   jugadasActivas: number;
   totalJugadas: number;

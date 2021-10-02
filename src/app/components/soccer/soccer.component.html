@@ -155,7 +155,7 @@
       <table>
         <tbody>
           <tr *ngFor="let match of league.matches">
-            <ng-container *ngIf="match.enabled">
+            <ng-container *ngIf="match.enabled && isToday(match.date)">
               <td style="padding-left: 0px;">
                 <table class="table">
                   <thead>

@@ -274,7 +274,8 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-12">Monto Jugado: {{parlay.betAmount | number:'1.2-2':'es-Ar'}}</div>
+            <div class="col-12" *ngIf="activeUser.type === 'Taquilla'">Monto Jugado [{{activeUser.moneda}}]: {{parlay.betAmount | number:'1.2-2':'es-Ar'}}</div>
+            <div class="col-12" *ngIf="activeUser.type !== 'Taquilla'">Monto Jugado: {{parlay.betAmount | number:'1.2-2':'es-Ar'}}</div>
         </div>
         <div class="row" *ngIf="parlay.winAmountInicial !== undefined && parlay.winAmountInicial > 0">
             <div class="col-12">Monto a Ganar Inicial: {{parlay.winAmountInicial | number:'1.2-2':'es-Ar'}}</div>
@@ -335,7 +336,10 @@
         </div>
         <hr style="margin-top: 5px;margin-bottom: 5px;"/>
         <div class="row">
-            <div class="col-12">
+            <div class="col-12" *ngIf="activeUser.type === 'Taquilla'">
+                Monto a Ganar [{{activeUser.moneda}}]: {{parlay.winAmount | number:'1.2-2':'es-Ar'}}
+            </div>
+            <div class="col-12" *ngIf="activeUser.type !== 'Taquilla'">
                 Monto a Ganar: {{parlay.winAmount | number:'1.2-2':'es-Ar'}}
             </div>
         </div>

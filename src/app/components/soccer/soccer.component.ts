@@ -187,4 +187,15 @@ export class SoccerComponent implements OnInit {
         },
     });    
   }
+
+  isToday(date: string){
+    let today = new Date();
+    let matchDate = new Date();
+    matchDate.setFullYear(+date.substring(0,4));
+    matchDate.setMonth((+date.substring(5,7))-1);
+    matchDate.setDate(+date.substring(8,10));
+    matchDate.setHours((+date.substring(11,13)),+date.substring(14,16))
+    return ((today.getDate() === matchDate.getDate()) || (today.getDate() + 1 === matchDate.getDate() && matchDate.getHours() <= 10))
+          && today.getMonth() === matchDate.getMonth();
+  }
 }

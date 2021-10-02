@@ -73,7 +73,8 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-12">Monto Jugado: {{parlay.betAmount | number:'1.2-2':'es-Ar'}}</div>
+            <div class="col-12" *ngIf="isTaquilla">Monto Jugado [{{currency}}]: {{parlay.betAmount | number:'1.2-2':'es-Ar'}}</div>
+            <div class="col-12" *ngIf="!isTaquilla">Monto Jugado: {{parlay.betAmount | number:'1.2-2':'es-Ar'}}</div>
         </div>
         <hr style="margin-top: 5px;margin-bottom: 5px;"/>
         <div class="row">
@@ -118,7 +119,10 @@
         </div>
         <hr style="margin-top: 5px;margin-bottom: 5px;"/>
         <div class="row">
-            <div class="col-12">
+            <div class="col-12" *ngIf="isTaquilla">
+                Monto a Ganar [{{currency}}]: {{parlay.winAmount | number:'1.2-2':'es-Ar'}}
+            </div>
+            <div class="col-12" *ngIf="!isTaquilla">
                 Monto a Ganar: {{parlay.winAmount | number:'1.2-2':'es-Ar'}}
             </div>
         </div>
