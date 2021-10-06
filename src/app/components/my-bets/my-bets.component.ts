@@ -1,3 +1,4 @@
+import { OddParlay } from './../../models/odd-parlay.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { LoggerService } from './../../services/logger.service';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -247,6 +248,31 @@ export class MyBetsComponent implements OnInit {
     this.cantidadJugado = cantJugado;
     this.totalDevolucion = dev;
     this.cantidadDevolucion = cantDev;
+  }
+
+  reprocess(odd: OddParlay){
+    if(confirm('Seguro que desea iniciar reproceso ['+ odd.teamName +']?')){
+      this.spinner.show();
+      this.parlaySvc.reprocess(odd).subscribe(
+        (resp: any) => {
+          this.spinner.hide();
+          if(resp.affected !== null && resp.affected > 0){
+            Swal.fire(
+              'Reproceso automático iniciado',
+              'En minutos podrá visualizar el resultado del mismo',
+              'info'
+            );          
+          }else{
+            Swal.fire(
+              'Error en reproceso',
+              'Intente nuevamente mas tarde',
+              'error'
+            );
+          }
+  
+        }
+      );            
+    }    
   }
 
 }

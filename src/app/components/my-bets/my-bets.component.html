@@ -164,6 +164,7 @@
                                     <th>Equipo</th>
                                     <th>Apuesta</th>
                                     <th>Fecha Juego</th>
+                                    <th *ngIf="activeUser.type === 'Admin' && parlay.status !== 'A'"></th>
                                 </thead>
                                 <tbody>
                                     <tr *ngFor="let odd of parlay.odds; index as i">
@@ -186,6 +187,11 @@
                                         </td>
                                         <td style="padding-top: 2px; padding-bottom: 2px;">
                                             {{odd.matchDate | dateAr}}
+                                        </td>
+                                        <td *ngIf="activeUser.type === 'Admin' && odd.status !== 'A'"
+                                        style="padding-top: 2px; padding-bottom: 2px;"
+                                        (click)="reprocess(odd)">
+                                            <i class="fa fa-refresh text-info"></i>
                                         </td>
                                     </tr>
                                 </tbody>

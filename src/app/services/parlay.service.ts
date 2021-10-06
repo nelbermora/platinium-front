@@ -534,4 +534,14 @@ export class ParlayService {
     } */
     return true;       
   }
+
+  reprocess(odd: OddParlay){
+    let path: string;
+    if(environment.production){
+      path = "https://platiniumsport.com/pservices/be/reprocesoGame";
+    }else{
+      path = "http://localhost/pservices/be/reprocesoGame";
+    }
+    return this.http.post<Parlay>(path, odd);
+  }
 }
