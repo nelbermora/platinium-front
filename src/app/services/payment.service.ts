@@ -37,4 +37,8 @@ export class PaymentService{
     saveWithdrawal(payment: Payment){
         return  this.http.post<any>(this.url + "?w=1", payment);
     }
+
+    delete(payment: Payment){
+        return  this.http.delete<any>(this.url + "?w=" + payment.id);
+    }
 }

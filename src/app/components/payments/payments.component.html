@@ -48,11 +48,12 @@
                   </section>
                   <p>
                     Pasos para cargar saldo:<br>
-                    1. Transferir a alguna de las cuentas dispuestas. <a class="auth-link text-primary"
-                      style="cursor: pointer;" (click)="open()">Ver las cuentas
+                    1. Transferir a alguna de las cuentas dispuestas. <a class="auth-link text-primary font-weight-bold"
+                      style="cursor: pointer;" (click)="open()">Click para ver las cuentas
                       disponibles</a><br>
                     2. Completar este formulario y adjuntar el comprobante.<br>
-                    3. Al ser verificado el pago, se acreditará el saldo a su billetera.
+                    3. Al ser verificado el pago, se acreditará el saldo a su billetera.<br>
+                    Nota: Las <b>cargas</b> y <b>retiros</b> serán procesados todos los dias de 10:00 am a 8:00 pm.
                   </p>
                   <hr style="background-color: white !important;" />
                   <div class="form-group">
@@ -93,7 +94,8 @@
                       style="cursor: pointer;" routerLink="/profile">Si aún no lo ha hecho puede hacer click
                       aqui</a><br>
                     2. Ingresar a continuación el saldo que desea retirar.<br>
-                    3. Al procesar su solicitud, se debitará automaticamente el saldo de la billetera.
+                    3. Al procesar su solicitud, se debitará automaticamente el saldo de la billetera.<br>
+                    Nota: Las <b>cargas</b> y <b>retiros</b> serán procesados todos los dias de 10:00 am a 8:00 pm.
                   </p>
                   <hr style="background-color: white !important;" />
                   <div class="form-group">
@@ -269,10 +271,21 @@
                           {{pago.fecha_solicitud | dateFull}}
                         </td>
                         <td>
-                          <label class="badge badge-info" *ngIf="pago.status === 'S'">En Proceso</label>
-                          <i class="fa fa-upload text-primary" (click)="openWdModal(i)" *ngIf="pago.status === 'S'" style="cursor: pointer;"></i>
-                          <label class="badge badge-success" *ngIf="pago.status === 'A'">Procesado</label>
-                          <i class="fa fa-eye text-primary" *ngIf="pago.status === 'A'" style="cursor: pointer;" (click)="openWdModal(i)">Ver</i>
+                          <table>
+                            <tr>
+                              <td>
+                                <label class="badge badge-info" *ngIf="pago.status === 'S'">En Proceso</label>
+                                <i class="fa fa-upload text-primary" (click)="openWdModal(i)" *ngIf="pago.status === 'S'" style="cursor: pointer;"></i>
+                              </td>
+                              <td>
+                                <label class="badge badge-success" *ngIf="pago.status === 'A'">Procesado</label>
+                                <i class="fa fa-eye text-primary" *ngIf="pago.status === 'A'" style="cursor: pointer;" (click)="openWdModal(i)">Ver</i>
+                              </td>
+                              <td>
+                                <i class="fa fa-ban text-danger" *ngIf="pago.status === 'S'" style="cursor: pointer;" (click)="deletePayment(i)"></i>                                
+                              </td>
+                            </tr>
+                          </table>                                                                              
                         </td>
                       </tr>
                     </tbody>

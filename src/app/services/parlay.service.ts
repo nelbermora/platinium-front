@@ -19,6 +19,7 @@ export class ParlayService {
   i = 0;
   maxCount: number = -1;
   maxAmount: number = -1;
+  maxOuAndRl: number = 99999;
 
   constructor(public betCalculator: BetCalculatorService, private http: HttpClient,
     private authSvc: AuthService, private versionSvc:VersionService,
@@ -27,6 +28,9 @@ export class ParlayService {
       (resp: any) => {
         this.maxCount = resp.maxCount;
         this.maxAmount = resp.maxAmountCoefficient;
+        if(resp.maxOuAndRl> 0){
+          this.maxOuAndRl = resp.maxOuAndRl;
+        };
       }
     );   
     this.parlay = {
@@ -266,7 +270,7 @@ export class ParlayService {
 
           if(element.type === "RunLine" || element.type === "RunLine 1er Mitad"){
             if(this.getBetName(betType) !== "Si" && this.getBetName(betType) !== "No"
-            && this.getBetName(betType) !== "Alta/Baja 1er Mitad"){
+            && this.getBetName(betType) !== "Alta/Baja 1er Mitad" && this.getBetName(betType) !== "Total Hits"){
               can = false;
             }
             if(this.getBetName(betType) === "Anota Primero" && element.teamPosition != team.position){
@@ -322,7 +326,9 @@ export class ParlayService {
                 can = false;
               }
               if(this.getBetName(betType) !== "Alta/Baja" || this.getBetName(betType) !== "Alta/Baja 1er Mitad"){
-                if (this.getBetName(betType) !== "RunLine" && this.getBetName(betType) !== "RunLine 1er Mitad"){
+                if (this.getBetName(betType) !== "RunLine" && this.getBetName(betType) !== "RunLine 1er Mitad" &&
+                    this.getBetName(betType) !== "Ganar" && this.getBetName(betType) !== "Ganar 1er Mitad"
+                    && this.getBetName(betType) !== "Anota Primero"){
                   if(team.ouLetter === 'A'){
                     can = false;
                   }
@@ -344,7 +350,9 @@ export class ParlayService {
                 can = false;
               }
               if(this.getBetName(betType) !== "Alta/Baja" || this.getBetName(betType) !== "Alta/Baja 1er Mitad"){
-                if (this.getBetName(betType) !== "RunLine" && this.getBetName(betType) !== "RunLine 1er Mitad"){
+                if (this.getBetName(betType) !== "RunLine" && this.getBetName(betType) !== "RunLine 1er Mitad" &&
+                    this.getBetName(betType) !== "Ganar" && this.getBetName(betType) !== "Ganar 1er Mitad"
+                    && this.getBetName(betType) !== "Anota Primero"){
                   if(team.ouLetter === 'B'){
                     can = false;
                   }
@@ -379,6 +387,10 @@ export class ParlayService {
         text: 'Combinación inválida!',
         footer: 'Intenta otras combinaciones. Buena suerte!'
       })
+    }else{
+      if(!this.validaRlAb(betType)){
+        can = false;
+      }
     }
     return can;
   }
@@ -543,5 +555,35 @@ export class ParlayService {
       path = "http://localhost/pservices/be/reprocesoGame";
     }
     return this.http.post<Parlay>(path, odd);
+  }
+
+  validaRlAb(betType: string){
+    console.log(betType);
+    console.log(this.maxOuAndRl);
+    let isValid = true;
+    if(betType === 'ou' || betType === 'ou5' ||
+    betType === 'rl' || betType === 'rl5'){
+      if(this.getCurrentRlAndOu() >= this.maxOuAndRl){
+        isValid = false;
+        Swal.fire({
+          icon: 'info',
+          title: 'Atención...',
+          text: 'Máximo de RunLine y Alta/Baja alcanzado',
+          footer: 'Puedes incorporar otras combinaciones o jugar distintos Parlays. Buena suerte!'
+        })
+      }
+    }
+    return isValid;
+  }
+
+  getCurrentRlAndOu(){
+    let qty = 0;
+    this.parlay.odds.forEach(element => {
+      if(element.type === 'Alta/Baja' || element.type === 'Alta/Baja 1er Mitad' ||
+          element.type === 'RunLine' || element.type === 'RunLine 1er Mitad'){
+            qty = qty + 1;
+          }
+    });
+    return qty;
   }
 }

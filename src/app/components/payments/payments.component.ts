@@ -363,4 +363,19 @@ export class PaymentsComponent implements OnInit, AfterViewInit {
       this.withdrawals.splice(indice,1);
     }
   }
+
+  deletePayment(id: number){
+    if(confirm('Desea Anular el Retiro Seleccionado?')){
+      this.paymentSvc.delete(this.withdrawals[id]).subscribe(
+        resp => {
+          this.withdrawals.splice(id,1);
+          Swal.fire(
+            'Finalizado satisfactoriamente',
+            'Retiro Anulado',
+            'success',            
+          );  
+        }
+      );
+    }
+  }
 }

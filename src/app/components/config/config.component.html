@@ -27,6 +27,15 @@
                                                 Si es 0 o menor que 0 no se aplica.
                                             </p>
                                         </div>
+                                        <div class="form-group">
+                                            <label>Maximo de RL y A/B Permitidos</label>
+                                            <input type="number" class="form-control form-control-sm"
+                                                placeholder="Rl y A/B" [(ngModel)]="config.maxOuAndRl"
+                                                name="maxAmount">
+                                            <p class="card-description">
+                                                Si es 0 o menor que 0 no se aplica.
+                                            </p>
+                                        </div>
                                         <button [disabled]="loading" class="btn btn-outline-primary"
                                             (click)="guardar()">Guardar
                                             <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status"
