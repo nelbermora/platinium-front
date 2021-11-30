@@ -275,4 +275,14 @@ export class MyBetsComponent implements OnInit {
     }    
   }
 
+  invalidate(index: number) {
+    if(confirm('La jugada será eliminada y no se devolverá el dinero al jugador Este proceso es irreversible. Desea invalidar Parlay ' + this.parlays[index].oid + '?')){
+      this.parlaySvc.invalidate(this.parlays[index]).subscribe(
+        resp => {
+          this.ngOnInit();
+        }
+      )
+    }
+  }
+
 }

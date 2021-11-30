@@ -478,6 +478,11 @@ export class ParlayService {
     return this.http.put<Parlay>(this.url, parlay);
   }
 
+  invalidate(parlay: Parlay){
+    return this.http.delete(this.url + "?id=" + parlay.oid);
+  }
+
+
   getParlays(desde: string, hasta: string, idUser?: number, status?: string, ticket ?: string){
     let usuario: number;
     let stat: string;

@@ -284,6 +284,9 @@
                               <td>
                                 <i class="fa fa-ban text-danger" *ngIf="pago.status === 'S'" style="cursor: pointer;" (click)="deletePayment(i)"></i>                                
                               </td>
+                              <td>
+                                <i class="fa fa-undo" aria-hidden="true" *ngIf="pago.status === 'S'" style="cursor: pointer;" (click)="reversePayment(i)"></i>
+                              </td>
                             </tr>
                           </table>                                                                              
                         </td>

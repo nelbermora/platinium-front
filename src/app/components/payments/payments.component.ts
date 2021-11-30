@@ -366,13 +366,28 @@ export class PaymentsComponent implements OnInit, AfterViewInit {
 
   deletePayment(id: number){
     if(confirm('Desea Anular el Retiro Seleccionado?')){
-      this.paymentSvc.delete(this.withdrawals[id]).subscribe(
+      this.paymentSvc.delete(this.withdrawals[id],false).subscribe(
         resp => {
           this.withdrawals.splice(id,1);
           Swal.fire(
             'Finalizado satisfactoriamente',
             'Retiro Anulado',
             'success',            
+          );  
+        }
+      );
+    }
+  }
+
+  reversePayment(id: number){
+    if(confirm('Desea Reversar el Retiro? El Saldo será devuelto al jugador')){
+      this.paymentSvc.delete(this.withdrawals[id], true).subscribe(
+        resp => {
+          this.withdrawals.splice(id,1);
+          Swal.fire(
+            'Revrso ejecutado',
+            'El saldo se acreditó nuevamente al jugador',
+            'info',            
           );  
         }
       );

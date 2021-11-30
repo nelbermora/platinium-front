@@ -38,7 +38,9 @@ export class PaymentService{
         return  this.http.post<any>(this.url + "?w=1", payment);
     }
 
-    delete(payment: Payment){
-        return  this.http.delete<any>(this.url + "?w=" + payment.id);
+    delete(payment: Payment, reverse: boolean){
+        let param: string;
+        reverse ? param = "&reverse=1" : param = "";
+        return  this.http.delete<any>(this.url + "?w=" + payment.id + param);
     }
 }
