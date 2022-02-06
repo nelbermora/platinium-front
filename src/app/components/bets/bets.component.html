@@ -32,7 +32,7 @@
                         (ngModelChange)="calculate()" name="betAmount">
                     <div class="input-group-append">
                         <button (click)="save()"
-                            [disabled]="parlay.betAmount === 0 || parlay.betAmount === null || parlay.betAmount === undefined"
+                            [disabled]="parlay.betAmount === 0 || parlay.betAmount === null || parlay.betAmount === undefined || loading"
                             class="btn btn-sm btn-primary" type="button">
                             <i *ngIf="!loading" class="mdi mdi-play-circle"></i>
                             <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status"
