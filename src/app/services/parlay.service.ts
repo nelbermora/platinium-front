@@ -601,9 +601,10 @@ export class ParlayService {
     return qty;
   }
 
-  validaWins(betType: string){
+  validaWins(betType: string){    
+    console.log(betType);
     let isValid = true;
-    if(betType === 'win'){
+    if(betType === 'win' || betType === 'win5'){
       if(this.getCurrentWins() >= this.maxWins){
         isValid = false;
         Swal.fire({
@@ -620,7 +621,7 @@ export class ParlayService {
   getCurrentWins(){
     let qty = 0;
     this.parlay.odds.forEach(element => {
-      if(element.type === 'Ganar'){
+      if(element.type === 'Ganar' || element.type === 'Ganar 1er Mitad'){
             qty = qty + 1;
           }
     });
