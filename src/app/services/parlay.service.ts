@@ -20,6 +20,8 @@ export class ParlayService {
   maxCount: number = -1;
   maxAmount: number = -1;
   maxOuAndRl: number = 99999;
+  minCount: number = 0;
+  maxWins: number = 99999;
 
   constructor(public betCalculator: BetCalculatorService, private http: HttpClient,
     private authSvc: AuthService, private versionSvc:VersionService,
@@ -28,8 +30,14 @@ export class ParlayService {
       (resp: any) => {
         this.maxCount = resp.maxCount;
         this.maxAmount = resp.maxAmountCoefficient;
-        if(resp.maxOuAndRl> 0){
+        if(resp.maxOuAndRl > 0){
           this.maxOuAndRl = resp.maxOuAndRl;
+        };
+        if(resp.maxWins > 0){
+          this.maxWins = resp.maxWins;
+        };
+        if(resp.minCount > 0){
+          this.minCount = resp.minCount;
         };
       }
     );   
@@ -389,7 +397,10 @@ export class ParlayService {
       })
     }else{
       if(!this.validaRlAb(betType)){
-        can = false;
+        return false;
+      }
+      if(!this.validaWins(betType)){
+        return false;
       }
     }
     return can;
@@ -563,8 +574,6 @@ export class ParlayService {
   }
 
   validaRlAb(betType: string){
-    console.log(betType);
-    console.log(this.maxOuAndRl);
     let isValid = true;
     if(betType === 'ou' || betType === 'ou5' ||
     betType === 'rl' || betType === 'rl5'){
@@ -591,4 +600,31 @@ export class ParlayService {
     });
     return qty;
   }
+
+  validaWins(betType: string){
+    let isValid = true;
+    if(betType === 'win'){
+      if(this.getCurrentWins() >= this.maxWins){
+        isValid = false;
+        Swal.fire({
+          icon: 'info',
+          title: 'Atención...',
+          text: 'Alcanzaste el Máximo de Apuestas a "Ganar"',
+          footer: 'Puedes incorporar otras combinaciones o jugar distintos Parlays. Buena suerte!'
+        })
+      }
+    }
+    return isValid;
+  }
+
+  getCurrentWins(){
+    let qty = 0;
+    this.parlay.odds.forEach(element => {
+      if(element.type === 'Ganar'){
+            qty = qty + 1;
+          }
+    });
+    return qty;
+  }  
+
 }

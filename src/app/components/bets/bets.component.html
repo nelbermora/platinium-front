@@ -142,8 +142,9 @@
             padding-left: 1px;
             padding-right: 1px;
             padding-top: 4px;
-            padding-bottom: 4px;"
-            [useExistingCss]="true"
-        printSectionId="print-section" ngxPrint>Imprimir</button>
+            padding-bottom: 4px;"            
+            [useExistingCss]="false"
+            printSectionId="print-section" ngxPrint [printStyle]="{div : {'font-size': '14px'}}"
+        >Imprimir</button>
     </div>
 </ng-template>

@@ -1,8 +1,10 @@
 export interface Config{
     maxAmountCoefficient?: number,
     maxCount?: number,
+    minCount?: number,
     bankAccounts?: Account[],
-    maxOuAndRl?: number
+    maxOuAndRl?: number,
+    maxWins?: number
 }
 
 export interface Account{

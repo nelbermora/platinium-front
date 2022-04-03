@@ -4,6 +4,7 @@ import { ParlayService } from './../../services/parlay.service';
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { Parlay } from 'src/app/models/parlay.model';
 import Swal from 'sweetalert2';
+import { VersionService } from 'src/app/services/version.service';
 
 @Component({
   selector: 'app-bets',
@@ -20,6 +21,7 @@ export class BetsComponent implements OnInit {
   closeResult= '';
   isTaquilla: boolean = false;
   currency: string;
+  
   constructor(private parlaySvc: ParlayService, private modalService: NgbModal,
     private authSvc: AuthService) {
     this.parlay = this.parlaySvc.parlay;
@@ -31,7 +33,7 @@ export class BetsComponent implements OnInit {
       (resp: Parlay) =>{
         this.parlay = resp;
       }
-    );
+    );    
 
     this.parlaySvc.betCalculator.winAmount.subscribe(
       (resp: number) => {
@@ -96,34 +98,36 @@ export class BetsComponent implements OnInit {
   }
 
   save(){
-    this.loading = true;
-    this.parlaySvc.save().subscribe(
-      (resp: any) => {
-        if(resp.oid > 0){
-          this.open();
-          this.parlay.date = resp.date;
-          this.parlay.oid = resp.oid;
-          this.loading = false;
-          this.authSvc.fundsChange.emit(true);
-        }else if(resp.oid === 0){
-          Swal.fire({
-            icon: 'error',
-            title: 'Jugada no guardada',
-            text: 'Uno de los juegos seleccionados ya inició',
-            footer: 'Carga una nueva jugada con logros vigentes'
-          });
-          this.loading = false;
-        }else{
-          Swal.fire({
-            icon: 'warning',
-            title: 'Saldo insuficiente',
-            text: 'Monto jugado superior al disponible. Jugada no guardada',
-            footer: 'Prueba un monto menor o cargue su billetera'
-          });
-          this.loading = false;
-        }        
-      }
-    )
+    if(this.isMinValid()){
+      this.loading = true;
+      this.parlaySvc.save().subscribe(
+        (resp: any) => {
+          if(resp.oid > 0){
+            this.open();
+            this.parlay.date = resp.date;
+            this.parlay.oid = resp.oid;
+            this.loading = false;
+            this.authSvc.fundsChange.emit(true);
+          }else if(resp.oid === 0){
+            Swal.fire({
+              icon: 'error',
+              title: 'Jugada no guardada',
+              text: 'Uno de los juegos seleccionados ya inició',
+              footer: 'Carga una nueva jugada con logros vigentes'
+            });
+            this.loading = false;
+          }else{
+            Swal.fire({
+              icon: 'warning',
+              title: 'Saldo insuficiente',
+              text: 'Monto jugado superior al disponible. Jugada no guardada',
+              footer: 'Prueba un monto menor o cargue su billetera'
+            });
+            this.loading = false;
+          }        
+        }
+      );
+    }    
   }
 
   open() {
@@ -149,5 +153,18 @@ export class BetsComponent implements OnInit {
 
   cleanParlay(){ 
     this.parlaySvc.clearParley();
+  }
+
+  isMinValid(){
+    if(this.parlaySvc.minCount > this.parlay.odds.length){
+      Swal.fire({
+        icon: 'warning',
+        title: 'Cantidad Mínima de Jugadas',
+        text: 'Debe alcanzar la cantidad mínima de ' + this.parlaySvc.minCount + ' jugadas para generar su Parlay',
+        footer: 'Incluya mas jugadas'
+      });
+      return false;
+    }
+    return true;
   }
 }
