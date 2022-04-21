@@ -83,8 +83,12 @@
                               <td [ngClass]="{'selected':this.isSelected(match.teamA, 'win', match)}" style="cursor: pointer;" (click)="select(match.teamA, 'win', match)">{{match.teamA.win | odd}}</td>
                               <td style="cursor: pointer;" [ngClass]="{'selected':this.isSelected(match.teamA, 'tie', match)}" (click)="select(match.teamA, 'tie', match)">{{match.teamA.tieValue | odd}}</td>
                               <td style="cursor: pointer;" [ngClass]="{'selected':this.isSelected(match.teamA, 'rl', match)}" (click)="select(match.teamA, 'rl', match)">
+                                <!-- now handicap 0 is not allowed -->
+                                  <!--
                                 <ng-container *ngIf="match.teamA.rlHandicap !== 0">{{match.teamA.rlHandicap | odd}} {{match.teamA.runLine | odd}}</ng-container>
                                 <ng-container *ngIf="match.teamA.rlHandicap === 0">{{match.teamA.rlHandicap}} {{match.teamA.runLine | odd}}</ng-container>
+                                  -->
+                                  {{match.teamA.rlHandicap | odd}} {{match.teamA.runLine | odd}}
                                </td>
                               <td style="cursor: pointer;" [ngClass]="{'selected':this.isSelected(match.teamA, 'ou', match)}" (click)="select(match.teamA, 'ou', match)">{{match.teamA.ouHandicap}} <strong class="text-primary">{{match.teamA.ouLetter}}</strong>{{match.teamA.overUnder | odd}}</td>
                               <td style="cursor: pointer;" [ngClass]="{'selected':this.isSelected(match.teamA, 'win5', match)}" [ngClass]="{'disabled': !match.halfEnabled && editionMode}">
@@ -94,9 +98,18 @@
                                 <section *ngIf="match.halfEnabled" (click)="select(match.teamA, 'tie5', match)">{{match.teamA.tieValue5 | odd}}</section>
                               </td>
                               <td style="cursor: pointer;" [ngClass]="{'selected':this.isSelected(match.teamA, 'rl5', match)}" [ngClass]="{'disabled': !match.halfEnabled && editionMode}">
+                                <!-- now handicap 0 is not allowed -->
+                                  <!--
                                 <section *ngIf="match.halfEnabled" (click)="select(match.teamA, 'rl5', match)">
+                                  
                                   <ng-container *ngIf="match.teamA.rlHandicap5 !== 0">{{match.teamA.rlHandicap5 | odd}} {{match.teamA.runLine5 | odd}}</ng-container>
                                   <ng-container *ngIf="match.teamA.rlHandicap5 === 0">{{match.teamA.rlHandicap5}} {{match.teamA.runLine5 | odd}}</ng-container>
+                                  
+                                  <ng-container>{{match.teamA.rlHandicap5}} {{match.teamA.runLine5 | odd}}</ng-container>
+                                </section>
+                                -->
+                                <section *ngIf="match.halfEnabled" (click)="select(match.teamA, 'rl5', match)">
+                                  {{match.teamA.rlHandicap5 | odd}} {{match.teamA.runLine5 | odd}}                                  
                                 </section>
                               </td>
                               <td style="cursor: pointer;" [ngClass]="{'selected':this.isSelected(match.teamA, 'ou5', match)}" [ngClass]="{'disabled': !match.halfEnabled && editionMode}">
@@ -115,8 +128,12 @@
                               <td style="cursor: pointer;" [ngClass]="{'selected':this.isSelected(match.teamB, 'win', match)}" (click)="select(match.teamB, 'win', match)">{{match.teamB.win | odd}}</td>
                               <td style="cursor: pointer;" [ngClass]="{'selected':this.isSelected(match.teamB, 'tie', match)}" (click)="select(match.teamB, 'tie', match)">{{match.teamB.tieValue | odd}}</td>
                               <td style="cursor: pointer;" [ngClass]="{'selected':this.isSelected(match.teamB, 'rl', match)}" (click)="select(match.teamB, 'rl', match)">
+                                 <!-- now handicap 0 is not allowed -->
+                                  <!--
                                 <ng-container *ngIf="match.teamB.rlHandicap !== 0">{{match.teamB.rlHandicap | odd}} {{match.teamB.runLine | odd}}</ng-container>
                                 <ng-container *ngIf="match.teamB.rlHandicap === 0">{{match.teamB.rlHandicap}} {{match.teamB.runLine | odd}}</ng-container>
+                                  -->
+                                  {{match.teamB.rlHandicap | odd}} {{match.teamB.runLine | odd}}
                               </td>
                               <td style="cursor: pointer;" [ngClass]="{'selected':this.isSelected(match.teamB, 'ou', match)}" (click)="select(match.teamB, 'ou', match)">{{match.teamB.ouHandicap}} <strong class="text-primary">{{match.teamB.ouLetter}}</strong>{{match.teamB.overUnder | odd}}</td>
                               <td style="cursor: pointer;" [ngClass]="{'selected':this.isSelected(match.teamB, 'win5', match)}" [ngClass]="{'disabled': !match.halfEnabled && editionMode}">
@@ -126,9 +143,14 @@
                                 <section *ngIf="match.halfEnabled" (click)="select(match.teamB, 'tie5', match)">{{match.teamB.tieValue5 | odd}}</section>
                               </td>
                               <td style="cursor: pointer;" [ngClass]="{'selected':this.isSelected(match.teamB, 'rl5', match)}" [ngClass]="{'disabled': !match.halfEnabled && editionMode}">
+                                <!-- now handicap 0 is not allowed -->
+                                  <!--
                                 <section *ngIf="match.halfEnabled" (click)="select(match.teamB, 'rl5', match)">
                                   <ng-container *ngIf="match.teamB.rlHandicap5 !== 0">{{match.teamB.rlHandicap5 | odd}} {{match.teamB.runLine5 | odd}}</ng-container>
                                   <ng-container *ngIf="match.teamB.rlHandicap5 === 0">{{match.teamB.rlHandicap5}} {{match.teamB.runLine5 | odd}}</ng-container>
+                                </section>-->
+                                <section *ngIf="match.halfEnabled" (click)="select(match.teamB, 'rl5', match)">
+                                  {{match.teamB.rlHandicap5 | odd}} {{match.teamB.runLine5 | odd}}                                  
                                 </section>
                               </td>
                               <td style="cursor: pointer;" [ngClass]="{'selected':this.isSelected(match.teamB, 'ou5', match)}" [ngClass]="{'disabled': !match.halfEnabled && editionMode}">

@@ -75,7 +75,7 @@ export class SoccerComponent implements OnInit {
         break;
       }
       case "rl": {
-        if (team.rlHandicap === null || team.rlHandicap === undefined ){
+        if (team.rlHandicap === null || team.rlHandicap === undefined || team.rlHandicap == 0){
           valid = false;
         }
         break;
@@ -93,7 +93,7 @@ export class SoccerComponent implements OnInit {
         break;
       }
       case "rl5": {
-        if (team.rlHandicap5 === null || team.rlHandicap5 === undefined ){
+        if (team.rlHandicap5 === null || team.rlHandicap5 === undefined  || team.rlHandicap5 == 0){
           valid = false;
         }
         break;
