@@ -243,7 +243,9 @@ export class ParlayService {
 
           if(element.type === "Alta/Baja"){
             if(this.getBetName(betType) !== "Ganar" && this.getBetName(betType) !== "Ganar 1er Mitad"
-               && this.getBetName(betType) !== "Si" && this.getBetName(betType) !== "No"){
+               && this.getBetName(betType) !== "Si" && this.getBetName(betType) !== "No"
+               && this.getBetName(betType) !== "Anota Primero"
+               ){
               can = false;
             }
             if(element.letter === "A"){
@@ -261,7 +263,8 @@ export class ParlayService {
           if(element.type === "Alta/Baja 1er Mitad"){
             if(this.getBetName(betType) !== "Ganar" && this.getBetName(betType) !== "Ganar 1er Mitad"
                && this.getBetName(betType) !== "Si" && this.getBetName(betType) !== "No"
-               && this.getBetName(betType) !== "RunLine" && this.getBetName(betType) !== "RunLine 1er Mitad"){
+               && this.getBetName(betType) !== "RunLine" && this.getBetName(betType) !== "RunLine 1er Mitad"
+               && this.getBetName(betType) !== "Anota Primero"){
               can = false;
             }
             if(element.letter === "A"){
@@ -299,7 +302,7 @@ export class ParlayService {
               }
             }
             
-            if((this.getBetName(betType) !== "RunLine" || this.getBetName(betType) !== "RunLine 1er Mitad") &&
+            if((this.getBetName(betType) !== "RunLine" || this.getBetName(betType) !== "RunLine 1er Mitad") && this.getBetName(betType) !== "Anota Primero" &&
               element.teamPosition !== team.position){
               can = true;
             }            

@@ -124,7 +124,7 @@ export class MyBetsComponent implements OnInit {
     let date = new Date();
     date.setTime( date.getTime() + date.getTimezoneOffset()*60*1000 )
     date.setHours(date.getHours() - 3);
-    parlayServerDate.setMinutes(parlayServerDate.getMinutes() + 20);    
+    parlayServerDate.setMinutes(parlayServerDate.getMinutes() + 5);    
     if(date <= parlayServerDate){
       nulleable = true;
     }
