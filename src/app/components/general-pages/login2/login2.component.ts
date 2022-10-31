@@ -118,6 +118,7 @@ export class Login2Component implements OnInit, AfterViewInit {
   register(){
     if(this.validRegistration()){
       this.loading = true;
+      /*
       this.authSvc.register(this.usuarioRegistro).subscribe(
         (resp : any)=> {
           if(resp.id !== undefined && resp.id !== null && resp.id > 0){
@@ -139,6 +140,7 @@ export class Login2Component implements OnInit, AfterViewInit {
           this.invalidRegistration = true;
         }
       ); 
+      */
     }    
   }
 
