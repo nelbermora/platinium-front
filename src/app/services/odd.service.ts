@@ -8,7 +8,7 @@ export class OddService{
     url: string = "";
     constructor(private http: HttpClient){
         if (environment.production){
-            this.url = "https://platiniumsport.com/pservices/be/odds";
+            this.url = "https://galosportbets.com/pservices/be/odds";
         }else{
             this.url = "http://localhost/pservices/be/odds";
         }

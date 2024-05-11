@@ -16,7 +16,7 @@ export class AuthService {
   fundsChange = new EventEmitter<boolean>();
   constructor(private router: Router, private http: HttpClient) {
     if (environment.production) {
-      this.url = "https://platiniumsport.com/pservices/be";
+      this.url = "https://galosportbets.com/pservices/be";
     } else {
       this.url = "http://localhost/pservices/be";
     }

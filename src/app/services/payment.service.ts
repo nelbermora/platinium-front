@@ -8,7 +8,7 @@ export class PaymentService{
     url: string = "";
     constructor(private http: HttpClient){
         if(environment.production){
-            this.url = 'https://platiniumsport.com/pservices/be/pagos';
+            this.url = 'https://galosportbets.com/pservices/be/pagos';
         }else{
             this.url = 'http://localhost/pservices/be/pagos';
         }

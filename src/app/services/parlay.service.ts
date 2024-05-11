@@ -54,7 +54,7 @@ export class ParlayService {
       }
     )
     if(environment.production){
-      this.url = "https://platiniumsport.com/pservices/be/parlay";
+      this.url = "https://galosportbets.com/pservices/be/parlay";
     }else{
       this.url = "http://localhost/pservices/be/parlay";
     }
@@ -569,7 +569,7 @@ export class ParlayService {
   reprocess(odd: OddParlay){
     let path: string;
     if(environment.production){
-      path = "https://platiniumsport.com/pservices/be/reprocesoGame";
+      path = "https://galosportbets.com/pservices/be/reprocesoGame";
     }else{
       path = "http://localhost/pservices/be/reprocesoGame";
     }

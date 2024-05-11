@@ -19,11 +19,11 @@
     background-color: #e6e6e6;
   }
   .custom-day.range, .custom-day:hover {
-    background-color: #ffcb63;
+    background-color: #e9c668;
     color: black;
   }
   .custom-day.faded {
-    background-color: #ffcb63;
+    background-color: #e9c668;
   }
   .ngb-dp-week {
     color: #e6e6e6 !important; 
