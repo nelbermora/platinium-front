@@ -8,7 +8,7 @@ export class WalletService{
     url: string = "";
     constructor(private http: HttpClient){
         if (environment.production){
-            this.url = "galosportbets.com/pservices/be/wallet";
+            this.url = "https://galosportbets.com/pservices/be/wallet";
         }else{
             this.url = "http://localhost/pservices/be/wallet";
         }

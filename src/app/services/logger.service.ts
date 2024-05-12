@@ -13,7 +13,7 @@ export class LoggerService{
     constructor(private http: HttpClient, private deviceService: DeviceDetectorService,
                 private ipSvc: IpService, private authGdn: AuthService){
         if (environment.production){
-            this.url = "galosportbets.com/pservices/be/logger";
+            this.url = "https://galosportbets.com/pservices/be/logger";
         }else{
             this.url = "http://localhost/pservices/be/logger";
         }

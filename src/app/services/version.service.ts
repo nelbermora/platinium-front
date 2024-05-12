@@ -8,7 +8,7 @@ export class VersionService{
     url: string = "";
     constructor(private http: HttpClient){
         if(environment.production){
-            this.url = 'galosportbets.com/pservices/be/version';
+            this.url = 'https://galosportbets.com/pservices/be/version';
         }else{
             this.url = 'http://localhost/pservices/be/version';
         }

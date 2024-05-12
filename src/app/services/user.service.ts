@@ -7,7 +7,7 @@ export class UserService{
     url: string = "";
     constructor(private http: HttpClient){
         if(environment.production){
-            this.url = "galosportbets.com/pservices/be";
+            this.url = "https://galosportbets.com/pservices/be";
         }else{
             this.url = "http://localhost/pservices/be"
         }
