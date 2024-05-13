@@ -16,41 +16,12 @@ export class Login2Component implements OnInit, AfterViewInit {
   @ViewChild("forgot") modalForgot: TemplateRef<any>;
   component = 'login';
   watchPass: boolean = false;
-  paises = ['Antigua y Barbuda',
-  'Argentina',
-  'Bahamas',
-  'Barbados',
-  'Belice',
-  'Bolivia',
-  'Brasil',
-  'Canadá',
-  'Chile',
-  'Colombia',
-  'Costa Rica',
-  'Cuba',
-  'Dominica',
-  'Dominicana',
-  'Ecuador',
-  'El Salvador',
-  'Estados Unidos de América',
-  'Granada',
-  'Guatemala',
-  'Guyana',
-  'Haití',
-  'Honduras',
-  'Jamaica',
-  'México',
-  'Nicaragua',
-  'Panamá',
-  'Paraguay',
-  'Perú',
-  'Saint Kitts y Nevis',
-  'San Vicente y las Granadinas',
-  'Santa Lucía',
-  'Suriname',
-  'Trinidad y Tabago',
-  'Uruguay',
-  'Venezuela'];
+  paises = ['España',
+  'Reino Unido',
+  'Francia',  
+  'Canadá',  
+  'Estados Unidos de América'
+  ];
   usuarioRegistro: User = {};
   loading: boolean = false; 
   agree: boolean = false; 
@@ -117,8 +88,7 @@ export class Login2Component implements OnInit, AfterViewInit {
   
   register(){
     if(this.validRegistration()){
-      this.loading = true;
-      /*
+      this.loading = true;      
       this.authSvc.register(this.usuarioRegistro).subscribe(
         (resp : any)=> {
           if(resp.id !== undefined && resp.id !== null && resp.id > 0){
@@ -139,8 +109,7 @@ export class Login2Component implements OnInit, AfterViewInit {
           this.loading = false;
           this.invalidRegistration = true;
         }
-      ); 
-      */
+      );       
     }    
   }
 
