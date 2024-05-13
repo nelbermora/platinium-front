@@ -2,6 +2,6 @@
     width: 400px; // Ancho predeterminado
 
     @media (max-width: 600px) {
-        width: 300px; // Cambia el ancho de la imagen al 100% del ancho del contenedor en pantallas pequeñas
+        width: 75vw; // Cambia el ancho de la imagen al 100% del ancho del contenedor en pantallas pequeñas
     }
 }

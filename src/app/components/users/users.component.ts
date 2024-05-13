@@ -87,13 +87,15 @@ export class UsersComponent implements OnInit, AfterViewInit {
     type: "Jugador"
   };
   currencies = [
+    {codigo: "EUR",desc:"Euros"},
+    {codigo: "USD",desc:"Dolares"},    
+    /*
     {codigo: "ARS",desc:"Pesos Argentinos"},
     {codigo: "BRL",desc:"Reales"},
     {codigo: "CLP",desc:"Pesos Chilenos"},
-    {codigo: "COP",desc:"Pesos Colombianos"},
-    {codigo: "USD",desc:"Dolares"},
+    {codigo: "COP",desc:"Pesos Colombianos"},    
     {codigo: "PEN",desc:"Soles Peruanos"},
-    {codigo: "VES",desc:"Bolívares"}
+    {codigo: "VES",desc:"Bolívares"}*/
     ];
   fieldErrors: boolean = false;
   alreadyExists: boolean = false;
