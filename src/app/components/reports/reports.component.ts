@@ -27,6 +27,9 @@ export class ReportsComponent implements OnInit {
   currenciesOpt = [
     {codigo: "EUR",desc:"Euros"},
     {codigo: "USD",desc:"Dolares"},    
+    {codigo: "CLP",desc:"Pesos Chilenos"},
+    {codigo: "COP",desc:"Pesos Colombianos"},    
+    {codigo: "VES",desc:"Bolívares"}, 
     /*
     {codigo: "ARS",desc:"Pesos Argentinos"},
     {codigo: "BRL",desc:"Reales"},

@@ -126,6 +126,21 @@
             </div>                                              
         </div>
       </div>
+      <p *ngIf="notTel" class="auth-link text-danger">Requerido</p>
+      <p *ngIf="invalidTel" class="auth-link text-danger">Numero Inválido</p>
+      <div class="form-group">
+        <label>Teléfono</label>
+        <div class="input-group">
+          <div class="input-group-prepend bg-transparent">
+            <span class="input-group-text bg-transparent border-right-0">
+              <i class="ti-mobile text-primary"></i>
+            </span>
+          </div>
+          <input type="number" class="form-control form-control-lg border-left-0" placeholder="Telefono"
+            [(ngModel)]="usuarioRegistro.telefono"
+            name="tel">  
+        </div>
+      </div>
       <p *ngIf="passNotMatch" class="auth-link text-danger">Passwords no coinciden</p>
       <div class="form-group">
         <label>País</label>

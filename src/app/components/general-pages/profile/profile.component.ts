@@ -54,16 +54,19 @@ export class ProfileComponent implements OnInit {
     "Uruguay",
     "Venezuela",
   ];
-  currencies = [
+  currencies = [    
     {codigo: "EUR",desc:"Euros"},
     {codigo: "USD",desc:"Dolares"},    
+    {codigo: "CLP",desc:"Pesos Chilenos"},
+    {codigo: "COP",desc:"Pesos Colombianos"},    
+    {codigo: "VES",desc:"Bolívares"}
     /*
     {codigo: "ARS",desc:"Pesos Argentinos"},
     {codigo: "BRL",desc:"Reales"},
-    {codigo: "CLP",desc:"Pesos Chilenos"},
-    {codigo: "COP",desc:"Pesos Colombianos"},    
-    {codigo: "PEN",desc:"Soles Peruanos"},
-    {codigo: "VES",desc:"Bolívares"}*/
+    
+    
+    {codigo: "PEN",desc:"Soles Peruanos"},*/
+    
     ];
   loading = false;
   notPass = false;

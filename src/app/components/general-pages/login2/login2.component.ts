@@ -17,10 +17,12 @@ export class Login2Component implements OnInit, AfterViewInit {
   component = 'login';
   watchPass: boolean = false;
   paises = ['España',
-  'Reino Unido',
-  'Francia',  
-  'Canadá',  
-  'Estados Unidos de América'
+  'Estados Unidos de América',
+  'Chile',  
+  'Colombia',  
+  'Ecuador',
+  'Panamá',
+  'Venezuela'
   ];
   usuarioRegistro: User = {};
   loading: boolean = false; 
@@ -30,6 +32,8 @@ export class Login2Component implements OnInit, AfterViewInit {
   disAgree: boolean = false;
   notPass: boolean = false;
   notEmail: boolean = false;
+  notTel: boolean = false;
+  invalidTel: boolean = false;
   notCountry: boolean = false;
   invalidMail: boolean = false;
   invalidPass: boolean = false;
@@ -139,6 +143,17 @@ export class Login2Component implements OnInit, AfterViewInit {
       this.notEmail = true;
     }else{
       this.notEmail = false;
+    }
+
+    if(this.usuarioRegistro.telefono === null || this.usuarioRegistro.telefono === undefined){
+      this.notTel = true;
+      valid = false;
+    }else{
+      if (this.usuarioRegistro.telefono < 9999999){
+        this.invalidTel = true;
+        valid = false;
+      }
+      this.notTel = false;
     }
 
     if(this.usuarioRegistro.paisResidencia === null || this.usuarioRegistro.paisResidencia === undefined){

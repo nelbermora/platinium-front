@@ -10,7 +10,7 @@ import { Subject } from 'rxjs';
   styleUrls: ['./config.component.css']
 })
 export class ConfigComponent implements OnInit, AfterViewInit {
-  paises = ['EUR', 'USD'];
+  paises = ['EUR', 'USD', 'CLP','COP','VES'];
   /*paises = ['Antigua y Barbuda',
   'Argentina',
   'Bahamas',
