@@ -36,40 +36,12 @@ export class UsersComponent implements OnInit, AfterViewInit {
     }
   };
 
-  paises = ['Antigua y Barbuda',
-  'Argentina',
-  'Bahamas',
-  'Barbados',
-  'Belice',
-  'Bolivia',
-  'Brasil',
-  'Canadá',
-  'Chile',
-  'Colombia',
-  'Costa Rica',
-  'Cuba',
-  'Dominica',
-  'Dominicana',
-  'Ecuador',
-  'El Salvador',
+  paises = ['España',
   'Estados Unidos de América',
-  'Granada',
-  'Guatemala',
-  'Guyana',
-  'Haití',
-  'Honduras',
-  'Jamaica',
-  'México',
-  'Nicaragua',
+  'Chile',  
+  'Colombia',  
+  'Ecuador',
   'Panamá',
-  'Paraguay',
-  'Perú',
-  'Saint Kitts y Nevis',
-  'San Vicente y las Granadinas',
-  'Santa Lucía',
-  'Suriname',
-  'Trinidad y Tabago',
-  'Uruguay',
   'Venezuela'];
 
   types = ['Admin',
@@ -238,5 +210,11 @@ export class UsersComponent implements OnInit, AfterViewInit {
   goBets(id: number, emailUser: string){
     this.router.navigate(['/mybets'], { queryParams: { idUser: id, user: emailUser } });
   }
+
+  formatNumber(cod: number, tel: number) : string{
+    console.log(cod);
+    console.log(tel);
+    return "+" + String(cod) + String(tel)
+  } 
 
 }

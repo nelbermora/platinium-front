@@ -24,6 +24,19 @@ export class Login2Component implements OnInit, AfterViewInit {
   'Panamá',
   'Venezuela'
   ];
+
+  codigosPais = [    
+    { nombre: '', codigo: '- Cod' },
+    { nombre: 'ES', codigo: '+34 ' },
+    { nombre: 'US', codigo: '+1  ' },
+    { nombre: 'CL', codigo: '+56 ' },
+    { nombre: 'CO', codigo: '+57 ' },
+    { nombre: 'EC', codigo: '+593' },
+    { nombre: 'PA', codigo: '+507' },
+    { nombre: 'VE', codigo: '+58 ' },    
+  ];
+  
+  codigoSelected = '- Cod';
   usuarioRegistro: User = {};
   loading: boolean = false; 
   agree: boolean = false; 
@@ -92,7 +105,8 @@ export class Login2Component implements OnInit, AfterViewInit {
   
   register(){
     if(this.validRegistration()){
-      this.loading = true;      
+      this.loading = true;
+      this.usuarioRegistro.cod_tel_pais = + this.codigoSelected;
       this.authSvc.register(this.usuarioRegistro).subscribe(
         (resp : any)=> {
           if(resp.id !== undefined && resp.id !== null && resp.id > 0){
@@ -145,7 +159,7 @@ export class Login2Component implements OnInit, AfterViewInit {
       this.notEmail = false;
     }
 
-    if(this.usuarioRegistro.telefono === null || this.usuarioRegistro.telefono === undefined){
+    if(this.usuarioRegistro.telefono === null || this.usuarioRegistro.telefono === undefined || this.codigoSelected == '- Cod'){
       this.notTel = true;
       valid = false;
     }else{

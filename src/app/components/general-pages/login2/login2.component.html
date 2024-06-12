@@ -136,7 +136,13 @@
               <i class="ti-mobile text-primary"></i>
             </span>
           </div>
-          <input type="number" class="form-control form-control-lg border-left-0" placeholder="Telefono"
+          <select class="form-control form-control-lg  codigo-pais" [(ngModel)]="codigoSelected" name="codigoPais">
+            <!--<option *ngFor="let codigo of codigosPais" [ngValue]="codigo">{{codigo.codigo}} - {{codigo.nombre}}</option>-->
+            <option *ngFor="let codigo of codigosPais" [ngValue]="codigo.codigo">
+              {{codigo.codigo}} - {{codigo.nombre}}
+            </option>
+          </select>          
+          <input type="number" class="form-control form-control-lg border-left-0 telefono-input" placeholder="Telefono"
             [(ngModel)]="usuarioRegistro.telefono"
             name="tel">  
         </div>

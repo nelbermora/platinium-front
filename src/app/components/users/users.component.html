@@ -64,7 +64,7 @@
     <div class="form-group">
       <label>Telefono</label>
       <div class="input-group">
-        <a href="tel:{{user.telefono}}">
+        <a href="tel:{{ formatNumber(user.cod_tel_pais,user.telefono) }}">
           <div class="input-group-prepend bg-transparent">
             <span class="input-group-text bg-transparent border-right-0">
               <i class="ti-mobile text-primary"></i>
@@ -72,7 +72,7 @@
           </div>
         </a>
         <input type="text" class="form-control form-control-sm" placeholder="Correo" aria-label="Correo"
-          [(ngModel)]="user.telefono" name="telefono" [disabled]="user.id > 0" [ngClass]="{'disabled':user.id > 0}">
+          [value]="formatNumber(user.cod_tel_pais,user.telefono)" name="telefono" [disabled]="user.id > 0" [ngClass]="{'disabled':user.id > 0}">
       </div>
     </div>
     <div class="form-group">

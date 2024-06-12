@@ -17,43 +17,28 @@ export class ProfileComponent implements OnInit {
   component = "Profile";
   user: User = {};
   invalidMail = false;
-  paises = [
-    "Antigua y Barbuda",
-    "Argentina",
-    "Bahamas",
-    "Barbados",
-    "Belice",
-    "Bolivia",
-    "Brasil",
-    "Canadá",
-    "Chile",
-    "Colombia",
-    "Costa Rica",
-    "Cuba",
-    "Dominica",
-    "Dominicana",
-    "Ecuador",
-    "El Salvador",
-    "Estados Unidos de América",
-    "Granada",
-    "Guatemala",
-    "Guyana",
-    "Haití",
-    "Honduras",
-    "Jamaica",
-    "México",
-    "Nicaragua",
-    "Panamá",
-    "Paraguay",
-    "Perú",
-    "Saint Kitts y Nevis",
-    "San Vicente y las Granadinas",
-    "Santa Lucía",
-    "Suriname",
-    "Trinidad y Tabago",
-    "Uruguay",
-    "Venezuela",
+  paises = ['España',
+  'Estados Unidos de América',
+  'Chile',  
+  'Colombia',  
+  'Ecuador',
+  'Panamá',
+  'Venezuela'
   ];
+
+  codigosPais = [    
+    { nombre: '', codigo: '- Cod' },
+    { nombre: 'ES', codigo: '+34' },
+    { nombre: 'US', codigo: '+1' },
+    { nombre: 'CL', codigo: '+56' },
+    { nombre: 'CO', codigo: '+57' },
+    { nombre: 'EC', codigo: '+593' },
+    { nombre: 'PA', codigo: '+507' },
+    { nombre: 'VE', codigo: '+58' },    
+  ];
+
+  codigoSelected = '- Cod';
+
   currencies = [    
     {codigo: "EUR",desc:"Euros"},
     {codigo: "USD",desc:"Dolares"},    
@@ -89,6 +74,8 @@ export class ProfileComponent implements OnInit {
       (resp: User) => {
         this.spinnerSvc.hide();
         this.user = resp;
+        this.codigoSelected = "+" + String(this.user.cod_tel_pais);
+        console.log(this.codigoSelected);
       }
     );
     this.route.queryParams.subscribe((params) => {
@@ -141,6 +128,7 @@ export class ProfileComponent implements OnInit {
           "Actualiza datos",
           JSON.stringify(this.user)
         );
+        this.user.cod_tel_pais = +this.codigoSelected;
         this.auth.update(this.user).subscribe((resp:any) => {
           if (resp) {
             if(resp.affected >= 0){
@@ -291,5 +279,9 @@ export class ProfileComponent implements OnInit {
       invalid = false;
     }
     return invalid;
+  }
+
+  setCountryCode(){
+    this.user.cod_tel_pais = + this.codigoSelected;
   }
 }
