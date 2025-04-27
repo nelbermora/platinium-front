@@ -22,6 +22,7 @@ export interface User{
     singles?: Currency,
     doubles?: Currency,
     parlays?: Currency
+    maxAllowed?: number,
 }
 
 export interface Currency{

@@ -104,16 +104,20 @@ export class UsersComponent implements OnInit, AfterViewInit {
     );    
   }
 
-  open(index?: number) {
+  open(index?: number) {   
+    console.log("click en open");
+    console.log(index); 
     if(index !== null && index !== undefined){
       this.user = this.users[index];
     }else{
       this.user = {type: "Jugador"};
     }
-    this.modalService.open(this.modalContent, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {}, (reason) => {});
+    this.modalService.open(this.modalContent, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {}, (reason) => {      
+      this.user = {};      
+    });
   }
 
-  saveUser(){
+  saveUser(){    
     if(this.isUserValid()){
       this.spinnerSvc.show();
       this.isLoading = true;
@@ -129,7 +133,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
             );  
             this.modalService.dismissAll();
             this.alreadyExists = false;
-            this.ngOnInit();            
+            //this.ngOnInit();            
           }else{
             if (resp.id == null){
               this.alreadyExists = true;
@@ -164,14 +168,14 @@ export class UsersComponent implements OnInit, AfterViewInit {
   }
 
   isUserValid(){
-    let valid = false;
+    let valid = true;
     if(
-      this.user.correo !== undefined && this.user.correo.length > 0
-      && this.user.primerNombre !== undefined && this.user.primerNombre.length > 0
-      && this.user.primerApellido !== undefined && this.user.primerApellido.length > 0
-      && this.user.paisResidencia !== undefined && this.user.paisResidencia.length > 0      
+      this.user.correo == undefined || this.user.correo.length == null || this.user.correo.length == 0 
+      || this.user.primerNombre == undefined || this.user.primerNombre.length == null || this.user.primerNombre.length == 0  
+      || this.user.primerApellido == undefined || this.user.primerApellido.length == null || this.user.primerApellido.length == 0  
+      || this.user.paisResidencia == undefined || this.user.paisResidencia.length == null    || this.user.paisResidencia.length == 0    
     ){
-      valid = true;
+      valid = false;
     }
     return valid;
   }

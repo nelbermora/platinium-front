@@ -21,7 +21,8 @@ export class DateArSimplePipe extends DatePipe implements PipeTransform{
         const opcionesDeFormato: Intl.DateTimeFormatOptions = {
             day: '2-digit',
             month: '2-digit',
-            year: 'numeric'           
+            year: 'numeric',
+            hour12: false           
           };
       
         const fechaHoraFormateada = fechaHoraLocal.toLocaleString('es-ES', opcionesDeFormato);

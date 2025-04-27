@@ -25,7 +25,7 @@ export class DateFullPipe extends DatePipe implements PipeTransform{
             year: 'numeric',
             hour: '2-digit',
             minute: '2-digit',
-            hour12: true
+            hour12: false
           };
       
         const fechaHoraFormateada = fechaHoraLocal.toLocaleString('es-ES', opcionesDeFormato);

@@ -94,6 +94,17 @@ export class BetsComponent implements OnInit {
       this.parlay.betAmount = 0;
       this.parlay.winAmount = 0;
     }
+
+    // validates user limit
+    if(this.authSvc.activeUser.maxAllowed !== undefined && this.authSvc.activeUser.maxAllowed > 0 && this.parlay.betAmount !== null){
+      if(this.parlay.betAmount > (3 * this.authSvc.activeUser.maxAllowed)){
+        valid = false;        
+        Swal.fire('Monto Maximo de Apuesta alcanzado', 'Disminuya apuesta', 'info');
+
+        this.parlay.betAmount = 0;
+        this.parlay.winAmount = 0;        
+      }
+    }
     return valid;    
   }
 
