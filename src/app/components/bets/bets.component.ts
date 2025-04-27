@@ -69,7 +69,7 @@ export class BetsComponent implements OnInit {
   calculate(){
     //if(this.isValid()){
       this.parlaySvc.betCalculator.calculate(this.parlay);
-      this.isValid();
+      //this.isValid();
     //}    
   }
 
@@ -82,8 +82,7 @@ export class BetsComponent implements OnInit {
       }
     }else{
       valid = true;
-    }
-    
+    }    
     if(!valid){
       Swal.fire({
         icon: 'info',
@@ -97,12 +96,11 @@ export class BetsComponent implements OnInit {
 
     // validates user limit
     if(this.authSvc.activeUser.maxAllowed !== undefined && this.authSvc.activeUser.maxAllowed > 0 && this.parlay.betAmount !== null){
-      if(this.parlay.betAmount > (3 * this.authSvc.activeUser.maxAllowed)){
-        valid = false;        
+      if(this.parlay.betAmount > (5 * this.authSvc.activeUser.maxAllowed)){        
         Swal.fire('Monto Maximo de Apuesta alcanzado', 'Disminuya apuesta', 'info');
-
         this.parlay.betAmount = 0;
-        this.parlay.winAmount = 0;        
+        this.parlay.winAmount = 0;
+        return false;
       }
     }
     return valid;    
