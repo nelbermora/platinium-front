@@ -1,16 +1,16 @@
-.central-image {
+﻿.central-image {
     width: 400px; // Ancho predeterminado
 
     @media (max-width: 600px) {
-        width: 75vw; // Cambia el ancho de la imagen al 100% del ancho del contenedor en pantallas pequeñas
+        width: 75vw; // Cambia el ancho de la imagen al 100% del ancho del contenedor en pantallas pequeÃ±as
     }
 }
 
 .codigo-pais {
     width: 10%;
-    width: 10% !important; /* Ajusta el ancho según sea necesario */
+    width: 10% !important; /* Ajusta el ancho segÃºn sea necesario */
   }
   
   .telefono-input {
-    width: 60% !important; /* Ajusta el ancho según sea necesario */    
+    width: 60% !important; /* Ajusta el ancho segÃºn sea necesario */    
   }

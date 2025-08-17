@@ -41,7 +41,6 @@ import { DataTablesModule } from 'angular-datatables';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { ToastrModule } from 'ngx-toastr';
 import { AgmCoreModule } from '@agm/core';
-import { BarRatingModule } from "ngx-bar-rating";
 import { FullCalendarModule } from 'ng-fullcalendar'; 
 import { ScrollToModule } from 'ng2-scroll-to-el';
 
@@ -265,8 +264,7 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
     DataTablesModule,
     SweetAlert2Module.forRoot(),
     ToastrModule.forRoot(),
-    AgmCoreModule.forRoot({ apiKey: 'AIzaSyCnT63XUjqjPgXZ0lFTU_pdpfUX7swzTTM' }),
-    BarRatingModule,
+    AgmCoreModule.forRoot({ apiKey: 'AIzaSyCnT63XUjqjPgXZ0lFTU_pdpfUX7swzTTM' }),    
     FullCalendarModule,
     ScrollToModule.forRoot(),
     NgxSpinnerModule,

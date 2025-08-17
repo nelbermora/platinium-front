@@ -53,6 +53,13 @@
             ]
           },
           "configurations": {
+            "development": {
+              "sourceMap": {
+                "scripts": true,
+                "styles": true,
+                "vendor": false
+              }
+            },
             "production": {
               "fileReplacements": [
                 {
@@ -87,9 +94,13 @@
           "configurations": {
             "production": {
               "browserTarget": "justdo-angular:build:production"
+            },
+            "development": {
+              "browserTarget": "justdo-angular:build:development"
             }
-          }
-        },
+          },
+          "defaultConfiguration": "development"
+        },        
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {

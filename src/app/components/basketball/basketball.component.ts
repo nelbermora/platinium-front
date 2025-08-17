@@ -173,7 +173,7 @@ export class BasketballComponent implements OnInit {
          doc.setPage(i);
          doc.setFontSize(14)
          doc.setTextColor(150);         
-         doc.text('www.platitniumsport.com',75, doc.internal.pageSize.height);         
+         doc.text('www.galosportbets.com',75, doc.internal.pageSize.height);         
        }
        var today = new Date(); 
        doc.save('Basketball_' + today.getDate() + '_' + (today.getMonth()+1));
