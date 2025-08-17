@@ -104,9 +104,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
     );    
   }
 
-  open(index?: number) {   
-    console.log("click en open");
-    console.log(index); 
+  open(index?: number) {       
     if(index !== null && index !== undefined){
       this.user = this.users[index];
     }else{
@@ -215,9 +213,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
     this.router.navigate(['/mybets'], { queryParams: { idUser: id, user: emailUser } });
   }
 
-  formatNumber(cod: number, tel: number) : string{
-    console.log(cod);
-    console.log(tel);
+  formatNumber(cod: number, tel: number) : string{    
     return "+" + String(cod) + String(tel)
   } 
 

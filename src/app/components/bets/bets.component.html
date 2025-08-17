@@ -32,7 +32,7 @@
                         (ngModelChange)="calculate()" name="betAmount">
                     <div class="input-group-append">
                         <button (click)="save()"
-                            [disabled]="parlay.betAmount === 0 || parlay.betAmount === null || parlay.betAmount === undefined || loading"
+                            [disabled]="parlay.betAmount === 0 || parlay.betAmount === null || parlay.betAmount === undefined || loading || !parlayValid"
                             class="btn btn-sm btn-primary" type="button">
                             <i *ngIf="!loading" class="mdi mdi-play-circle"></i>
                             <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status"
@@ -69,7 +69,7 @@
                 Ticket N: {{parlay.oid}}
             </div>
             <div class="col-6">
-                Fecha: {{parlay.date | date: 'dd/MM/yyyy H:mm:ss'}}
+                Fecha: {{parlay.date | dateAr }}
             </div>
         </div>
         <div class="row">

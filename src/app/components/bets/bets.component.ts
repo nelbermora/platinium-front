@@ -21,6 +21,7 @@ export class BetsComponent implements OnInit {
   closeResult= '';
   isTaquilla: boolean = false;
   currency: string;
+  parlayValid = false;
   
   constructor(private parlaySvc: ParlayService, private modalService: NgbModal,
     private authSvc: AuthService) {
@@ -36,7 +37,7 @@ export class BetsComponent implements OnInit {
     );    
 
     this.parlaySvc.betCalculator.winAmount.subscribe(
-      (resp: number) => {
+      (resp: number) => {        
         this.parlay.winAmount = resp;
         this.isValid();
       }
@@ -74,6 +75,7 @@ export class BetsComponent implements OnInit {
   }
 
   isValid(){
+    this.parlayValid = false;
     let valid = false;
     if (this.parlaySvc.maxAmount !== null && this.parlaySvc.maxAmount > 0 && this.parlay.betAmount !== null
       && this.parlay.winAmount !== null && this.parlay.winAmount > 0){
@@ -90,19 +92,21 @@ export class BetsComponent implements OnInit {
         text: 'Monto Máximo alcanzado',
         footer: 'Elimine logros del Parlay'
       });
-      this.parlay.betAmount = 0;
-      this.parlay.winAmount = 0;
+      //this.parlay.betAmount = 0;
+      //this.parlay.winAmount = 0;
+    return false;
     }
 
     // validates user limit
     if(this.authSvc.activeUser.maxAllowed !== undefined && this.authSvc.activeUser.maxAllowed > 0 && this.parlay.betAmount !== null){
       if(this.parlay.betAmount > (5 * this.authSvc.activeUser.maxAllowed)){        
         Swal.fire('Monto Maximo de Apuesta alcanzado', 'Disminuya apuesta', 'info');
-        this.parlay.betAmount = 0;
-        this.parlay.winAmount = 0;
+        //this.parlay.betAmount = 0;
+        //this.parlay.winAmount = 0;
         return false;
       }
     }
+    this.parlayValid = true;
     return valid;    
   }
 

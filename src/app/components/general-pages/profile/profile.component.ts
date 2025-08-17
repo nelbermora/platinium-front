@@ -74,8 +74,7 @@ export class ProfileComponent implements OnInit {
       (resp: User) => {
         this.spinnerSvc.hide();
         this.user = resp;
-        this.codigoSelected = "+" + String(this.user.cod_tel_pais);
-        console.log(this.codigoSelected);
+        this.codigoSelected = "+" + String(this.user.cod_tel_pais);        
       }
     );
     this.route.queryParams.subscribe((params) => {
